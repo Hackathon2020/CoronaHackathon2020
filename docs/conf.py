@@ -55,7 +55,7 @@ def run_apidoc(app):
             "--ext-coverage",
             "-o",
             os.path.join(".", "source", "source_files/"),
-            os.path.join("..", "edflow/"),
+            os.path.join("..", "project/"),
         ]
     )
 
