@@ -2,14 +2,15 @@
 import os
 import pathlib
 from flask import Flask, render_template, redirect, request
-from project.flaskr.services import forms
+from flask_bootstrap import Bootstrap
 from project.questionaire import Questionaire, Question
 
 
 project_dir = pathlib.Path(os.path.abspath(os.path.dirname(__file__)))
 app = Flask(__name__, template_folder=f"{project_dir}/templates", static_folder=f"{project_dir}/static")
-SECRET_KEY = os.urandom(32)
-app.config["SECRET_KEY"] = SECRET_KEY
+Bootstrap(app)
+#SECRET_KEY = os.urandom(32)
+#app.config["SECRET_KEY"] = SECRET_KEY
 
 @app.route('/', methods=["GET", "POST"])
 @app.route('/index')
