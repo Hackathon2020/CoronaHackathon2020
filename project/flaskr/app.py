@@ -27,9 +27,10 @@ def question():
     return redirect('/question/example_form')
     #render_template("app/question.html", title="Formula2")
 
-@app.route('/question/example_form', methods=["GET", "POST"])
-def example_form():
+@app.route('/question/example_form/<language>', methods=["GET", "POST"])
+def example_form(language):
     form = forms.ReusableForm()
+    form.change_language(language)
     return render_template('app/example_form.html', title="Answer Questions", form=form)
 
 if __name__ == "__main__":
