@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1189</width>
+    <width>1261</width>
     <height>977</height>
    </rect>
   </property>
@@ -68,7 +68,7 @@
       <string>AddLanguage</string>
      </property>
     </widget>
-    <widget class="QStackedWidget" name="stackedWidget">
+    <widget class="QStackedWidget" name="left_window">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -78,7 +78,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page">
       <widget class="QDialogButtonBox" name="buttonBox">
@@ -228,6 +228,9 @@ p, li { white-space: pre-wrap; }
        <height>911</height>
       </rect>
      </property>
+     <property name="sortingEnabled">
+      <bool>false</bool>
+     </property>
     </widget>
    </widget>
   </widget>
@@ -236,7 +239,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1189</width>
+     <width>1261</width>
      <height>22</height>
     </rect>
    </property>
