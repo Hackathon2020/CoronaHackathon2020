@@ -1,21 +1,27 @@
+import json
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog
 from PyQt5.QtGui import QIcon
-import json
-
 
 Form, Window = uic.loadUiType("test_gui.ui")
 
 global dict_state
 
-def safeDialog(self):
-    pass
+def safeDialog():
+    dlg = QFileDialog()
+    dlg.setFileMode(QFileDialog.AnyFile)
+    dlg.setNameFilter("Json files (*.json)")
+      
+    if dlg.exec_():
+      filenames = dlg.selectedFiles()
+      with open(filenames[0], 'w') as fp:
+        global dict_state
+        json.dump(dict_state, fp, indent=4, separators=(',', ': '), ensure_ascii=False)
 
 def openDialog(self):
     dlg = QFileDialog()
     dlg.setFileMode(QFileDialog.AnyFile)
     dlg.setNameFilter("Json files (*.json)")
-    # filenames = QStringList()
 
     if dlg.exec_():
       filenames = dlg.selectedFiles()
@@ -44,5 +50,4 @@ form.newDict.clicked.connect(newDictDialog)
 
 window.show()
 app.exec_()
-
 
