@@ -18,7 +18,7 @@ def safeDialog():
         global dict_state
         json.dump(dict_state, fp, indent=4, separators=(',', ': '), ensure_ascii=False)
 
-def openDialog(self):
+def openDialog():
     dlg = QFileDialog()
     dlg.setFileMode(QFileDialog.AnyFile)
     dlg.setNameFilter("Json files (*.json)")
@@ -33,10 +33,13 @@ def openDialog(self):
          global dict_state
          dict_state = d
 
-def newDictDialog(self):
+def newDictDialog():
     pass
 
-def updatedTable(self):
+def updatedTable():
+    pass
+
+def writeInputToDict(idx):
     pass
 
 app = QApplication([])
@@ -44,9 +47,10 @@ window = Window()
 form = Form()
 form.setupUi(window)
 
-form.loadDict.clicked.connect(openDialog)
-form.saveDict.clicked.connect(safeDialog)
-form.newDict.clicked.connect(newDictDialog)
+form.load_dict.clicked.connect(openDialog)
+form.save_dict.clicked.connect(safeDialog)
+form.new_dict.clicked.connect(newDictDialog)
+
 
 window.show()
 app.exec_()
