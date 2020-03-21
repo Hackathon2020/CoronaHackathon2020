@@ -3,6 +3,8 @@ import os
 import pathlib
 from flask import Flask, render_template, redirect
 from project.flaskr.services import forms
+from project.questionaire import Questionaire, Question
+
 
 project_dir = pathlib.Path(os.path.abspath(os.path.dirname(__file__)), "templates")
 
@@ -19,6 +21,7 @@ def index():
 
 @app.route('/answer')
 def answer():
+
     return render_template("app/answer.html", title="Formula1")
 
 
@@ -29,9 +32,13 @@ def question():
 
 @app.route('/question/example_form/<language>', methods=["GET", "POST"])
 def example_form(language):
-    form = forms.ReusableForm()
-    form.change_language(language)
-    return render_template('app/example_form.html', title="Answer Questions", form=form)
+    language_map = {"german": {"1": "test question?"}};
+    questions = [Question("1", "string")]
+    questionaire = Questionaire("global_id", language_map, questions)
+    localized_questions = questionaire.localized_questions(language)
+    #form = forms.ReusableForm()
+    #form.change_language(language)
+    return render_template('app/questionaire.html',  title="Answer Questions", questions=localized_questions)
 
 if __name__ == "__main__":
     app.run()

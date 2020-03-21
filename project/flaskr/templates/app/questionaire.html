@@ -1,0 +1,8 @@
+{% block title %}Members{% endblock %}
+{% block content %}
+  <ul>
+  {% for question in questions %}
+    <li>{{ question.question_text }}</li>
+  {% endfor %}
+  </ul>
+{% endblock %}
