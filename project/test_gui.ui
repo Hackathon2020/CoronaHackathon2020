@@ -29,7 +29,7 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QPushButton" name="loadDict">
+    <widget class="QPushButton" name="load_dict">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -42,7 +42,7 @@
       <string>LoadDict</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="saveDict">
+    <widget class="QPushButton" name="save_dict">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -55,7 +55,7 @@
       <string>SaveDict</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_3">
+    <widget class="QPushButton" name="add_language">
      <property name="geometry">
       <rect>
        <x>370</x>
@@ -165,7 +165,7 @@ p, li { white-space: pre-wrap; }
         </rect>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="page_5"/>
        <widget class="QWidget" name="page_3">
@@ -196,12 +196,12 @@ p, li { white-space: pre-wrap; }
      </widget>
      <widget class="QWidget" name="page_2"/>
     </widget>
-    <widget class="QPushButton" name="newDict">
+    <widget class="QPushButton" name="new_dict">
      <property name="geometry">
       <rect>
-       <x>250</x>
+       <x>248</x>
        <y>890</y>
-       <width>89</width>
+       <width>91</width>
        <height>25</height>
       </rect>
      </property>
