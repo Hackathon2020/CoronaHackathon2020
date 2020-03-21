@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema#",
+  "definitions": {
+    "options": {
+      "type": "array",
+      "items" : {"type": "string"}
+    }
+  },
+  "type": "object",
+  "properties": {
+    "global_questionaire_id": {
+      "type": "string",
+      "description": "A global idenitifer for questionars to identify"
+    },
+    "language_map": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type" : "string"
+        }
+      }
+    },
+    "question_map": {
+      "type": "array",
+      "items" : {
+        "type" : "object",
+        "properties" : {
+          "question_id" : {"type" : "string"},
+           "anwser_type" : {"type" : "string" },
+           "options" : {"$ref": "#/definitions/options"}
+        }
+      }
+    }
+  }
+}

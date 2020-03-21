@@ -1,0 +1,34 @@
+{
+  "global_questionaire_id": "abjzqwjcv",
+  "language_map": [
+    "german" : {
+      "1" : "Einreisegrund?",
+      "2" : "Urlaub",
+      "3" : "Geschäftlich",
+      "4" : "Familie",
+      "5" : "Herkunftsland",
+      "6" : "Ausreisedatum",
+      "7" : "Kennzeichen",
+      "8" : "Zielort",
+      "9" : "Geschlecht",
+      "10" : "w",
+      "11" : "m", 
+      "12" : "d"
+    },
+    "english" : {
+      "1" : "Reason of journey",
+      "2" : "Vacation",
+      "3" : "Business",
+      "4" : "Family",
+      "5" : "Origin"
+    }  
+  ], 
+  "question_map"  : [
+     {"question_id": "1", "answer_type": "Checkbox",  "options": ["2", "3","4"]},
+     {"question_id": "5", "answer_type": "String"},
+     {"question_id": "6", "answer_type": "Date"},
+     {"question_id": "7", "answer_type": "LicensePlate"},
+     {"question_id": "8", "answer_type": "PostCode"},
+     {"question_id": "9", "answer_type": "RadioButtons", "options": ["10", "11", "12"]}
+  ]
+}
