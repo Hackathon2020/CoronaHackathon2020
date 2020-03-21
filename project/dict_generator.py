@@ -160,7 +160,7 @@ form.new_language_button.clicked.connect(fillNewLanguage)
 form.add_translation_next.clicked.connect(nextNewLanguage)
 form.add_translation_back.clicked.connect(prevNewLanguage)
 form.add_translation_finish.clicked.connect(finishNewLanguage)
-form.tableWidget.cellClicked.connect(handleTableClick)
+form.dict_table.cellClicked.connect(handleTableClick)
 
 window.show()
 app.exec_()
