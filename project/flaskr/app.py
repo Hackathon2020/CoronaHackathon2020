@@ -25,21 +25,11 @@ def create_app():
         return render_template("app/answer.html", title="Formula1")
 
 
-    @app.route('/question/example_form/<language>', methods=["GET", "POST"])
-    def example_form(language):
-        language_map = {"german": {"1": "test question?"}}
-        questions = [Question("1", "string")]
-        questionaire = Questionaire("global_id", language_map, questions)
-        localized_questions = questionaire.localized_questions(language)
-        #form = forms.ReusableForm()
-        #form.change_language(language)
-        return render_template('app/questionaire.html',  title="Answer Questions", questions=localized_questions)
-
-
-
+    app.register_blueprint(questionaire.get_questionaire_blueprint())
     return app
 
 
 if __name__ == "__main__":
     app = create_app()
-    app.run()
+    print(app.url_map)
+    app.run(debug=True)
