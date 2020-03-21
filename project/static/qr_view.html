@@ -5,29 +5,32 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="css/fontawesome/css/all.css" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/pager.css" />
-    
+    <link rel="stylesheet" href="css/qr_view.css" />
   </head>
 
   <body>
 
-    <div class="container">
-        <nav class="navbar">
-            <button id="backButton"><i class="fas fa-arrow-left"></i></button>
-
-            <div class="middle">
-                <object id="flag1" type="image/svg+xml" data="flags/germany.svg">Your browser does not support SVG</object>
-                <i class="fas fa-arrow-right"></i>
-                <object id="flag2" type="image/svg+xml" data="flags/switzerland.svg">Your browser does not support SVG</object>
-            </div>
-
-            <div class="form-inline">
-                <button id="nextButton"><i class="fas fa-arrow-right"></i></button>
-            </div>
-        </nav>
+    <!--
+    To scale the qrcode svg make sure to add the following attributes in the
+    <svg> tag of the .svg file:
+    <svg
+    ...
+    preserveAspectRatio="xMinYMin meet"
+    viewBox="0 0 {width} {height}"
+    ...
+    >
+    Otherwise the 80% scaling will not work.
+    -->
+    <div class="row qr-container justify-content-center align-items-center">
+       <object
+        class="qrcode"
+        id="qrcode"
+        type="image/svg+xml"
+        data="svg/qr_example2.svg">
+            Your browser does not support SVG
+       </object>
     </div>
 
     <!-- Optional JavaScript -->
