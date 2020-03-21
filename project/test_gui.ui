@@ -219,13 +219,13 @@ p, li { white-space: pre-wrap; }
       <height>931</height>
      </rect>
     </property>
-    <widget class="QTableView" name="overview_table">
+    <widget class="QTableWidget" name="dict_table">
      <property name="geometry">
       <rect>
-       <x>-10</x>
+       <x>0</x>
        <y>0</y>
        <width>571</width>
-       <height>931</height>
+       <height>911</height>
       </rect>
      </property>
     </widget>
