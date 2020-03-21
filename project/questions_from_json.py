@@ -5,6 +5,11 @@ import questionaire
 
 def read(filename):
     """
+    Reads questionaire from file
+
+    :param filename -- path to file containing questionaire
+    :rtype questionaire.Questionaire
+    :return a questionaire
     """
     with open(filename) as file:
         json_string = file.read()
