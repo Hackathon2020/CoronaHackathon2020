@@ -1,6 +1,6 @@
 import json
 from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog, QTableWidgetItem
+from PyQt5.QtWidgets import QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog, QTableWidgetItem, QTableWidget
 from PyQt5.QtGui import QIcon
 
 Form, Window = uic.loadUiType("test_gui.ui")
@@ -44,7 +44,7 @@ def updatedTable():
     global dict_state
     form.dict_table.setRowCount(300)
     form.dict_table.setColumnCount(len(dict_state['language_map']))
-
+    form.dict_table.setEditTriggers(QTableWidget.NoEditTriggers)
 
     row_count = 0
     for element in dict_state['question_map']:
