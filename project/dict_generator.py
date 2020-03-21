@@ -47,6 +47,11 @@ def updatedTable():
     form.dict_table.setColumnCount(len(dict_state['language_map']))
     form.dict_table.setEditTriggers(QTableWidget.NoEditTriggers)
 
+    horHeaders = []
+    for key, _ in dict_state['language_map'].items():
+        horHeaders.append(key)
+    form.dict_table.setHorizontalHeaderLabels(horHeaders)
+
     row_count = 0
     for element in dict_state['question_map']:
         id = element['question_id']
