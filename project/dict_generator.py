@@ -42,6 +42,7 @@ def newDictDialog():
 def updatedTable():
 
     global dict_state
+    form.dict_table.clear()
     form.dict_table.setRowCount(300)
     form.dict_table.setColumnCount(len(dict_state['language_map']))
     form.dict_table.setEditTriggers(QTableWidget.NoEditTriggers)
