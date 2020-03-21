@@ -1,0 +1,27 @@
+
+a.svg:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+rect.btn {
+  stroke:#fff;
+  fill:#fff;
+  fill-opacity:0;
+  stroke-opacity:0;
+}
+
+.pagercontainer {
+}
+
+.pager {
+    width: 100vw;
+}
+
+.arrow {
+    width: 50px;
+}
