@@ -29,7 +29,7 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="loadDict">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -42,7 +42,7 @@
       <string>LoadDict</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_2">
+    <widget class="QPushButton" name="saveDict">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -196,7 +196,7 @@ p, li { white-space: pre-wrap; }
      </widget>
      <widget class="QWidget" name="page_2"/>
     </widget>
-    <widget class="QPushButton" name="pushButton_4">
+    <widget class="QPushButton" name="newDict">
      <property name="geometry">
       <rect>
        <x>250</x>
