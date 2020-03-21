@@ -5,8 +5,6 @@ from PyQt5.QtGui import QIcon
 
 Form, Window = uic.loadUiType("test_gui.ui")
 
-global dict_state
-
 def safeDialog():
     dlg = QFileDialog()
     dlg.setFileMode(QFileDialog.AnyFile)
@@ -37,7 +35,11 @@ def openDialog():
     updatedTable()
 
 def newDictDialog():
-    pass
+    form.stackedWidget.setCurrentIndex(1)
+    global dict_state
+    for key, value in dict_state['language_map'].items():
+        form.new_language_com_box.addItem(key)
+
 
 def updatedTable():
 
@@ -64,6 +66,25 @@ def updatedTable():
     form.dict_table.resizeColumnsToContents()
     form.dict_table.resizeRowsToContents()
 
+def fillNewLanguage():
+    if form.new_language_field.toPlainText():
+        form.stackedWidget.setCurrentIndex(2)
+        global new_language_counter
+        new_language_counter = 0
+
+def nextNewLanguage():
+    global new_language_counter
+    if new_language_counter > 0:
+        new_language_counter -= 0
+
+
+def prevNewLanguage():
+    global new_language_counter
+    new_language_counter += 0
+
+def finishNewLanguage():
+    pass
+
 def handleTableClick(row, column):
     writeInputToDict(row)
 
@@ -79,6 +100,11 @@ form.load_dict.clicked.connect(openDialog)
 form.save_dict.clicked.connect(safeDialog)
 form.new_dict.clicked.connect(newDictDialog)
 form.dict_table.cellClicked.connect(handleTableClick)
+form.add_language.clicked.connect(newDictDialog)
+form.new_language_button.clicked.connect(fillNewLanguage)
+form.add_translation_next.clicked.connect(nextNewLanguage)
+form.add_translation_back.clicked.connect(prevNewLanguage)
+form.add_translation_finish.clicked.connect(finishNewLanguage)
 
 window.show()
 app.exec_()
