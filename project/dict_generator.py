@@ -92,25 +92,26 @@ def fillNewLanguage():
 
 def prevNewLanguage():
     global new_language_counter
+    dict_state['language_map'][form.new_language_field.toPlainText()][str(new_language_counter)]=form.add_translation_translation_field.toPlainText()
     if new_language_counter > 1:
         new_language_counter -= 1
         form.add_translation_ref_text_field.setText(dict_state['language_map'][form.new_language_com_box.currentText()][str(new_language_counter)])
-        dict_state['language_map'][form.new_language_field.toPlainText()][str(new_language_counter)]=form.add_translation_translation_field.toPlainText()
-    form.add_translation_translation_field.clear()
+        form.add_translation_translation_field.clear()
     updatedTable()
 
 
 def nextNewLanguage():
     global new_language_counter
     global dict_state
+    dict_state['language_map'][form.new_language_field.toPlainText()][str(new_language_counter)]=form.add_translation_translation_field.toPlainText()
     if new_language_counter < len(dict_state['language_map'][form.new_language_com_box.currentText()]):
         new_language_counter += 1
         form.add_translation_ref_text_field.setText(dict_state['language_map'][form.new_language_com_box.currentText()][str(new_language_counter)])
-        dict_state['language_map'][form.new_language_field.toPlainText()][str(new_language_counter)]=form.add_translation_translation_field.toPlainText()
-    form.add_translation_translation_field.clear()
+        form.add_translation_translation_field.clear()
     updatedTable()
 
 def finishNewLanguage():
+    global dict_state
     dict_state['language_map'][form.new_language_field.toPlainText()][str(new_language_counter)]=form.add_translation_translation_field.toPlainText()
     form.add_translation_translation_field.clear()
     form.left_window.setCurrentIndex(0)
