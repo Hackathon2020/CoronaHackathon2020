@@ -16,7 +16,9 @@ app.config["SECRET_KEY"] = SECRET_KEY
 @app.route('/index')
 #@app.route('/index')
 def index():
-    return render_template("app/index.html", title="Home")
+    LANGUAGES = ["English", "German", "Spanish", "French"]
+    BORDERS = ["England", "Germany", "Spain", "Poland", "France"]
+    return render_template("app/index.html", title="Home", languages=LANGUAGES, borders=BORDERS)
 
 
 @app.route('/answer')

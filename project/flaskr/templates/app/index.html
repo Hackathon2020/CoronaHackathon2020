@@ -8,6 +8,15 @@
           <ul class="menu">
             <li><a href="{{ url_for('question') }}">Get to the Questions</a></li>
             <li><a href="{{ url_for('answer') }}">Get to the Answers</a></li>
+             {% for language in languages %}
+            <select name = languages method="GET" action="/"></select>
+              <option value= "{{language}}" SELECTED>{{languages}}</option>"
+             {% endfor %}
+            </select>
+             {% for border in borders %}
+            <option value= "{{border}}" SELECTED>{{borders}}</option>"
+             {% endfor %}
+            <input type="submit" name="Get to Questionaire" value="Do Something">
           </ul>
         </nav></strong>
       </div>
