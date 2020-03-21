@@ -1,6 +1,6 @@
 {
   "global_questionaire_id": "abjzqwjcv",
-  "language_map": [
+  "language_map": {
     "german" : {
       "1" : "Einreisegrund?",
       "2" : "Urlaub",
@@ -22,7 +22,7 @@
       "4" : "Family",
       "5" : "Origin"
     }  
-  ], 
+  },
   "question_map"  : [
      {"question_id": "1", "answer_type": "Checkbox",  "options": ["2", "3","4"]},
      {"question_id": "5", "answer_type": "String"},
