@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath(".."))
 
 from unittest.mock import Mock
 
-#maybe these are important
+# maybe these are important
 MOCK_MODULES = [
     "yaml",
     "numpy",
@@ -31,10 +31,13 @@ MOCK_MODULES = [
     "torch",
     "skimage",
     "wandb",
+    "flask",
+    "jsonschema",
 ]
 
 for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = Mock()
+
 
 def run_apidoc(app):
     """Generate API documentation"""
