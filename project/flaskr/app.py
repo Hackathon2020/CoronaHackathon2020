@@ -24,7 +24,6 @@ def index():
 
 @app.route('/answer')
 def answer():
-
     return render_template("app/answer.html", title="Formula1")
 
 
@@ -35,7 +34,7 @@ def question():
 
 @app.route('/question/example_form/<language>', methods=["GET", "POST"])
 def example_form(language):
-    language_map = {"german": {"1": "test question?"}};
+    language_map = {"german": {"1": "test question?"}}
     questions = [Question("1", "string")]
     questionaire = Questionaire("global_id", language_map, questions)
     localized_questions = questionaire.localized_questions(language)
