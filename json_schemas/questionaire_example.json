@@ -20,7 +20,14 @@
       "2" : "Vacation",
       "3" : "Business",
       "4" : "Family",
-      "5" : "Origin"
+      "5" : "Origin",
+      "6" : "Departure date",
+      "7" : "licence plate",
+      "8" : "destination",
+      "9" : "gender",
+      "10" : "f",
+      "11" : "m",
+      "12" : "d"
     }
   },
   "question_map"  : [
