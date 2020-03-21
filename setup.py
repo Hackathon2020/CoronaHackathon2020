@@ -57,7 +57,7 @@ setup(
     scripts=[
         "project/hack", #script files that can be called as package
     ],
-    python_requires=">=3.6",
+    python_requires=">=3.8",
     classifiers=[
         "Programming Language :: Python :: 3 :: Only",
         "License :: OSI Approved :: MIT License",
