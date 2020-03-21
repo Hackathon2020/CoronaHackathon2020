@@ -1,27 +1,17 @@
-
-a.svg:after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+div.container i {
+    font-size: 51px;
 }
 
-rect.btn {
-  stroke:#fff;
-  fill:#fff;
-  fill-opacity:0;
-  stroke-opacity:0;
+object {
+    height: 30px;
+    display:inline-block;
+    vertical-align:middle;
 }
 
-.pagercontainer {
-}
-
-.pager {
-    width: 100vw;
-}
-
-.arrow {
-    width: 50px;
+div.middle i {
+    font-size: 25px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    margin-right: 10px;
 }
