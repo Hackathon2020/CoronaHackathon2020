@@ -14,42 +14,62 @@
 
     <div class="container bordercross align-items-center">
 
-            <div class="row justify-content-center align-items-end
-                bordercross-question">
-                <h2>Language</br>Sprache</h2>
+        <div class=" bordercross-question">
+            <div class="row justify-content-center ">
+                <h2>Language</h2>
             </div>
 
-            <div class="flagscontainer row justify-content-center
-                align-items-start">
+            <div class="row justify-content-center ">
+                <h2>Sprache</h2>
+            </div>
+        </div>
+
+            <div class="flagscontainer row justify-content-center ">
                 <div class="row align-items-center justify-content-center">
-                    <div class="dropdown language-drpd col-4">
+                    <div class="dropdown flag-drpd col-4">
                         <button
-                            class="language-btn btn btn-secondary btn-lg dropdown-toggle"
+                            class="btn btn-secondary btn-lg dropdown-toggle"
                             id="dropdownMenuButton-flag1"
                             data-toggle="dropdown"
                             aria-haspopup="true"
                             aria-expanded="false">
-
-                          <img class="current-language-flag" id="flag_germany" src="flags/germany.svg">
+                          <img class="current-language-flag" id="language_german" src="flags/germany.svg">
                           <div class="current-language">Deutsch</div>
-
                         </button>
 
-                        <div class="dropdown-menu"
-                             aria-labelledby="dropdownMenuButton-flag1">
-                            <a class="dropdown-item language-select" id="flag_albania" ><img class="flag" src="flags/albania.svg"></br>Albania</a>
-                            <a class="dropdown-item language-select" id="flag_andorra" ><img class="flag" src="flags/andorra.svg"></br>Language</a>
-                            <a class="dropdown-item language-select" id="flag_belgium" ><img class="flag" src="flags/belgium.svg"></br>Language</a>
-                            <a class="dropdown-item language-select" id="flag_bosnia_herzegovina" ><img class="flag" src="flags/bosnia-and-herzegovina.svg"></br>Language</a>
-                            <a class="dropdown-item language-select" id="flag_bulgaria" ><img class="flag" src="flags/bulgaria.svg"></br>Language</a>
-                            <a class="dropdown-item language-select" id="flag_denmark" ><img class="flag" src="flags/denmark.svg"></br>Language</a>
-                            <a class="dropdown-item language-select" id="flag_germany" ><img class="flag" src="flags/germany.svg"></br>Language</a>
-                            <a class="dropdown-item language-select" id="flag_estonia" ><img class="flag" src="flags/estonia.svg"></br>Language</a>
-                            <a class="dropdown-item language-select" id="flag_finland" ><img class="flag" src="flags/finland.svg"></br>Language</a>
-                            <a class="dropdown-item language-select" id="flag_france" ><img class="flag" src="flags/france.svg"></br>Language</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton-flag1">
+                            <a class="dropdown-item language-select" id="language_albania">
+                                <img class="flag" src="flags/albania.svg"></br>Albania
+                            </a>
+                            <a class="dropdown-item language-select" id="language_andorra">
+                                <img class="flag" src="flags/andorra.svg"></br>Language
+                            </a>
+                            <a class="dropdown-item language-select" id="language_belgium">
+                                <img class="flag" src="flags/belgium.svg"></br>Language
+                            </a>
+                            <a class="dropdown-item language-select" id="language_bosnia_herzegovina" >
+                                <img class="flag" src="flags/bosnia-and-herzegovina.svg"></br>Language
+                            </a>
+                            <a class="dropdown-item language-select" id="language_bulgaria">
+                                <img class="flag" src="flags/bulgaria.svg"></br>Language
+                            </a>
+                            <a class="dropdown-item language-select" id="language_denmark">
+                                <img class="flag" src="flags/denmark.svg"></br>Language
+                            </a>
+                            <a class="dropdown-item language-select" id="language_german">
+                                <img class="flag" src="flags/germany.svg"></br>Deutsch
+                            </a>
+                            <a class="dropdown-item language-select" id="language_estonia">
+                                <img class="flag" src="flags/estonia.svg"></br>Language
+                            </a>
+                            <a class="dropdown-item language-select" id="language_finland">
+                                <img class="flag" src="flags/finland.svg"></br>Language
+                            </a>
+                            <a class="dropdown-item language-select" id="language_france">
+                                <img class="flag" src="flags/france.svg"></br>Language
+                            </a>
                         </div>
                     </div>
-
                 </div>
             </div>
     </div>
@@ -59,12 +79,15 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="js/data_processing.js"></script>
     <script type="text/javascript">
         $('.dropdown-item').on('click',  function(){
             console.log("clicked on dropdown item " + $(this).attr('id'));
             $(this).parents(".dropdown").find('.language-btn').attr('id', $(this).attr('id'));
             $(this).parents(".dropdown").find('.current-language').text($(this).text());
             $(this).parents(".dropdown").find('.current-language-flag').attr('src', $(this).find('.flag').attr('src'));
+            // set cookie for language
+            setCookie("language", $(this).attr('id').split("_")[1], 90);
     });
 
     </script>
