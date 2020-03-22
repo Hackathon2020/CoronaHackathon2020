@@ -1,3 +1,13 @@
+
+/**
+ * Removed all child-elements of a given DOM-node
+ */
+function removeAllChildren(node) {
+  while (node.firstChild) {
+      node.removeChild(node.lastChild);
+  }
+}
+
 /**
  * Generates and displays QR-Code encoding the json encoded answers
  *
@@ -6,8 +16,9 @@
 function generate_qr_code_of_answer(answer) {
     var binary_encoded_answer = btoa(JSON.stringify(answer));
     var url = window.location.origin + "/answer?global_id=" + answer.global_questionaire_id + "&data=" + binary_encoded_answer;
-    // FIXME calculate width and height according to window
-    new QRCode(document.getElementById("qrcode"), {
+    node = document.getElementById("qrcode")
+    removeAllChildren(node)
+    new QRCode(node, {
         text: url,
         width: 700,
         height: 700,
