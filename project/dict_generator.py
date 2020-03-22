@@ -305,7 +305,7 @@ def writeToDict():
         # fixme infobox
         pass
     else:
-        __import__('pudb').set_trace()
+#        __import__('pudb').set_trace()
         if len(dict_state) == 0:
             createNewDict()
             createTable()
@@ -348,6 +348,9 @@ def writeToDict():
                 next_field = field_id + row + 1
                 if next_field > max(map(lambda x: int(x), dict_state["question_map"][global_idx]['options'],)):
                     next_free_field = max( map( lambda x: int(x), dict_state["language_map"][language].keys(),)) + 1
+                    nentry = str(next_free_field)
+                    dict_state["language_map"][language].update({nentry : curr_item.text()})
+                    options.append((nentry))
                     pass
                 else:
                     options.append(str(next_field))
