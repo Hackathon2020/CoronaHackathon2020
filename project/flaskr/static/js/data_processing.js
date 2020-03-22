@@ -72,7 +72,7 @@ function read_options(question_id, class_name) {
     var answers = [];
     for (var i = 0; i < answer_elements.length; i++) {
         if (answer_elements[i].checked) {
-            answers.push(answer_elements[i].id.split("_")[1]);
+            answers.push(answer_elements[i].id.split("_")[2]);
         }
     }
     return answers;
@@ -101,7 +101,7 @@ function form_to_answer(questionaire) {
                 answer = read_checkbox_answer(question_id);
                 break;
             case "RadioButtons":
-                answer = read_checkbox_answer(question_id);
+                answer = read_radio_answer(question_id);
                 break;
             default:
                 console.warn("Parsing answers: answer type " + question.answer_type + " not known!");
