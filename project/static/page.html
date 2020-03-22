@@ -34,7 +34,7 @@
 
       <div id="page_0" class="page">
         <div class="header">
-           <p>Vorname</p>
+           <p>Name</p>
         </div>
 
         <div id="question_5" class="input-group mb-3 question">
@@ -49,7 +49,7 @@
         </div>
         <div class="displayBlock">
           <hr>
-          <p><b>Nachname</b><br/>MustermannAN</p>
+	  <p id="answer_5"><b>Name</b><br/><span class="answer"></span></p>
         </div>
         <div class="displayBlock">
           <hr>
@@ -70,8 +70,7 @@
       </div> <!-- page_1 -->
 
       <div id="page_2" class="page">
-	<div class="row qr-container justify-content-center align-items-center">
-          <object class="qrcode" id="qrcode"> QR-Code could not be created </object>
+	<div class="row qr-container justify-content-center align-items-center qrcode" id="qrcode">
         </div>
       </div> <!-- page_2 -->
 
@@ -88,7 +87,7 @@
       "2" : "Urlaub",
       "3" : "Geschäftlich",
       "4" : "Familie",
-      "5" : "Herkunftsland",
+      "5" : "Name",
       "6" : "Ausreisedatum",
       "7" : "Kennzeichen",
       "8" : "Zielort",
@@ -102,7 +101,7 @@
       "2" : "Vacation",
       "3" : "Business",
       "4" : "Family",
-      "5" : "Origin"
+      "5" : "Name"
     }  
   }, 
   "question_map"  : [
@@ -130,7 +129,8 @@
           hideCurrentPage()
           document.page_number += 1
           if (document.max_page_number === document.page_number) {
-             form_to_answer(document.questionaire)
+             document.answers = form_to_answer(document.questionaire)
+             write_answers(document.answers, document.questionaire)
 	  }
           showCurrentPage()
 	}
@@ -143,12 +143,12 @@
 	}
       };
 
-      document.anwsers = {}
-      document.anwsers.global_questionaire_id = "the id"
-      document.anwsers.anwser_map = {}
+      document.answers = {}
+      document.answers.global_questionaire_id = document.questionaire.global_questionaire_id
+      document.answers.answer_map = {}
       
       function createQRCode() {
-	generate_qr_code_of_answer(document.anwsers)
+	generate_qr_code_of_answer(document.answers)
 	hideCurrentPage()
         document.page_number += 1
         showCurrentPage()
