@@ -252,7 +252,6 @@ def writeToDict():
             else 1
         )
 
-        # fixme dummy solution
         col_id = 0
         for idx, lang in enumerate(dict_state["language_map"]):
             if form.dict_table.horizontalHeaderItem(idx).text() == lang:
@@ -286,18 +285,21 @@ def writeToDict():
 
             dict_state["question_map"].append(
                 {
-                    "question_id": field_id,
+                    "question_id": str(field_id),
                     "answer_type": answer_desc,
                     "options": options,
                 }
             )
         else:
             dict_state["question_map"].append(
-                {"question_id": field_id, "answer_type": answer_desc}
+                {"question_id": str(field_id), "answer_type": answer_desc}
             )
 
         form.dict_table.resizeColumnsToContents()
         form.dict_table.resizeRowsToContents()
+
+        # reset lefthand side
+        form.left_window.setCurrentIndex(0)
 
 
 app = QApplication([])
