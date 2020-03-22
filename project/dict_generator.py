@@ -31,7 +31,11 @@ def save_dialog():
         filenames = dlg.selectedFiles()
         with open(filenames[0], "w") as fp:
             json.dump(
-                dict_state, fp, indent=4, separators=(",", ": "), ensure_ascii=False,
+                dict_state,
+                fp,
+                indent=4,
+                separators=(",", ": "),
+                ensure_ascii=False,
             )
 
 
@@ -128,14 +132,16 @@ def updated_table():
     form.dict_table.resizeColumnsToContents()
     form.dict_table.resizeRowsToContents()
 
-
+# fixme if a dict is created from scratch, the language which is firstly selected is not displayed in the respective field
 def fill_new_language():
     """Fill new language adding it to the dict_state."""
     if form.new_language_field.toPlainText():
         form.left_window.setCurrentIndex(3)
         global new_language_counter
 
-        dict_state["language_map"][form.new_language_field.toPlainText()] = dict()
+        dict_state["language_map"][
+            form.new_language_field.toPlainText()
+        ] = dict()
         new_language_counter = 1
         form.add_translation_ref_text_field.setText(
             dict_state["language_map"][form.new_language_com_box.currentText()][
@@ -243,7 +249,9 @@ def set_left_window(idx):
                 form.tableWidget.setItem(
                     row,
                     0,
-                    QTableWidgetItem(dict_state["language_map"][language][option]),
+                    QTableWidgetItem(
+                        dict_state["language_map"][language][option]
+                    ),
                 )
             except:
                 pass
@@ -299,14 +307,14 @@ def update_lang_inspect_table():
 
         form.tableWidget_2.resizeColumnsToContents()
         form.tableWidget_2.resizeRowsToContents()
-    except:
-        pass
+    except Exception as e:
+        print(e)
 
 
 def cancel_inspect_mode():
     form.left_window.setCurrentIndex(0)
 
-
+# fixme this routine is the most evident to edit
 def write_to_dict():
     """Write """
 
@@ -316,10 +324,10 @@ def write_to_dict():
     answer_desc = form.comboBox.currentText()
 
     if quest_text == "":
-        # fixme infobox
+        # fixme infobox, that a text has to be inserted
         pass
     elif answer_desc == "":
-        # fixme infobox
+        # fixme infobox that an answer type has to be chosen
         pass
     else:
         #        __import__('pudb').set_trace()
@@ -335,7 +343,12 @@ def write_to_dict():
             field_id = int(keys[0])
         else:
             field_id = (
-                max(map(lambda x: int(x), dict_state["language_map"][language].keys(),))
+                max(
+                    map(
+                        lambda x: int(x),
+                        dict_state["language_map"][language].keys(),
+                    )
+                )
                 + 1
                 if len(dict_state["language_map"][language]) > 0
                 else 1
@@ -360,7 +373,7 @@ def write_to_dict():
 
         # add to overview table
         # form.dict_table.setItem(row_id, col_id, QTableWidgetItem(quest_text))
-        updatedTable()
+        updated_table()
 
         if answer_type == 0 or answer_type == 5:
             options = []
@@ -370,12 +383,17 @@ def write_to_dict():
                 if curr_item is None:
                     break
                 next_field = field_id + row + 1
-                if next_field > max(
+                # fixme if a dict is loaded and shall be edited, it is displayed as the last entry on the overview table on the righthand. side
+                # fixme here's currently an error thrown because the array is out of bounds
+                if global_idx >= len(
+                    dict_state["question_map"]
+                ) and next_field > max(
                     map(
                         lambda x: int(x),
                         dict_state["question_map"][global_idx]["options"],
                     )
                 ):
+                    # fixem
                     next_free_field = (
                         max(
                             map(
@@ -386,6 +404,8 @@ def write_to_dict():
                         + 1
                     )
                     nentry = str(next_free_field)
+                    # fixme here shall an entry be inserted. This is shall cause the rest of the indices to be inreased by one, currently not implemeted
+                    dict_old = dict_state
                     dict_state["language_map"][language].update(
                         {nentry: curr_item.text()}
                     )
@@ -406,24 +426,42 @@ def write_to_dict():
                     }
                 )
             else:
-                dict_state["question_map"][global_idx]["question_id"] = str(field_id)
-                dict_state["question_map"][global_idx]["answer_type"] = answer_desc
-                dict_state["question_map"][global_idx]["options"] = options
+
+                dict_state["question_map"].insert(
+                    global_idx,
+                    {
+                        "question_id": str(field_id),
+                        "answer_type": answer_desc,
+                        "options": options,
+                    },
+                )
+
+                # dict_state["question_map"][global_idx]["question_id"] = str(
+                #     field_id
+                # )
+                # dict_state["question_map"][global_idx][
+                #     "answer_type"
+                # ] = answer_desc
+                # dict_state["question_map"][global_idx]["options"] = options
         else:
-            if global_idx > len(dict_state["question_map"]):
+            if global_idx >= len(dict_state["question_map"]):
                 dict_state["question_map"].append(
                     {"question_id": str(field_id), "answer_type": answer_desc}
                 )
             else:
-                dict_state["question_map"][global_idx]["question_id"] = str(field_id)
-                dict_state["question_map"][global_idx]["answer_type"] = answer_desc
+                dict_state["question_map"][global_idx]["question_id"] = str(
+                    field_id
+                )
+                dict_state["question_map"][global_idx][
+                    "answer_type"
+                ] = answer_desc
 
         form.dict_table.resizeColumnsToContents()
         form.dict_table.resizeRowsToContents()
 
         # reset lefthand side
         form.left_window.setCurrentIndex(0)
-        updatedTable()
+        updated_table()
 
 
 def close_application():
