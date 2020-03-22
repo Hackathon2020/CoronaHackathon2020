@@ -11,15 +11,6 @@ from PyQt5.QtWidgets import (
 import json
 import uuid
 
-# Contains JSON file which will be exported or has been imported and will be manipulated by the user's actions.
-dict_state = {}
-
-# fixme remove, only dummy for debugging
-language = "german"
-
-Form, Window = uic.loadUiType("test_gui.ui")
-
-
 def save_dialog():
     """Open a file dialog to save json dict to file."""
     dlg = QFileDialog()
@@ -429,62 +420,71 @@ def write_to_dict():
 def close_application():
     exit()
 
+if __name__ == "__main__":
+    # Contains JSON file which will be exported or has been imported and will be manipulated by the user's actions.
+    dict_state = {}
 
-app = QApplication([])
-window = Window()
-form = Form()
-form.setupUi(window)
+    # fixme remove, only dummy for debugging
+    language = "german"
 
-form.load_dict.clicked.connect(open_dialog)
-form.save_dict.clicked.connect(save_dialog)
-form.new_dict.clicked.connect(new_dict_dialog)
-form.add_language.clicked.connect(add_lang_dialog)
-form.new_language_button.clicked.connect(fill_new_language)
-form.new_language_button_2.clicked.connect(new_dict_begin_dialog)
-form.add_translation_next.clicked.connect(next_new_language)
-form.add_translation_back.clicked.connect(prev_new_language)
-form.add_translation_finish.clicked.connect(finish_new_language)
-form.dict_table.cellClicked.connect(handle_table_click)
-form.ok_button.clicked.connect(write_to_dict)
-form.cancel_button.clicked.connect(cancel_inspect_mode)
-form.comboBox.currentIndexChanged.connect(change_option)
-form.tableWidget_2.cellClicked.connect(change_lang_inspect_mode)
+    Form, Window = uic.loadUiType("test_gui.ui")
 
-# create menu
-# menubar = QMenuBar()
-menubar = QMenuBar()
-window.setMenuBar(menubar)
 
-extractActionNew = QAction("&New")
-extractActionNew.setShortcut("Ctrl+N")
-extractActionNew.setStatusTip("Create-Dictonary")
-extractActionNew.triggered.connect(new_dict_dialog)
-menubar.addAction(extractActionNew)
+    app = QApplication([])
+    window = Window()
+    form = Form()
+    form.setupUi(window)
 
-extractActionLoad = QAction("&Load-File")
-extractActionLoad.setShortcut("Ctrl+L")
-extractActionLoad.setStatusTip("Leave The App")
-extractActionLoad.triggered.connect(open_dialog)
-menubar.addAction(extractActionLoad)
+    form.load_dict.clicked.connect(open_dialog)
+    form.save_dict.clicked.connect(save_dialog)
+    form.new_dict.clicked.connect(new_dict_dialog)
+    form.add_language.clicked.connect(add_lang_dialog)
+    form.new_language_button.clicked.connect(fill_new_language)
+    form.new_language_button_2.clicked.connect(new_dict_begin_dialog)
+    form.add_translation_next.clicked.connect(next_new_language)
+    form.add_translation_back.clicked.connect(prev_new_language)
+    form.add_translation_finish.clicked.connect(finish_new_language)
+    form.dict_table.cellClicked.connect(handle_table_click)
+    form.ok_button.clicked.connect(write_to_dict)
+    form.cancel_button.clicked.connect(cancel_inspect_mode)
+    form.comboBox.currentIndexChanged.connect(change_option)
+    form.tableWidget_2.cellClicked.connect(change_lang_inspect_mode)
 
-extractActionSave = QAction("&Save-File")
-extractActionSave.setShortcut("Ctrl+S")
-extractActionSave.setStatusTip("Leave The App")
-extractActionSave.triggered.connect(save_dialog)
-menubar.addAction(extractActionSave)
+    # create menu
+    # menubar = QMenuBar()
+    menubar = QMenuBar()
+    window.setMenuBar(menubar)
 
-extractActionAddLan = QAction("&Add-Language")
-extractActionAddLan.setShortcut("Ctrl+Q")
-extractActionAddLan.setStatusTip("Leave The App")
-extractActionAddLan.triggered.connect(add_lang_dialog)
-menubar.addAction(extractActionAddLan)
-menubar.addSeparator()
+    extractActionNew = QAction("&New")
+    extractActionNew.setShortcut("Ctrl+N")
+    extractActionNew.setStatusTip("Create-Dictonary")
+    extractActionNew.triggered.connect(new_dict_dialog)
+    menubar.addAction(extractActionNew)
 
-extractActionClose = QAction("&Close")
-extractActionClose.setShortcut("Ctrl+Q")
-extractActionClose.setStatusTip("Leave The App")
-extractActionClose.triggered.connect(close_application)
-menubar.addAction(extractActionClose)
+    extractActionLoad = QAction("&Load-File")
+    extractActionLoad.setShortcut("Ctrl+L")
+    extractActionLoad.setStatusTip("Leave The App")
+    extractActionLoad.triggered.connect(open_dialog)
+    menubar.addAction(extractActionLoad)
 
-window.show()
-app.exec_()
+    extractActionSave = QAction("&Save-File")
+    extractActionSave.setShortcut("Ctrl+S")
+    extractActionSave.setStatusTip("Leave The App")
+    extractActionSave.triggered.connect(save_dialog)
+    menubar.addAction(extractActionSave)
+
+    extractActionAddLan = QAction("&Add-Language")
+    extractActionAddLan.setShortcut("Ctrl+Q")
+    extractActionAddLan.setStatusTip("Leave The App")
+    extractActionAddLan.triggered.connect(add_lang_dialog)
+    menubar.addAction(extractActionAddLan)
+    menubar.addSeparator()
+
+    extractActionClose = QAction("&Close")
+    extractActionClose.setShortcut("Ctrl+Q")
+    extractActionClose.setStatusTip("Leave The App")
+    extractActionClose.triggered.connect(close_application)
+    menubar.addAction(extractActionClose)
+
+    window.show()
+    app.exec_()
