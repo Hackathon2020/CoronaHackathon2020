@@ -7,7 +7,9 @@ from flask_bootstrap import Bootstrap
 from project.questionaire import Questionaire, Question
 from project.flaskr import static_folder, template_folder
 from project.flaskr.routes.questionaire import get_questionaire_blueprint
-#from project.questions_from_json import read
+from project.questions_from_json import read
+
+
 
 
 def create_app():
@@ -58,16 +60,19 @@ def create_app():
     #     #form = forms.ReusableForm()
     #     #form.change_language(language)
     #     return render_template('app/questionaire.html', questions=localized_questions[int(question_id)])
+    path_context = pathlib.Path(pathlib.Path(__file__).parent.parent.parent,
+                                "json_schemas/questionaire_schema.json")
     path_to_json_example_file = pathlib.Path(pathlib.Path(__file__).parent.parent.parent,
                                                   "json_schemas/questionaire_example.json")
-    with open(path_to_json_example_file, 'r') as j:
-        contents = json.loads(j.read())
-        language_map = contents["language_map"]
-        options = ["2", "3", "4"]
-        options1 = ["10", "11", "12"]
-        questions = [Question("1", "string", options), Question("9", "string", options1)]
-        questionaire = Questionaire("global_id", language_map, questions)
-        localized_questions = questionaire.localized_questions("german")
+    #with open(path_to_json_example_file, 'r') as j:
+    #    contents = json.loads(j.read())
+    #    language_map = contents["language_map"]
+    #    questions =[]
+    #    for question in contents["question_map"]:
+    #        questions.append(Question("1", "string", options))
+    #    questions = [Question("1", "string", options), Question("9", "string", options1)]
+    questionaire = read(path_to_json_example_file, path_context)
+    localized_questions = questionaire.localized_questions("german")
 
     app.register_blueprint(get_questionaire_blueprint(localized_questions))
     return app
