@@ -20,6 +20,7 @@ def create_app():
         return render_template("app/informations.html")
 
     @app.route("/")
+    @app.route("/language")
     def language_selection():
         return render_template("app/language.html")
         pass
