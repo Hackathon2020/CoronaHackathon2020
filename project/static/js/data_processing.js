@@ -15,13 +15,62 @@ function generate_qr_code_of_answer(answer) {
         colorLight : "#ffffff",
         correctLevel : QRCode.CorrectLevel.L
     });
+    console.log("Generated qr-code with url " + url);
+}
+
+/**
+ * Reads selected radio button
+ *
+ * Needs html sting input element has class="form-control"
+ */
+function read_string_answer(question_id) {
+    var question_element = document.getElementById("question_" + question_id);
+    var answer_element = question_element.getElementsByClassName("form-control")[0];
+    return answer_element.value;
+}
+
+/**
+ * Reads selected radio button
+ *
+ * Needs radio buttons have class="checkbox" and id="answer_XX"
+ */
+function read_checkbox_answer(question_id) {
+    return read_options(question_id, "checkbox");
+}
+
+/**
+ * Reads selected radio button
+ *
+ * Needs radio buttons have class="radio" and id="answer_XX"
+ */
+function read_radio_answer(question_id) {
+    var selections = read_options(question_id, "radio");
+    if (selections.length == 1) {
+        return selections[0];
+    } else {
+        console.warn("No or more than one radio button selected: " + selections);
+    }
+}
+
+/**
+ * Helper function
+ */
+function read_options(question_id, class_name) {
+    var question_element = document.getElementById("question_" + question_id);
+    var answer_elements = question_element.getElementsByClassName(class_name);
+    var answers = [];
+    for (i = 0; i < answer_elements.length; i++) {
+        if (answer_elements[i].checked) {
+            answers.push(answer_elements[i].id.split("_")[1]);
+        }
+    }
+    return answers;
 }
 
 /**
  * Collects answers from form data and returns a json answer object
  *
  * Needs surrounding element with class "question" and id "question_" + id
- * TODO needs implementation
  */
 function form_to_answer() {
     var answer_map;
@@ -30,10 +79,24 @@ function form_to_answer() {
         var question_id = questions[i].id.split("_")[1];
         // TODO needs questionaire
         var question = find_question(questionaire, question_id);
-        // TODO get data from answer fields depending on answer type
-        answer_map.push({ "question_id" : question_id , "answer" : "TODO" });
+        var answer = "";
+        switch (question.answer_type) {
+            case "String":
+                answer = read_string_answer(question_id);
+                break;
+            case "Checkbox":
+                answer = read_checkbox_answer(question_id);
+                break;
+            case "RadioButtons":
+                answer = read_checkbox_answer(question_id);
+                break;
+            default:
+                console.warn("Parsing answers: answer type " + answer_type + " not known!");
+        }
+        answer_map.push({ "question_id" : question_id , "answer" : answer});
     }
     var answers = { "global_questionaire_id" : "TODO", "answer_map" : answer_map};
+    console.log("Answer is: " + JSON.stringify(answers));
     return answers;
 }
 
@@ -45,7 +108,9 @@ function form_to_answer() {
 function get_answer_from_url() {
     var url = window.location.href;
     var c = url.searchParams.get("data");
-    return atob(c);
+    var answer = atob(c);
+    console.log("Received answer is: " + JSON.stringify(answer));
+    return answer;
 }
 
 /**
