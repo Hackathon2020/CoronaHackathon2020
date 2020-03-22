@@ -13,7 +13,18 @@ project package
     .. toctree::
        :maxdepth: 1
 
+       project.dict_generator
+       project.questionaire
+       project.questions_from_json
        project.test
+       project.test_questionaire
+
+    Subpackages:
+
+    .. toctree::
+       :maxdepth: 1
+
+       project.flaskr
 
 
 
