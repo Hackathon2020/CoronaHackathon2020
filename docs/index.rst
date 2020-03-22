@@ -47,26 +47,48 @@ In the following the details of our implementation are documented.
 Questionnaire Generator
 -----------------------
 
-Border Crosser Webapp
----------------------
+The questionnaire generator is a simple qt based python program that allows officials to generate questionnaires in the shape of a JSON File. The JSON File contains questions and language information.
 
-Border Police Website
----------------------
+.. figure:: source/images/generator.png
+  :alt: Questionnaire Generator
 
-Backend: Connecting the Pieces
-------------------------------
+  Image of the Questionnaire Generator
 
-Contents
-========
 .. toctree::
    :glob:
    :maxdepth: 2
 
-   source/source_files/project
+   source/source_files/project.dict_generator
 
-Indices and tables
-==================
+Border Crosser Webapp
+---------------------
+The border crosser's web app consists of only one website that, once opened, downloads the correct questionnaire and allows us to generate the resulting QR-Code without any further internet connection.
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. figure:: source/images/generator.png
+  :alt: Border Crosser App
+
+  Image of the Border Crosser App
+
+Border Police Website
+---------------------
+
+Encoded in the QR code is an URL containing all answers of the border crosser. 
+The border police can then simply scan the QR code and open the website to see the answers on her/his device.
+
+.. figure:: source/images/generator.png
+  :alt: Police Website
+
+  Image of the Police Website
+
+Backend: Connecting the Pieces
+------------------------------
+
+A flask webserver connects the individual parts of our application. A flask web server is used to serve the questionnaire to border crossers and answers the requests that are triggered when the border police scan's a QR code.
+
+.. toctree::
+   :glob:
+   :maxdepth: 2
+
+   source/source_files/project.questionaire
+   source/source_files/project.questions_from_json
+   source/source_files/project.flaskr
