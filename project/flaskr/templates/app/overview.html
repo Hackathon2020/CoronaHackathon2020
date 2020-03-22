@@ -23,9 +23,9 @@
 
         <div class="content-container jumbotron overflow-auto" style="height: 80vh;">
             {% for question in questions %}
-            <div class="displayBlock">
+            <div class="displayBlock" id="answer_{{question.question_id}}">
                 <hr>
-                <p><b>{{question.question_text}}</b><br/>Placeholder</p>
+                <p><b>{{question.question_text}}</b><br/><span class="answer">Placeholder</p>
             </div>
             {% endfor %}
 
