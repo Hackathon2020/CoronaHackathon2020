@@ -310,7 +310,10 @@ def writeToDict():
             createNewDict()
             createTable()
         if quest_text in dict_state["language_map"][language].values():
-            field_id = dict_state["language_map"][language].get(quest_text)
+            keys = [key for key, value in
+                    dict_state["language_map"][language].items() if value ==
+                    quest_text]
+            field_id = int(keys[0])
         else:
             field_id = ( max( map( lambda x: int(x), dict_state["language_map"][language].keys(),)) + 1 if len(dict_state["language_map"][language]) > 0 else 1)
 
@@ -337,26 +340,42 @@ def writeToDict():
 
         if answer_type == 0 or answer_type == 5:
             options = []
+
             for row in range(form.tableWidget.rowCount()):
                 curr_item = form.tableWidget.item(row, 0)
                 if curr_item is None:
                     break
-                options.append(str(field_id + row + 1))
-                dict_state["language_map"][language].update(
-                    {options[-1]: curr_item.text()}
-                )
+                next_field = field_id + row + 1
+                if next_field > max(map(lambda x: int(x), dict_state["question_map"][global_idx]['options'],)):
+                    next_free_field = max( map( lambda x: int(x), dict_state["language_map"][language].keys(),)) + 1
+                    pass
+                else:
+                    options.append(str(next_field))
+                    dict_state["language_map"][language].update(
+                        {options[-1]: curr_item.text()}
+                    )
 
-            dict_state["question_map"].append(
-                {
-                    "question_id": str(field_id),
-                    "answer_type": answer_desc,
-                    "options": options,
-                }
-            )
+            if global_idx > len(dict_state["question_map"]):
+                dict_state["question_map"].append(
+                    {
+                        "question_id": str(field_id),
+                        "answer_type": answer_desc,
+                        "options": options,
+                    }
+                )
+            else:
+                dict_state["question_map"][global_idx]["question_id"]= str(field_id)
+                dict_state["question_map"][global_idx]["answer_type"]= answer_desc
+                dict_state["question_map"][global_idx]["options"]= options
         else:
-            dict_state["question_map"].append(
-                {"question_id": str(field_id), "answer_type": answer_desc}
-            )
+            if global_idx > len(dict_state["question_map"]):
+                dict_state["question_map"].append(
+                    {"question_id": str(field_id), "answer_type": answer_desc}
+                )
+            else:
+                dict_state["question_map"][global_idx]["question_id"]= str(field_id)
+                dict_state["question_map"][global_idx]["answer_type"]= answer_desc
+
 
         form.dict_table.resizeColumnsToContents()
         form.dict_table.resizeRowsToContents()
