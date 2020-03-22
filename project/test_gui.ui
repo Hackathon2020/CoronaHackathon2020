@@ -103,7 +103,7 @@ p, li { white-space: pre-wrap; }
       <widget class="QTextEdit" name="textEdit">
        <property name="geometry">
         <rect>
-         <x>30</x>
+         <x>60</x>
          <y>80</y>
          <width>491</width>
          <height>161</height>
@@ -113,9 +113,9 @@ p, li { white-space: pre-wrap; }
       <widget class="QTextBrowser" name="textBrowser">
        <property name="geometry">
         <rect>
-         <x>30</x>
+         <x>40</x>
          <y>20</y>
-         <width>491</width>
+         <width>531</width>
          <height>41</height>
         </rect>
        </property>
@@ -137,7 +137,7 @@ p, li { white-space: pre-wrap; }
       <widget class="QComboBox" name="comboBox">
        <property name="geometry">
         <rect>
-         <x>30</x>
+         <x>60</x>
          <y>300</y>
          <width>481</width>
          <height>41</height>
@@ -182,7 +182,7 @@ p, li { white-space: pre-wrap; }
       <widget class="QStackedWidget" name="stackedWidget_2">
        <property name="geometry">
         <rect>
-         <x>40</x>
+         <x>70</x>
          <y>350</y>
          <width>451</width>
          <height>261</height>
@@ -196,7 +196,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QTableWidget" name="tableWidget">
          <property name="geometry">
           <rect>
-           <x>10</x>
+           <x>20</x>
            <y>20</y>
            <width>431</width>
            <height>231</height>
@@ -208,8 +208,8 @@ p, li { white-space: pre-wrap; }
       <widget class="QTableWidget" name="tableWidget_2">
        <property name="geometry">
         <rect>
-         <x>160</x>
-         <y>670</y>
+         <x>310</x>
+         <y>690</y>
          <width>251</width>
          <height>161</height>
         </rect>
