@@ -15,16 +15,16 @@ def create_app():
 
     #@app.route('/', methods=["GET", "POST"])
     #@app.route('/index')
-    #@app.route('/information/<language>')
-    #def index():
-    #    return render_template("app/informations.html")
+    @app.route('/information')
+    def index():
+        return render_template("app/informations.html")
 
     @app.route("/language")
     def language_selection():
         return render_template("app/language.html")
         pass
 
-    @app.route("/border")
+    @app.route("/crossing")
     def border_selection():
         return render_template("app/crossing.html")
 
