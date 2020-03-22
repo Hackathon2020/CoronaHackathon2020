@@ -123,7 +123,7 @@ div.background-container {
 }
 div.container {
     width: 600px;
-    height: 600%;
+    height: 100vh;
     /* TODO: Green is placeholder */
     opacity: 1;
     padding: 0px !important;
