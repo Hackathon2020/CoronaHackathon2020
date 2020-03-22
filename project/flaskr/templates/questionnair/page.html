@@ -95,7 +95,7 @@
             </div>
         </div>
 
-        <div id="send-button">f
+        <div id="send-button">
           <button type="button" class="btn btn-outline-primary toQr" onclick="createQRCode()">QR-Code</button>
         </div>
         <div id="accept-formular">
@@ -212,14 +212,14 @@
 
         // show correct button
         document.getElementById("send-button").style.display = "none";
-        document.getElementById("accept-buttons").style.display = "initial";
+        document.getElementById("accept-formular").style.display = "initial";
     } else {
         // show questionaire view -- do nothing
         console.log("show questionaire");
 
         // show correct button
         document.getElementById("send-button").style.display = "initial";
-        document.getElementById("accept-buttons").style.display = "none";
+        document.getElementById("accept-formular").style.display = "none";
     }
     </script>
   </body>
