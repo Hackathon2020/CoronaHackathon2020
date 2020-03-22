@@ -24,6 +24,9 @@
     width: 75%;
 }
 
+.dropdown-menu {
+    background-color: #6c757d;
+}
 .dropdown-menu.show {
     width: 25px;
 }
