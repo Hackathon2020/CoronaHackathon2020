@@ -36,11 +36,13 @@ def create_app():
     path_context = pathlib.Path(pathlib.Path(__file__).parent.parent.parent,
                                 "json_schemas/questionaire_schema.json")
     path_to_json_example_file = pathlib.Path(pathlib.Path(__file__).parent.parent.parent,
-                                                  "json_schemas/questionaire_example.json")
+                                             "json_schemas/questionaire_example.json")
     questionaire = read(path_to_json_example_file, path_context)
     localized_questions = questionaire.localized_questions("german")
-
-    app.register_blueprint(get_questionaire_blueprint(localized_questions))
+    # TODO: Hier json einfügen die für Frage ids benötigt
+    with open(pathlib.Path(pathlib.Path(__file__).parent.parent.parent, "json_schemas/questionaire_example")) as f:
+        json_f = f.read()
+    app.register_blueprint(get_questionaire_blueprint(localized_questions, json_f))
     app.register_blueprint(get_overview_blueprint(localized_questions))
     return app
 
