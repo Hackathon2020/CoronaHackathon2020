@@ -4,14 +4,13 @@ Welcome to the Grenz-er-fahrung!
 
 As part of the WirvsVirus_ hackathon we join the fight against COVID-19.
 
-.. _WirvsVirus: https://wirvsvirushackathon.org/
-
-Introduction
-============
-
 The last couple of weeks were defined by the spread of the virus around the world. Europe, in particular, rapidly became the epicenter of the current epidemic. As a consequence, borders throughout Europe were closed in a rush leading to heavy traffic jams. Europe's free and borderless market, risks being halted due to merchants, commuters, and truckers being stuck attempting to cross a border.
 
-For this weekend we chose to **hack** together a prototype app that allows officials to provide questionnaires digitally, enabling border crossers to answer questions in advance and reduce the work of border policemen.
+For this weekend we chose to **hack** together a prototype app that allows officials to provide questionnaires digitally, enabling border crossers to answer questions in advance and reduce the work of border policemen. Checkout our video on YouTube_ to see what we have achieved!
+
+
+.. _WirvsVirus: https://wirvsvirushackathon.org/
+.. _YouTube: https://youtu.be/AXAIV9wReHI
 
 Introduction
 ============
@@ -29,6 +28,13 @@ Consider the following user story:
    .. note:: What if the truck driver could answer the questions in advance, **in his own language**?
       
       The time it would take for the policeman to verify the answers would be only a fraction of the time it currently takes and seriously reduces traffic jams all over Europe's closed borders.
+
+.. figure:: source/images/user.gif
+  :scale: 60%
+  :alt: User experience
+  :align: center
+
+  Mock Up of the questions a person crossing the border from Germany to Switzerland might answer answer using our application. 
 
 
 Application
@@ -64,10 +70,14 @@ Border Crosser Webapp
 ---------------------
 The border crosser's web app consists of only one website that, once opened, downloads the correct questionnaire and allows us to generate the resulting QR-Code without any further internet connection.
 
-.. figure:: source/images/generator.png
+Our current state looks like this:
+
+.. figure:: source/images/webapp.png
   :alt: Border Crosser App
 
   Image of the Border Crosser App
+
+This is how we imagine the app to be used on a mobile device:
 
 Border Police Website
 ---------------------
@@ -75,8 +85,10 @@ Border Police Website
 Encoded in the QR code is an URL containing all answers of the border crosser. 
 The border police can then simply scan the QR code and open the website to see the answers on her/his device.
 
-.. figure:: source/images/generator.png
+.. figure:: source/images/police.png
   :alt: Police Website
+  :scale: 50%
+  :align: center
 
   Image of the Police Website
 
