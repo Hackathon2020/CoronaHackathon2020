@@ -11,9 +11,9 @@
       "7" : "Kennzeichen",
       "8" : "Zielort",
       "9" : "Geschlecht",
-      "10" : "weiblich",
-      "11" : "maennlich",
-      "12" : "diverse"
+      "10" : "w",
+      "11" : "m", 
+      "12" : "d"
     },
     "english" : {
       "1" : "Reason of journey",
@@ -21,13 +21,13 @@
       "3" : "Business",
       "4" : "Family",
       "5" : "Origin",
-      "6" : "Date of return",
-      "7" : "License plate number",
+      "6" : "Departure date",
+      "7" : "licence plate",
       "8" : "destination",
-      "9" : "Gender",
-      "10" : "male",
-      "11" : "female",
-      "12" : "diveser"
+      "9" : "gender",
+      "10" : "f",
+      "11" : "m",
+      "12" : "d"
     }
   },
   "question_map"  : [

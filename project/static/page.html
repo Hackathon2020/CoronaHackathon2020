@@ -9,7 +9,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="css/pager.css" />
-  <style> div.page { display: none; } </style>
+    <link rel="stylesheet" href="css/string_question.css">
+    <style> div.page { display: none; } </style>
   </head>
 
   <body>
@@ -32,28 +33,12 @@
       </nav>
 
       <div id="page_0" class="page">
-        <div class="displayBlock">
-          <hr>
-          <p><b>Vorname</b><br/>Max</p>
+        <div class="header">
+           <p>Vorname</p>
         </div>
-        <div class="displayBlock">
-          <hr>
-          <p><b>Nachname</b><br/>Mustermann</p>
-        </div>
-        <div class="displayBlock">
-          <hr>
-          <p><b>Personalausweisnummer</b><br/>T22000129</p>
-        </div>
-        <div class="displayBlock">
-          <hr>
-          <p><b>Handynummer</b><br/>+49 160 23423423</p>
-        </div>
-        <div class="displayBlock">
-          <hr>
-          <p><b>Einreisegrund</b><br/>Geschäftlich</p>
-        </div>
-        <div class="displayBlock">
-          <hr>
+
+        <div id="question_5" class="input-group mb-3 question">
+           <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
         </div>
       </div> <!-- page_0 -->
       
@@ -81,15 +66,57 @@
         <div class="displayBlock">
           <hr>
         </div>
-        <button type="button" class="btn btn-outline-primary toQr">--> QR (Placeholder)</button>
+        <button type="button" class="btn btn-outline-primary toQr" onclick="createQRCode()">--> QR (Placeholder)</button>
       </div> <!-- page_1 -->
+
+      <div id="page_2" class="page">
+	<div class="row qr-container justify-content-center align-items-center">
+          <object class="qrcode" id="qrcode"> QR-Code could not be created </object>
+        </div>
+      </div> <!-- page_2 -->
 
     </div> <!-- container -->
 
     <!-- Navigation through the pages -->
     <script>
+      const questionaire_json = `
+{
+  "global_questionaire_id": "abjzqwjcv",
+  "language_map": {
+    "german" : {
+      "1" : "Einreisegrund?",
+      "2" : "Urlaub",
+      "3" : "Geschäftlich",
+      "4" : "Familie",
+      "5" : "Herkunftsland",
+      "6" : "Ausreisedatum",
+      "7" : "Kennzeichen",
+      "8" : "Zielort",
+      "9" : "Geschlecht",
+      "10" : "w",
+      "11" : "m", 
+      "12" : "d"
+    },
+    "english" : {
+      "1" : "Reason of journey",
+      "2" : "Vacation",
+      "3" : "Business",
+      "4" : "Family",
+      "5" : "Origin"
+    }  
+  }, 
+  "question_map"  : [
+     {"question_id": "1", "answer_type": "Checkbox",  "options": ["2", "3","4"]},
+     {"question_id": "5", "answer_type": "String"},
+     {"question_id": "6", "answer_type": "Date"},
+     {"question_id": "7", "answer_type": "LicensePlate"},
+     {"question_id": "8", "answer_type": "PostCode"},
+     {"question_id": "9", "answer_type": "RadioButtons", "options": ["10", "11", "12"]}
+  ]
+}`
+      document.questionaire = JSON.parse(questionaire_json)
       document.page_number = 0
-      document.max_page_number = 1
+      document.max_page_number = document.getElementsByClassName("page").length - 2
       function hideCurrentPage() {
         document.getElementById("page_" + document.page_number).style.display = "none"
       }
@@ -102,6 +129,9 @@
 	if (document.page_number < document.max_page_number) {
           hideCurrentPage()
           document.page_number += 1
+          if (document.max_page_number === document.page_number) {
+             form_to_answer(document.questionaire)
+	  }
           showCurrentPage()
 	}
       };
@@ -112,6 +142,17 @@
           showCurrentPage()
 	}
       };
+
+      document.anwsers = {}
+      document.anwsers.global_questionaire_id = "the id"
+      document.anwsers.anwser_map = {}
+      
+      function createQRCode() {
+	generate_qr_code_of_answer(document.anwsers)
+	hideCurrentPage()
+        document.page_number += 1
+        showCurrentPage()
+      }
     </script>
 
     <!-- Optional JavaScript -->
@@ -119,6 +160,8 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="js/data_processing.js"></script>
+    <script src="js/qrcode.js"></script>
   </body>
 </html>
 
