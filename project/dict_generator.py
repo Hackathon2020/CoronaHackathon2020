@@ -19,6 +19,7 @@ Form, Window = uic.loadUiType("test_gui.ui")
 
 def safeDialog():
     dlg = QFileDialog()
+    dlg.setAcceptMode(QFileDialog.AcceptSave)
     dlg.setFileMode(QFileDialog.AnyFile)
     dlg.setNameFilter("Json files (*.json)")
 
@@ -37,6 +38,7 @@ def safeDialog():
 def openDialog(to_fill):
     global dict_state
     dlg = QFileDialog()
+    dlg.setAcceptMode(QFileDialog.AcceptOpen)
     dlg.setFileMode(QFileDialog.AnyFile)
     dlg.setNameFilter("Json files (*.json)")
 
