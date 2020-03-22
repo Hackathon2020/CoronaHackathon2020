@@ -1,6 +1,13 @@
+.content-container{
+opacity: 0.6;
+border: 3px solid #000000;
+border-radius: 15px;
+height: 70vh;
+}
 
-
-
+.bg-light {
+    background-color: none !important;
+}
 
 p, hr {
     margin: 0 0 0 0;
@@ -40,4 +47,30 @@ p.title {
 button.toQr {
     margin:auto;
     display:block;
+}
+
+.content-container-final{
+height:60vh;
+opacity: 0.6;
+border: 3px solid #000000;
+border-radius: 15px;
+}
+.accept-formular{
+    background: #E1E3E6;
+    mix-blend-mode: normal;
+    opacity: 0.6;
+    border: 3px solid #000000;
+    border-radius: 15px;
+    height: 47px;
+    width: 100%;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 22px;
+    text-indent: 15px;
+
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
 }
