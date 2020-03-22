@@ -7,6 +7,7 @@ from flask_bootstrap import Bootstrap
 from project.questionaire import Questionaire, Question
 from project.flaskr import static_folder, template_folder
 from project.flaskr.routes.questionaire import get_questionaire_blueprint
+from project.flaskr.routes.overview import get_overview_blueprint
 from project.questions_from_json import read
 
 
@@ -75,6 +76,7 @@ def create_app():
     localized_questions = questionaire.localized_questions("german")
 
     app.register_blueprint(get_questionaire_blueprint(localized_questions))
+    app.register_blueprint(get_overview_blueprint(localized_questions))
     return app
 
 
