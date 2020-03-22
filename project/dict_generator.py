@@ -11,6 +11,7 @@ from PyQt5.QtWidgets import (
 import json
 import uuid
 
+
 def save_dialog():
     """Open a file dialog to save json dict to file."""
     dlg = QFileDialog()
@@ -420,15 +421,19 @@ def write_to_dict():
 def close_application():
     exit()
 
-if __name__ == "__main__":
+def main():
     # Contains JSON file which will be exported or has been imported and will be manipulated by the user's actions.
+    import os
+    import pathlib
+
+    project_dir = pathlib.Path(os.path.abspath(os.path.dirname(__file__)))
+
     dict_state = {}
 
     # fixme remove, only dummy for debugging
     language = "german"
 
-    Form, Window = uic.loadUiType("test_gui.ui")
-
+    Form, Window = uic.loadUiType(pathlib.Path(project_dir, "test_gui.ui"))
 
     app = QApplication([])
     window = Window()
@@ -488,3 +493,7 @@ if __name__ == "__main__":
 
     window.show()
     app.exec_()
+
+
+if __name__ == "__main__":
+    main()

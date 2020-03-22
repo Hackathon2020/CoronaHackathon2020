@@ -45,8 +45,10 @@ def create_app():
     app.register_blueprint(get_questionaire_blueprint(localized_questions, json_f))
     return app
 
-
-if __name__ == "__main__":
+def main():
     app = create_app()
     print(app.url_map)
     app.run(debug=True)
+
+if __name__ == "__main__":
+    main()
