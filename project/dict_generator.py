@@ -112,7 +112,7 @@ def create_table():
 
 def updated_table():
     """Updated table."""
-    createTable()
+    create_table()
 
     row_count = 0
     for element in dict_state["question_map"]:
@@ -325,7 +325,7 @@ def write_to_dict():
         #        __import__('pudb').set_trace()
         if len(dict_state) == 0:
             create_new_dict()
-            createTable()
+            create_table()
         if quest_text in dict_state["language_map"][language].values():
             keys = [
                 key
@@ -458,7 +458,7 @@ window.setMenuBar(menubar)
 extractActionNew = QAction("&New")
 extractActionNew.setShortcut("Ctrl+N")
 extractActionNew.setStatusTip("Create-Dictonary")
-extractActionNew.triggered.connect(newDictDialog)
+extractActionNew.triggered.connect(new_dict_dialog)
 menubar.addAction(extractActionNew)
 
 extractActionLoad = QAction("&Load-File")
