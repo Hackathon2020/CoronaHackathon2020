@@ -1,8 +1,5 @@
-from jinja2 import TemplateNotFound
-from flask import Blueprint, render_template, abort
+from flask import Blueprint, render_template
 from project.flaskr import static_folder, template_folder
-from project.questionaire import Question, Questionaire
-from project.questions_from_json import read
 
 
 def get_questionaire_blueprint(questions, json_schema):
