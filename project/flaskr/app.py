@@ -19,10 +19,14 @@ def create_app():
 
     @app.route('/', methods=["GET", "POST"])
     @app.route('/index')
-    @app.rout('/information/<language>')
+    @app.route('/information/<language>')
     def index():
         return render_template("app/informations.html")
 
+
+    @app.route("/language_selection")
+    def language_selection():
+        pass
 
     @app.route('/answer')
     def answer():
