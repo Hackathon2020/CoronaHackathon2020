@@ -59,10 +59,10 @@
                 {% elif question.anwser_type == 'RadioButtons' %}
                      {% for option in question.options_texts %}
                         {% set inner_loop_index = loop.index0 %}
-                        {% set answer_id_inner = 'answer_' + question.question_id | string + question.options[inner_loop_index] | string%}
+                        {% set answer_id_inner = 'answer_' + question.question_id + '_' | string + question.options[inner_loop_index] | string%}
                          <label class="questionnair">
                             <div class="title">{{option}}</div>
-                            <input id={{answer_id_inner}} type="radio" name="customRadio">
+                            <input id={{answer_id_inner}} type="radio" name="customRadio" class="radio">
                             <span class="checkmark"></span>
                         </label>
                     {% endfor %}
