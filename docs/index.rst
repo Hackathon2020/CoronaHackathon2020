@@ -10,7 +10,7 @@ For this weekend we chose to **hack** together a prototype app that allows offic
 
 
 .. _WirvsVirus: https://wirvsvirushackathon.org/
-.. _YouTube: https://www.youtube.com/watch?v=klSfAKeN_Ow&feature=youtu.be
+.. _YouTube: https://youtu.be/AXAIV9wReHI
 
 Introduction
 ============
@@ -101,6 +101,7 @@ A flask webserver connects the individual parts of our application. A flask web 
    :glob:
    :maxdepth: 2
 
+   source/source_files/project.rst
    source/source_files/project.questionaire
    source/source_files/project.questions_from_json
    source/source_files/project.flaskr

@@ -1,0 +1,5 @@
+#!/usr/bin/env python
+
+import project.dict_generator as app
+
+app.main()
