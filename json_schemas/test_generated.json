@@ -1,41 +1,43 @@
 {
-    "global_questionaire_id": "7646d28e-1943-4937-8f98-8ab33e228ae2",
+    "global_questionaire_id": "9e08a844-0aef-4d9c-9c9c-85609d56f89a",
     "language_map": {
         "german": {
             "1": "Vorname",
             "2": "Nachname",
-            "3": "Geburtsdatum",
-            "4": "Adresse",
+            "3": "Adresse",
+            "4": "Geburtsdatum",
             "5": "Lieblingsgetränk",
             "6": "Wein",
             "7": "Bier",
-            "8": "Mate"
+            "8": "Mate",
+            "9": "Nudesalat"
         }
     },
     "question_map": [
         {
-            "question_id": 1,
+            "question_id": "1",
             "answer_type": "String"
         },
         {
-            "question_id": 2,
+            "question_id": "2",
             "answer_type": "String"
         },
         {
-            "question_id": 3,
+            "question_id": "3",
+            "answer_type": "PostCode"
+        },
+        {
+            "question_id": "4",
             "answer_type": "Date"
         },
         {
-            "question_id": 4,
-            "answer_type": "Postal Code"
-        },
-        {
             "question_id": "5",
-            "answer_type": "Radio Buttons",
+            "answer_type": "RadioButtons",
             "options": [
                 "6",
                 "7",
-                "8"
+                "8",
+                "9"
             ]
         }
     ]

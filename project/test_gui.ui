@@ -176,17 +176,17 @@ p, li { white-space: pre-wrap; }
        </item>
        <item>
         <property name="text">
-         <string>License Plate</string>
+         <string>LicensePlate</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>Postal Code</string>
+         <string>PostCode</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>Radio Buttons</string>
+         <string>RadioButtons</string>
         </property>
        </item>
        <item>
