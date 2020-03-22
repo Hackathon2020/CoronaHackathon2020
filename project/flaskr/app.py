@@ -19,6 +19,7 @@ def create_app():
 
     @app.route('/', methods=["GET", "POST"])
     @app.route('/index')
+    @app.rout('/information/<language>')
     def index():
         return render_template("app/informations.html")
 
@@ -60,10 +61,6 @@ def create_app():
     #     #form = forms.ReusableForm()
     #     #form.change_language(language)
     #     return render_template('app/questionaire.html', questions=localized_questions[int(question_id)])
-    path_context = pathlib.Path(pathlib.Path(__file__).parent.parent.parent,
-                                "json_schemas/questionaire_schema.json")
-    path_to_json_example_file = pathlib.Path(pathlib.Path(__file__).parent.parent.parent,
-                                                  "json_schemas/questionaire_example.json")
     #with open(path_to_json_example_file, 'r') as j:
     #    contents = json.loads(j.read())
     #    language_map = contents["language_map"]
@@ -71,6 +68,10 @@ def create_app():
     #    for question in contents["question_map"]:
     #        questions.append(Question("1", "string", options))
     #    questions = [Question("1", "string", options), Question("9", "string", options1)]
+    path_context = pathlib.Path(pathlib.Path(__file__).parent.parent.parent,
+                                "json_schemas/questionaire_schema.json")
+    path_to_json_example_file = pathlib.Path(pathlib.Path(__file__).parent.parent.parent,
+                                                  "json_schemas/questionaire_example.json")
     questionaire = read(path_to_json_example_file, path_context)
     localized_questions = questionaire.localized_questions("german")
 
