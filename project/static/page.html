@@ -78,6 +78,15 @@
 
     <!-- Navigation through the pages -->
     <script>
+      var url = new URL(window.location);
+      var from_language = url.searchParams.get("from");
+      var to_language = url.searchParams.get("to");
+      document.getElementById('flag1').setAttribute('data', 'flags/' + from_language + '.svg')
+      document.getElementById('flag2').setAttribute('data', 'flags/' + to_language + '.svg')
+
+      function backToCrossing() {
+	 location.href = 'crossing.html?from=' + from_language + '&to=' + to_language
+      }
       const questionaire_json = `
 {
   "global_questionaire_id": "abjzqwjcv",
@@ -140,6 +149,8 @@
           hideCurrentPage()
           document.page_number -= 1
           showCurrentPage()
+	} else {
+	  backToCrossing()  
 	}
       };
 

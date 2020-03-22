@@ -45,8 +45,9 @@
                 {% if question.anwser_type == 'Checkbox' %}
 
                 {% elif question.anwser_type == 'String' %}
+                    {% set answer_id = 'answer_' + question.question_id | string %}
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                            <input id={{answer_id}}  type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                         </div>
                 {% elif question.anwser_type == 'Date' %}
 
@@ -56,9 +57,11 @@
 
                 {% elif question.anwser_type == 'RadioButtons' %}
                      {% for option in question.options_texts %}
+                        {% set inner_loop_index = loop.index0 %}
+                        {% set answer_id_inner = 'answer_' + question.question_id | string + question.options[inner_loop_index] | string%}
                          <label class="questionnair">
                             <div class="title">{{option}}</div>
-                            <input type="radio" class="radio" id="answer_0" name="customRadio">
+                            <input id={{answer_id_inner}} type="radio" name="customRadio">
                             <span class="checkmark"></span>
                         </label>
                     {% endfor %}
