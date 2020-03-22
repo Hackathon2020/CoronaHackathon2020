@@ -71,8 +71,8 @@
             {% endfor %}
 
         <!--- Overview -->
-        {% set last_page = 'page_' + questions | length | string %}
-        <div class="page" id={{last_page}}>
+        {% set overview_page = 'page_' + questions | length | string %}
+        <div class="page" id={{overview_page}}>
         <!-- Navbar -->
         <nav class="navbar navbar-light bg-light">
             <div class="form-inline">
@@ -96,6 +96,8 @@
 
     <button type="button" class="btn btn-outline-primary toQr" onclick="createQRCode()">QR-Code</button>
     </div>
+
+    {% set last_page = 'page_' + (questions | length  + 1) | string %}
     <div id="{{last_page}}" class="page"><!--TODO set correct ID-->
         <div class="row qr-container justify-content-center align-items-center qrcode" id="qrcode">
         </div>
@@ -105,8 +107,22 @@
 
     <!-- Navigation through the pages -->
     <script>
+      // set flags in pager in nav-bar correctly
+      var url = new URL(window.location);
+      var from_language = url.searchParams.get("from");
+      var to_language = url.searchParams.get("to");
+      document.getElementById('flag1').setAttribute('data', 'static/flags/' + from_language + '.svg')
+      document.getElementById('flag2').setAttribute('data', 'static/flags/' + to_language + '.svg')
+
+      function backToCrossing() {
+	 location.href = 'crossing.html?from=' + from_language + '&to=' + to_language
+      }
+
+      const questionaire_json = `{{json_schema}}`
+      document.questionaire = JSON.parse(questionaire_json.split('&#34;').join('"'))
+
       document.page_number = 0
-      document.max_page_number = {{questions | length}} + 1
+      document.max_page_number = document.getElementsByClassName("page").length - 2
       function hideCurrentPage() {
         document.getElementById("page_" + document.page_number).style.display = "none"
       }
@@ -114,27 +130,26 @@
         document.getElementById("page_" + document.page_number).style.display = "initial"
       }
 
-      //TODI fill document.questionaire
-
       showCurrentPage()
       document.getElementById("nextButton").onclick = function(){
-          if (document.page_number < document.max_page_number - 1) {
-              hideCurrentPage()
-              document.page_number += 1
-              console.log("go to page " + document.page_number + " of " + document.max_page_number + " pages");
-              if (document.max_page_number - 1 === document.page_number) {
-                  //var answer = form_to_answer(document.questionaire);
-                  //write_answers(answer, document.questionaire);
-              }
-              showCurrentPage()
-          }
+	if (document.page_number < document.max_page_number) {
+          hideCurrentPage()
+          document.page_number += 1
+          if (document.max_page_number === document.page_number) {
+             document.answers = form_to_answer(document.questionaire)
+             write_answers(document.answers, document.questionaire)
+	  }
+          showCurrentPage()
+	}
       };
       document.getElementById("backButton").onclick = function(){
-          if (0 < document.page_number) {
-              hideCurrentPage()
-              document.page_number -= 1
-              showCurrentPage()
-          }
+	if (0 < document.page_number) {
+          hideCurrentPage()
+          document.page_number -= 1
+          showCurrentPage()
+	} else {
+	  backToCrossing()  
+	}
       };
 
       document.anwsers = {}
@@ -145,7 +160,7 @@
 	generate_qr_code_of_answer(document.anwsers)
 	hideCurrentPage()
         document.page_number += 1
-        //TODO showCurrentPage()
+        showCurrentPage()
       }
     </script>
 
