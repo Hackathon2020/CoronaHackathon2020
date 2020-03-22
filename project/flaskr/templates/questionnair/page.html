@@ -39,7 +39,7 @@
             {% set outer_loop = loop %}
             {% set page_nr = 'page_' + outer_loop.index0 | string %}
             <div id={{page_nr}} class="page">
-                <form class="question" id="question_{{question.question_id}}">
+                <form action="javascript:goNextPage();" class="question" id="question_{{question.question_id}}">
                 <div class="header">
                     <p>{{question.question_text}}</p>
                 </div>
@@ -144,8 +144,7 @@
          document.getElementById("page_" + document.page_number).style.display = "initial"
      }
 
-     showCurrentPage()
-     document.getElementById("nextButton").onclick = function(){
+    function goNextPage() {
          if (document.page_number < document.max_page_number) {
              hideCurrentPage()
              document.page_number += 1
@@ -155,6 +154,11 @@
              }
              showCurrentPage()
          }
+    }
+
+     showCurrentPage()
+     document.getElementById("nextButton").onclick = function(){
+         goNextPage()
      };
      document.getElementById("backButton").onclick = function(){
          if (0 < document.page_number) {
