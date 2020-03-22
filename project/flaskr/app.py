@@ -33,46 +33,6 @@ def create_app():
     def answer():
         return render_template("app/answer.html", title="Formula1")
 
-
-    # @app.route('/question')
-    # def question():
-    #     path_to_json_example_file = pathlib.Path(pathlib.Path(__file__).parent.parent.parent,
-    #                                              "json_schemas/questionaire_example.json")
-    #     #path_to_repo = "/home/kevin/Documents/hackathon" # subpath to CoronaHackthon2020 repo, for example /home/user/code/
-    #     #path_to_json_example_file = path_to_repo + "/CoronaHackathon2020/json_schemas/questionaire_example.json"
-    #     with open( path_to_json_example_file, 'r') as j:
-    #         contents = json.loads(j.read())
-    #     language_map = contents["language_map"]
-    #     options = ["2", "3", "4"]
-    #     questions = [Question("1", "string", options)]
-    #     questionaire = Questionaire("global_id", language_map, questions)
-    #     localized_questions = questionaire.localized_questions("german")
-    #     return render_template('app/questionaire.html', questions=localized_questions)
-    #     #render_template("app/question.html", title="Formula2")
-    #
-    #
-    # @app.route('/question/example_form/<question_id>/<language>', methods=["GET", "POST"])
-    # def example_form(language, question_id):
-    #     path_to_json_example_file = pathlib.Path(pathlib.Path(__file__).parent.parent.parent,
-    #                                              "json_schemas/questionaire_example.json")
-    #     with open(path_to_json_example_file, 'r') as j:
-    #         contents = json.loads(j.read())
-    #     language_map = contents["language_map"]
-    #     options = ["2", "3", "4"]
-    #     options1 = ["10", "11", "12"]
-    #     questions = [Question("1", "string", options), Question("9", "string", options1)]
-    #     questionaire = Questionaire("global_id", language_map, questions)
-    #     localized_questions = questionaire.localized_questions(language)
-    #     #form = forms.ReusableForm()
-    #     #form.change_language(language)
-    #     return render_template('app/questionaire.html', questions=localized_questions[int(question_id)])
-    #with open(path_to_json_example_file, 'r') as j:
-    #    contents = json.loads(j.read())
-    #    language_map = contents["language_map"]
-    #    questions =[]
-    #    for question in contents["question_map"]:
-    #        questions.append(Question("1", "string", options))
-    #    questions = [Question("1", "string", options), Question("9", "string", options1)]
     path_context = pathlib.Path(pathlib.Path(__file__).parent.parent.parent,
                                 "json_schemas/questionaire_schema.json")
     path_to_json_example_file = pathlib.Path(pathlib.Path(__file__).parent.parent.parent,

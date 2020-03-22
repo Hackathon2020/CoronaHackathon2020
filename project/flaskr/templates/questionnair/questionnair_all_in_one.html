@@ -14,31 +14,33 @@
 <body>
     <div class="container">
         {% for question in questions %}
-        <div class="header">
-            <p>{{question.question_text}}</p>
+        <div id="page_{{loop.index}}" class="page">
+            <div class="header">
+                <p>{{question.question_text}}</p>
+            </div>
+            {% if question.anwser_type == 'Checkbox' %}
+
+            {% elif question.anwser_type == 'String' %}
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                    </div>
+            {% elif question.anwser_type == 'Date' %}
+
+            {% elif question.anwser_type == 'LicensePlate' %}
+
+            {% elif question.anwser_type == 'PostCode' %}
+
+            {% elif question.anwser_type == 'RadioButtons' %}
+                 {% for option in question.options_texts %}
+                     <label class="questionnair">
+                        <div class="title">{{option}}</div>
+                        <input type="radio" name="customRadio">
+                        <span class="checkmark"></span>
+                    </label>
+                {% endfor %}
+            {% endif %}
         </div>
-        {% if question.anwser_type == 'Checkbox' %}
-
-        {% elif question.anwser_type == 'String' %}
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-                </div>
-        {% elif question.anwser_type == 'Date' %}
-
-        {% elif question.anwser_type == 'LicensePlate' %}
-
-        {% elif question.anwser_type == 'PostCode' %}
-
-        {% elif question.anwser_type == 'RadioButtons' %}
-             {% for option in question.options_texts %}
-                 <label class="questionnair">
-                    <div class="title">{{option}}</div>
-                    <input type="radio" name="customRadio">
-                    <span class="checkmark"></span>
-                </label>
             {% endfor %}
-        {% endif %}
-        {% endfor %}
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
