@@ -9,7 +9,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="css/pager.css" />
-  <style> div.page { display: none; } </style>
+    <link rel="stylesheet" href="css/string_question.css">
+    <style> div.page { display: none; } </style>
   </head>
 
   <body>
@@ -32,28 +33,12 @@
       </nav>
 
       <div id="page_0" class="page">
-        <div class="displayBlock">
-          <hr>
-          <p><b>Vorname</b><br/>Max</p>
+        <div class="header">
+           <p>Vorname</p>
         </div>
-        <div class="displayBlock">
-          <hr>
-          <p><b>Nachname</b><br/>Mustermann</p>
-        </div>
-        <div class="displayBlock">
-          <hr>
-          <p><b>Personalausweisnummer</b><br/>T22000129</p>
-        </div>
-        <div class="displayBlock">
-          <hr>
-          <p><b>Handynummer</b><br/>+49 160 23423423</p>
-        </div>
-        <div class="displayBlock">
-          <hr>
-          <p><b>Einreisegrund</b><br/>Geschäftlich</p>
-        </div>
-        <div class="displayBlock">
-          <hr>
+
+        <div class="input-group mb-3">
+           <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
         </div>
       </div> <!-- page_0 -->
       
@@ -89,7 +74,7 @@
     <!-- Navigation through the pages -->
     <script>
       document.page_number = 0
-      document.max_page_number = 1
+      document.max_page_number = document.getElementsByClassName("page").length - 1
       function hideCurrentPage() {
         document.getElementById("page_" + document.page_number).style.display = "none"
       }
