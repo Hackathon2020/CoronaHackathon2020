@@ -5,6 +5,8 @@ from PyQt5.QtWidgets import (
     QTableWidgetItem,
     QTableWidget,
     QAbstractItemView,
+    QMenuBar,
+    QAction
 )
 import json
 import uuid
@@ -62,14 +64,35 @@ def addLangDialog():
 
 
 def newDictDialog():
-    form.dict_table.clear()
-    form.dict_table.setRowCount(300)
-    form.dict_table.setColumnCount(2)
-    form.dict_table.setEditTriggers(QTableWidget.NoEditTriggers)
-    form.left_window.setCurrentIndex(0)
-    form.textEdit.setText("")
-    form.comboBox.setCurrentText("")
+    form.left_window.setCurrentIndex(4)
 
+    #form.dict_table.clear()
+    #form.dict_table.setRowCount(300)
+    #form.dict_table.setColumnCount(2)
+    #form.dict_table.setEditTriggers(QTableWidget.NoEditTriggers)
+    #form.left_window.setCurrentIndex(0)
+    #form.textEdit.setText("")
+    #form.comboBox.setCurrentText("")
+
+def newDictBeginDialog():
+    if form.new_language_field_2.toPlainText():
+
+        form.dict_table.clear()
+        form.dict_table.setRowCount(300)
+        form.dict_table.setColumnCount(1)
+        form.dict_table.setEditTriggers(QTableWidget.NoEditTriggers)
+
+        horHeaders = [form.new_language_field_2.toPlainText()]
+        form.dict_table.setHorizontalHeaderLabels(horHeaders)
+        form.dict_table.resizeColumnsToContents()
+        form.dict_table.resizeRowsToContents()
+
+        global language
+        language = form.new_language_field_2.toPlainText()
+
+        form.left_window.setCurrentIndex(0)
+        form.textEdit.setText("")
+        form.comboBox.setCurrentText("")
 
 def createTable():
     form.dict_table.clear()
@@ -169,6 +192,11 @@ def handleTableClick(row, column):
 
 
 def SetLeftWindow(idx):
+    global global_idx
+    global_idx=idx
+
+    updateLangInspectTable()
+
     form.left_window.setCurrentIndex(1)
     form.tableWidget.clear()
     # default view
@@ -177,8 +205,13 @@ def SetLeftWindow(idx):
     key = str(idx + 1)
     exists = len(dict_state) != 0 and idx < len(dict_state["question_map"])
     if exists:
-        c_quest = dict_state["language_map"][language][key]
-        c_ans = dict_state["question_map"][idx]["answer_type"]
+        question_id = dict_state["question_map"][idx]["question_id"]
+        if question_id in dict_state["language_map"][language]:
+            c_quest = dict_state["language_map"][language][question_id]
+            c_ans = dict_state["question_map"][idx]["answer_type"]
+        else:
+            c_ans = ""
+            c_quest = ""
     else:
         c_ans = ""
         c_quest = ""
@@ -195,11 +228,14 @@ def SetLeftWindow(idx):
         form.stackedWidget_2.setCurrentIndex(1)
         options = dict_state["question_map"][idx]["options"]
         for row, option in enumerate(options):
-            form.tableWidget.setItem(
-                row,
-                0,
-                QTableWidgetItem(dict_state["language_map"][language][option]),
-            )
+            try:
+                form.tableWidget.setItem(
+                    row,
+                    0,
+                    QTableWidgetItem(dict_state["language_map"][language][option]),
+                )
+            except:
+                pass
         form.tableWidget.resizeColumnsToContents()
         form.tableWidget.resizeRowsToContents()
     else:
@@ -208,6 +244,8 @@ def SetLeftWindow(idx):
 
 def createNewDict():
     hash = str(uuid.uuid4())
+    global dict_state
+    dict_state = dict()
     dict_state.update(
         {
             "global_questionaire_id": hash,
@@ -223,8 +261,35 @@ def changeOption():
     else:
         form.stackedWidget_2.setCurrentIndex(0)
 
+def changeLangInspecctMode(row, colum):
+    global language
+    language = form.tableWidget_2.item(row, colum).text()
+    global global_idx
+    SetLeftWindow(global_idx)
+
+def updateLangInspectTable():
+    try:
+        form.tableWidget_2.clear()
+        form.tableWidget_2.setColumnCount(1)
+        form.tableWidget_2.setRowCount(len(dict_state["language_map"]))
+        form.tableWidget_2.setHorizontalHeaderLabels(["Languages"])
+        form.tableWidget_2.setEditTriggers(QTableWidget.NoEditTriggers)
+
+        row_count = 0
+        for key, value in dict_state["language_map"].items():
+            form.tableWidget_2.setItem( row_count, 0, QTableWidgetItem(key))
+            row_count += 1
+
+        form.tableWidget_2.resizeColumnsToContents()
+        form.tableWidget_2.resizeRowsToContents()
+    except:
+        pass
+
+def cancel_inspect_mode():
+    form.left_window.setCurrentIndex(0)
 
 def writeToDict():
+
     #  load question mask
     quest_text = form.textEdit.toPlainText()
     answer_type = form.comboBox.currentIndex()
@@ -302,6 +367,9 @@ def writeToDict():
         form.left_window.setCurrentIndex(0)
 
 
+def close_application():
+    exit()
+
 app = QApplication([])
 window = Window()
 form = Form()
@@ -312,13 +380,50 @@ form.save_dict.clicked.connect(safeDialog)
 form.new_dict.clicked.connect(newDictDialog)
 form.add_language.clicked.connect(addLangDialog)
 form.new_language_button.clicked.connect(fillNewLanguage)
+form.new_language_button_2.clicked.connect(newDictBeginDialog)
 form.add_translation_next.clicked.connect(nextNewLanguage)
 form.add_translation_back.clicked.connect(prevNewLanguage)
 form.add_translation_finish.clicked.connect(finishNewLanguage)
 form.dict_table.cellClicked.connect(handleTableClick)
-form.buttonBox.clicked.connect(writeToDict)
+form.ok_button.clicked.connect(writeToDict)
+form.cancel_button.clicked.connect(cancel_inspect_mode)
 form.comboBox.currentIndexChanged.connect(changeOption)
+form.tableWidget_2.cellClicked.connect(changeLangInspecctMode)
 
+# create menu
+#menubar = QMenuBar()
+menubar = QMenuBar()
+window.setMenuBar(menubar)
+
+extractActionNew = QAction("New")
+extractActionNew.setShortcut("Ctrl+N")
+extractActionNew.setStatusTip('Create Dictonary')
+extractActionNew.triggered.connect(newDictDialog)
+menubar.addAction(extractActionNew)
+
+extractActionLoad = QAction("Load File")
+extractActionLoad.setShortcut("Ctrl+L")
+extractActionLoad.setStatusTip('Leave The App')
+extractActionLoad.triggered.connect(openDialog)
+menubar.addAction(extractActionLoad)
+
+extractActionSave = QAction("Save File")
+extractActionSave.setShortcut("Ctrl+S")
+extractActionSave.setStatusTip('Leave The App')
+extractActionSave.triggered.connect(safeDialog)
+menubar.addAction(extractActionSave)
+
+extractActionAddLan = QAction("Add Language")
+extractActionAddLan.setShortcut("Ctrl+Q")
+extractActionAddLan.setStatusTip('Leave The App')
+extractActionAddLan.triggered.connect(addLangDialog)
+menubar.addAction(extractActionAddLan)
+
+extractActionClose = QAction("Close")
+extractActionClose.setShortcut("Ctrl+Q")
+extractActionClose.setStatusTip('Leave The App')
+extractActionClose.triggered.connect(close_application)
+menubar.addAction(extractActionClose)
 
 window.show()
 app.exec_()
