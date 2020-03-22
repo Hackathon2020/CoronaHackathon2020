@@ -48,7 +48,7 @@
                 {% elif question.anwser_type == 'String' %}
                     {% set answer_id = 'answer_' + question.question_id | string %}
                         <div class="input-group mb-3">
-                            <input id={{answer_id}}  type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                            <input id={{answer_id}}  type="text" class="form-control" placeholder="...." aria-label="Default" aria-describedby="inputGroup-sizing-default">
                         </div>
                 {% elif question.anwser_type == 'Date' %}
 
@@ -75,14 +75,14 @@
         {% set overview_page = 'page_' + questions | length | string %}
         <div class="page" id={{overview_page}}>
         <!-- Navbar -->
-        <nav class="navbar navbar-light bg-light">
+        <nav class="navbar navbar-light">
             <div class="form-inline">
                 <!-- TODO: Variable -->
                 <h1>Überblick</h1>
             </div>
         </nav>
 
-        <div class="content-container jumbotron overflow-auto" style="height: 80vh;">
+        <div class="content-container jumbotron overflow-auto">
             {% for question in questions %}
             <div class="displayBlock" id="view_answer_{{question.question_id}}">
                 <hr>
@@ -102,7 +102,6 @@
     <div id="{{last_page}}" class="page"><!--TODO set correct ID-->
         <div class="row qr-container justify-content-center align-items-center qrcode" id="qrcode">
         </div>
-
     </div> 
     </div> <!-- container -->
     </div> <!-- background-container-->
