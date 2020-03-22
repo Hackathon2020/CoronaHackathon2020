@@ -4,7 +4,7 @@
  * Draws in container with id "qrcode", needs included "js/qrcode.js".
  */
 function generate_qr_code_of_answer(answer) {
-    var binary_encoded_answer = btoa(JSON.stringify(variable1));
+    var binary_encoded_answer = btoa(JSON.stringify(answer));
     var url = window.location.origin + "/answer?global_id=" + answer.global_questionaire_id + "&data=" + binary_encoded_answer;
     // FIXME calculate width and height according to window
     new QRCode(document.getElementById("qrcode"), {
@@ -72,13 +72,13 @@ function read_options(question_id, class_name) {
  *
  * Needs surrounding element with class "question" and id "question_" + id
  */
-function form_to_answer() {
-    var answer_map;
+function form_to_answer(questionaire) {
+    var answer_map = [];
     var questions = document.getElementsByClassName("question");
     for (i = 0; i < questions.length; i++) {
         var question_id = questions[i].id.split("_")[1];
         // TODO needs questionaire
-        var question = find_question(questionaire, question_id);
+        var question = find_question(questionaire.question_map, question_id);
         var answer = "";
         switch (question.answer_type) {
             case "String":
@@ -95,7 +95,7 @@ function form_to_answer() {
         }
         answer_map.push({ "question_id" : question_id , "answer" : answer});
     }
-    var answers = { "global_questionaire_id" : "TODO", "answer_map" : answer_map};
+    var answers = { "global_questionaire_id" : questionaire.global_questionaire_id, "answer_map" : answer_map};
     console.log("Answer is: " + JSON.stringify(answers));
     return answers;
 }

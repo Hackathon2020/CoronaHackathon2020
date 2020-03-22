@@ -1,6 +1,6 @@
 import json
 import jsonschema
-import questionaire
+import project.questionaire
 
 
 def read(filename):
