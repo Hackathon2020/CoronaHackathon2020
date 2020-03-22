@@ -24,7 +24,7 @@ function generate_qr_code_of_answer(answer) {
  * Needs html sting input element has class="form-control"
  */
 function read_string_answer(question_id) {
-    var question_element = document.getElementById(question_id);
+    var question_element = document.getElementById("question_" + question_id);
     var answer_element = question_element.getElementsByClassName("form-control")[0];
     return answer_element.value;
 }
@@ -56,6 +56,7 @@ function read_radio_answer(question_id) {
  * Helper function
  */
 function read_options(question_id, class_name) {
+    var question_element = document.getElementById("question_" + question_id);
     var answer_elements = question_element.getElementsByClassName(class_name);
     var answers = [];
     for (i = 0; i < answer_elements.length; i++) {
