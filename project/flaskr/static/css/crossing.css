@@ -1,16 +1,19 @@
+.container{
+width:600px;
+}
 .bordercross-question {
     height: 48vh;
     padding-bottom: 2vh;
 }
 
 .flagscontainer {
-    height: 48vh;
+    height: 44.5vh;
     padding-top: 2vh;
 }
 
 .flag-btn {
-    height: 140%;
-    width: 140%;
+    height: 100%;
+    width: 100%;
     padding: 10px 30px 10px 10px;
 }
 
@@ -28,6 +31,9 @@
 background: #E1E3E6;;
 }
 
+.dropdown{
+max-width: unset;
+}
 .dropdown-item{
 background: #E1E3E6;
 }
