@@ -24,9 +24,24 @@
     width: 75%;
 }
 
-.dropdown-menu {
-    background-color: #6c757d;
+.btn{
+background: #E1E3E6;;
+}
+
+.dropdown-item{
+background: #E1E3E6;
+}
+.dropdown-menu{
+background: #E1E3E6;
 }
 .dropdown-menu.show {
     width: 25px;
+}
+
+.current-language{
+color:black;
+}
+
+.background-container{
+background: linear-gradient(180deg, #DADADA 0%, #F1F1F1 105.3%, #F1F1F1 105.31%, #FFFFFF 105.32%);
 }

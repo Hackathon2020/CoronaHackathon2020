@@ -435,7 +435,6 @@ def main():
 
     Form, Window = uic.loadUiType(pathlib.Path(project_dir, "test_gui.ui"))
 
-
     app = QApplication([])
     window = Window()
     form = Form()
@@ -494,6 +493,7 @@ def main():
 
     window.show()
     app.exec_()
+
 
 if __name__ == "__main__":
     main()
