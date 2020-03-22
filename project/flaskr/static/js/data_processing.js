@@ -15,7 +15,7 @@ function removeAllChildren(node) {
  */
 function generate_qr_code_of_answer(answer) {
     var binary_encoded_answer = btoa(JSON.stringify(answer));
-    var url = window.location.origin + "/answer?global_id=" + answer.global_questionaire_id + "&data=" + binary_encoded_answer;
+    var url = window.location.href + "&global_id=" + answer.global_questionaire_id + "&data=" + binary_encoded_answer;
     node = document.getElementById("qrcode")
     removeAllChildren(node)
     new QRCode(node, {
@@ -119,11 +119,11 @@ function form_to_answer(questionaire) {
  * returns json object of answer
  */
 function get_answer_from_url() {
-    var url = window.location.href;
+    var url = new URL(window.location);
     var c = url.searchParams.get("data");
     var answer = atob(c);
-    console.log("Received answer is: " + JSON.stringify(answer));
-    return answer;
+    console.log("Received answer is: " + answer);
+    return JSON.parse(answer);
 }
 
 /**

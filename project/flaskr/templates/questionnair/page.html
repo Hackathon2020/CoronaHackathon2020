@@ -95,7 +95,14 @@
             </div>
         </div>
 
-    <button type="button" class="btn btn-outline-primary toQr" onclick="createQRCode()">QR-Code</button>
+        <div id="send-button">
+          <button type="button" class="btn btn-outline-primary toQr" onclick="createQRCode()">QR-Code</button>
+        </div>
+        <div id="accept-buttons">
+          <button type="button" class="btn btn-outline-primary toQr" onclick="">Accept</button>
+          <button type="button" class="btn btn-outline-primary toQr" onclick="">Deny</button>
+        </div>
+
     </div>
 
     {% set last_page = 'page_' + (questions | length  + 1) | string %}
@@ -174,6 +181,38 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="static/js/data_processing.js"></script>
     <script src="static/js/qrcode.js"></script>
+    <script>
+    /*
+     * decide between questionaire and control view (needs included data_processing.js)
+     *
+     */
+    var url = new URL(window.location);
+    var data = url.searchParams.get("data");
+    if (data) {
+        // show control view
+        console.log("show control view");
+
+        // decode answer
+        var answers = get_answer_from_url();
+        write_answers(answers, document.questionaire)
+
+        // go to overview
+        hideCurrentPage()
+        document.page_number = document.max_page_number;
+        showCurrentPage()
+
+        // show correct button
+        document.getElementById("send-button").style.display = "none";
+        document.getElementById("accept-buttons").style.display = "initial";
+    } else {
+        // show questionaire view -- do nothing
+        console.log("show questionaire");
+
+        // show correct button
+        document.getElementById("send-button").style.display = "initial";
+        document.getElementById("accept-buttons").style.display = "none";
+    }
+    </script>
   </body>
 </html>
 
