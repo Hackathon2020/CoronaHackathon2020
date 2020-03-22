@@ -38,6 +38,7 @@
             {% set outer_loop = loop %}
             {% set page_nr = 'page_' + outer_loop.index0 | string %}
             <div id={{page_nr}} class="page">
+                <form class="question" id="question_{{question.question_id}}">
                 <div class="header">
                     <p>{{question.question_text}}</p>
                 </div>
@@ -65,12 +66,13 @@
                         </label>
                     {% endfor %}
                 {% endif %}
+                </form>
             </div>
             {% endfor %}
 
         <!--- Overview -->
-        {% set last_page = 'page_' + questions | length | string %}
-        <div class="page" id={{last_page}}>
+        {% set overview_page = 'page_' + questions | length | string %}
+        <div class="page" id={{overview_page}}>
         <!-- Navbar -->
         <nav class="navbar navbar-light bg-light">
             <div class="form-inline">
@@ -81,26 +83,46 @@
 
         <div class="content-container jumbotron overflow-auto" style="height: 80vh;">
             {% for question in questions %}
-            <div class="displayBlock">
+            <div class="displayBlock" id="view_answer_{{question.question_id}}">
                 <hr>
-                <p><b>{{question.question_text}}</b><br/>Placeholder</p>
+                <p><b>{{question.question_text}}</b><br/><span class="answer">Placeholder</span></p>
             </div>
             {% endfor %}
 
             <div class="displayBlock">
                 <hr>
             </div>
-        <div>
+        </div>
 
-    <button type="button" class="btn btn-outline-primary toQr">--> QR (Placeholder)</button>
+    <button type="button" class="btn btn-outline-primary toQr" onclick="createQRCode()">QR-Code</button>
     </div>
+
+    {% set last_page = 'page_' + (questions | length  + 1) | string %}
+    <div id="{{last_page}}" class="page"><!--TODO set correct ID-->
+        <div class="row qr-container justify-content-center align-items-center qrcode" id="qrcode">
+        </div>
+    </div> <!-- page_2 -->
 
     </div> <!-- container -->
 
     <!-- Navigation through the pages -->
     <script>
+      // set flags in pager in nav-bar correctly
+      var url = new URL(window.location);
+      var from_language = url.searchParams.get("from");
+      var to_language = url.searchParams.get("to");
+      document.getElementById('flag1').setAttribute('data', 'static/flags/' + from_language + '.svg')
+      document.getElementById('flag2').setAttribute('data', 'static/flags/' + to_language + '.svg')
+
+      function backToCrossing() {
+	 location.href = 'crossing?from=' + from_language + '&to=' + to_language
+      }
+
+      const questionaire_json = `{{json_schema}}`
+      document.questionaire = JSON.parse(questionaire_json.split('&#34;').join('"'))
+
       document.page_number = 0
-      document.max_page_number = {{questions | length}} + 1
+      document.max_page_number = document.getElementsByClassName("page").length - 2
       function hideCurrentPage() {
         document.getElementById("page_" + document.page_number).style.display = "none"
       }
@@ -114,7 +136,8 @@
           hideCurrentPage()
           document.page_number += 1
           if (document.max_page_number === document.page_number) {
-             form_to_answer(document.questionaire)
+             document.answers = form_to_answer(document.questionaire)
+             write_answers(document.answers, document.questionaire)
 	  }
           showCurrentPage()
 	}
@@ -124,15 +147,17 @@
           hideCurrentPage()
           document.page_number -= 1
           showCurrentPage()
+	} else {
+	  backToCrossing()  
 	}
       };
 
-      document.anwsers = {}
-      document.anwsers.global_questionaire_id = "the id"
-      document.anwsers.anwser_map = {}
+      document.answers = {}
+      document.answers.global_questionaire_id = "the id"
+      document.answers.anwser_map = {}
       
       function createQRCode() {
-	generate_qr_code_of_answer(document.anwsers)
+	generate_qr_code_of_answer(document.answers)
 	hideCurrentPage()
         document.page_number += 1
         showCurrentPage()
