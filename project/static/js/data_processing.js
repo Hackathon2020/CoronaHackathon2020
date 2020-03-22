@@ -204,3 +204,23 @@ function getCookie(cname) {
     return "";
 }
 
+function getBrowserLanguage() {
+  switch(navigator.language) {
+    case "de":
+      return "german"
+    case "en":
+    default:
+      return "english"
+  }
+}
+
+function getLandForLanguage(lang) {
+   switch(lang) {
+     case "german":
+       return "germany"
+     default:
+       return "england"
+   }
+}
+
+
