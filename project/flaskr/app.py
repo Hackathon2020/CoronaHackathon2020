@@ -19,7 +19,7 @@ def create_app():
     def index():
         return render_template("app/informations.html")
 
-    @app.route("/language")
+    @app.route("/")
     def language_selection():
         return render_template("app/language.html")
         pass

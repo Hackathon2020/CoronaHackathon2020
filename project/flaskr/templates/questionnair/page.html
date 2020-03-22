@@ -102,8 +102,30 @@
     <div id="{{last_page}}" class="page"><!--TODO set correct ID-->
         <div class="row qr-container justify-content-center align-items-center qrcode" id="qrcode">
         </div>
-    </div> <!-- page_2 -->
 
+    </div> <!-- page_2 -->
+             <div class="page"  id=page_19>
+            <!-- TODO: Get overview from Answers -->
+            <div class="header">
+                <p>Formular akzeptieren?</p>
+            </div>
+                <div class="content-container jumbotron overflow-auto" style="height: 80vh;">
+            {% for question in questions %}
+            <div class="displayBlock">
+                <hr>
+                <p><b>{{question.question_text}}</b><br/>Placeholder</p>
+            </div>
+            {% endfor %}
+
+            <div class="displayBlock">
+                <hr>
+            </div>
+              </div>
+            <div class="buttons">
+                <button class="buttonNo"><i class="fas fa-times"></i></button>
+                <button class="buttonYes"><i class="fas fa-check"></i></button>
+            </div>
+        </div>
     </div> <!-- container -->
     </div> <!-- background-container>
 
@@ -124,7 +146,7 @@
       document.questionaire = JSON.parse(questionaire_json.split('&#34;').join('"'))
 
       document.page_number = 0
-      document.max_page_number = document.getElementsByClassName("page").length - 2
+      document.max_page_number = {{questions | length}} + 3//document.getElementsByClassName("page").length - 2
       function hideCurrentPage() {
         document.getElementById("page_" + document.page_number).style.display = "none"
       }
@@ -132,9 +154,11 @@
         document.getElementById("page_" + document.page_number).style.display = "initial"
       }
 
+      //TODI fill document.questionaire
+
       showCurrentPage()
       document.getElementById("nextButton").onclick = function(){
-	if (document.page_number < document.max_page_number) {
+	if (document.page_number <= document.max_page_number) {
           hideCurrentPage()
           document.page_number += 1
           if (document.max_page_number === document.page_number) {
@@ -150,7 +174,7 @@
           document.page_number -= 1
           showCurrentPage()
 	} else {
-	  backToCrossing()  
+	  backToCrossing()
 	}
       };
 
