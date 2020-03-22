@@ -1,0 +1,119 @@
+/* Customize the label (the questionnair) */
+.questionnair {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.questionnair input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 47px;
+  width: 47px;
+  background-color: #eee;
+  background: rgba(225, 227, 230, 0.6);
+  border: 3px solid rgba(0, 0, 0, 0.6);
+  border-radius: 15px;
+}
+
+/* On mouse-over, add a grey background color */
+.questionnair:hover input ~ .checkmark {
+  background-color: #E1E3E6;
+}
+
+/* When the radio button is checked, add a background */
+.questionnair input:checked ~ .checkmark {
+  background-color: #E1E3E6;
+}
+
+/* Create the checkmark/indicator (hidden when not checked)  */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.questionnair input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.questionnair .checkmark:after {
+  left: calc((47px - 10px) / 2 - 3px);
+  top: calc((47px - 20px) / 2 - 6px);
+  width: 10px;
+  height: 20px;
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+} 
+
+div.header {
+    height: 250px !important;
+    width: 100% !important;
+    margin: 0px !important;
+    padding: 10px;
+}
+div.header p {
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 35px;
+}
+
+div.title {
+    width: calc(100% - 15px) !important;
+    margin: 0px !important;
+    margin-left: 15px !important;
+}
+
+div.title, div.header {
+    background: rgba(225, 227, 230, 0.6);
+    border: 3px solid rgba(0, 0, 0, 0.6);
+    border-radius: 15px;
+    height: 47px;
+    width: 200px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 22px;
+    text-indent: 15px;
+    
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+}
+
+label {
+    margin: 17px 0px 0px 0px;
+}
+
+div.container {
+    width: 600px;
+    height: 600%;
+    padding: 0px !important;
+}
