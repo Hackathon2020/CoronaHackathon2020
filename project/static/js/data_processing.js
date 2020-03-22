@@ -116,18 +116,17 @@ function get_answer_from_url() {
 /**
  * Writes answer text to corresponding question html elements
  *
- * Answer element needs class "answer" and surrounding element with id is "question_" + question id.
+ * Answer element needs class "answer" and surrounding element with id is "answer_" + question id.
  */
-function write_answers(answers) {
+function write_answers(answers, questionaire) {
     var list = answers.answer_map;
     for (i = 0; i < list.length; ++i) {
-        var question = document.getElementById("question_" + list[i].question_id);
-        var ans_elem = question.getElementsByClassName("answer");
-        // TODO needs questionaire
+        var question = document.getElementById("answer_" + list[i].question_id);
+        var ans_elem = question.getElementsByClassName("answer")[0];
         // FIXME use selected language
         var text = localized_answer(list[i], questionaire, "german");
         var text_elem = document.createTextNode(text.answer_text);
-        ans_elem.appendChild(text);
+        ans_elem.appendChild(text_elem);
     }
 }
 
@@ -145,17 +144,17 @@ function find_question(question_map, question_id) {
 /**
  * Helper function
  */
-function localized_anwser(anwser, questionaire, language) {
-   var question_text = questionaire.language_map[language][anwser.question_id]
-   var question = find_question(questionaire.question_map, anwser.question_id)
-   var anwser_needs_translation = !(typeof question.options === 'undefined')
-   var anwser_text = anwser.answer
-   if (anwser_needs_translation) {
-     anwser_text = questionaire.language_map[language][anwser_text]
+function localized_answer(answer, questionaire, language) {
+   var question_text = questionaire.language_map[language][answer.question_id]
+   var question = find_question(questionaire.question_map, answer.question_id)
+   var answer_needs_translation = !(typeof question.options === 'undefined')
+   var answer_text = answer.answer
+   if (answer_needs_translation) {
+     answer_text = questionaire.language_map[language][answer_text]
    }
 
    return {
      question_text: question_text,
-     anwser_text: anwser_text
+     answer_text: answer_text
    }
 }
