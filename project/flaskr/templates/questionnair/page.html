@@ -103,7 +103,7 @@
         </div>
 
     </div> <!-- page_2 -->
-             <div class="page"  id=page_18>
+             <div class="page"  id=page_19>
             <!-- TODO: Get overview from Answers -->
             <div class="header">
                 <p>Formular akzeptieren?</p>
@@ -144,7 +144,7 @@
       document.questionaire = JSON.parse(questionaire_json.split('&#34;').join('"'))
 
       document.page_number = 0
-      document.max_page_number = document.getElementsByClassName("page").length - 2
+      document.max_page_number = {{questions | length}} + 3//document.getElementsByClassName("page").length - 2
       function hideCurrentPage() {
         document.getElementById("page_" + document.page_number).style.display = "none"
       }
@@ -156,7 +156,7 @@
 
       showCurrentPage()
       document.getElementById("nextButton").onclick = function(){
-	if (document.page_number < document.max_page_number) {
+	if (document.page_number <= document.max_page_number) {
           hideCurrentPage()
           document.page_number += 1
           if (document.max_page_number === document.page_number) {
