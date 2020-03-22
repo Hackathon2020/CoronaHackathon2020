@@ -10,7 +10,7 @@ Unser Demovideo findest du [hier](https://youtu.be/CkHWGN4aRxE).
 ## Quick Start
 
 ### 1. Installiere unsere App
-Erstelle am besten zuerst eine [Virtuelle Umgebung](https://virtualenv.pypa.io/en/latest/) dann installiere unsere App in Python
+Erstelle am besten zuerst eine [Virtuelle Umgebung](https://virtualenv.pypa.io/en/latest/), dann installiere unsere App in Python
 ```
 $ git clone https://github.com/Hackathon2020/CoronaHackathon2020
 $ pip install CoronaHackathon2020
