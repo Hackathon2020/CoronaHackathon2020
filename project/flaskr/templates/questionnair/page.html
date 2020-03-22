@@ -99,53 +99,84 @@
     <div id="{{last_page}}" class="page"><!--TODO set correct ID-->
         <div class="row qr-container justify-content-center align-items-center qrcode" id="qrcode">
         </div>
-    </div> <!-- page_2 -->
 
+    </div> <!-- page_2 -->
+             <div class="page"  id=page_18>
+            <!-- TODO: Get overview from Answers -->
+            <div class="header">
+                <p>Formular akzeptieren?</p>
+            </div>
+                <div class="content-container jumbotron overflow-auto" style="height: 80vh;">
+            {% for question in questions %}
+            <div class="displayBlock">
+                <hr>
+                <p><b>{{question.question_text}}</b><br/>Placeholder</p>
+            </div>
+            {% endfor %}
+
+            <div class="displayBlock">
+                <hr>
+            </div>
+              </div>
+            <div class="buttons">
+                <button class="buttonNo"><i class="fas fa-times"></i></button>
+                <button class="buttonYes"><i class="fas fa-check"></i></button>
+            </div>
+        </div>
     </div> <!-- container -->
 
     <!-- Navigation through the pages -->
     <script>
+      //var url = new URL(window.location);
+      //var from_language = url.searchParams.get("from");
+      //var to_language = url.searchParams.get("to");
+      //document.getElementById('flag1').setAttribute('data', 'static/flags/' + from_language + '.svg')
+      //document.getElementById('flag2').setAttribute('data', 'static/flags/' + to_language + '.svg')
+
+      function backToCrossing() {
+	 location.href = 'crossing.html?from=' + from_language + '&to=' + to_language
+      }
+
       document.page_number = 0
-      document.max_page_number = {{questions | length}} + 1
-      function hideCurrentPage() {
+      document.max_page_number = {{questions | length}} + 2
+        function hideCurrentPage() {
         document.getElementById("page_" + document.page_number).style.display = "none"
       }
       function showCurrentPage() {
         document.getElementById("page_" + document.page_number).style.display = "initial"
       }
 
-      //TODI fill document.questionaire
-
       showCurrentPage()
       document.getElementById("nextButton").onclick = function(){
-          if (document.page_number < document.max_page_number - 1) {
-              hideCurrentPage()
-              document.page_number += 1
-              console.log("go to page " + document.page_number + " of " + document.max_page_number + " pages");
-              if (document.max_page_number - 1 === document.page_number) {
-                  //var answer = form_to_answer(document.questionaire);
-                  //write_answers(answer, document.questionaire);
-              }
-              showCurrentPage()
-          }
+	if (document.page_number < document.max_page_number) {
+          hideCurrentPage()
+          document.page_number += 1
+          if (document.max_page_number === document.page_number) {
+             document.answers = form_to_answer(document.questionaire)
+             write_answers(document.answers, document.questionaire)
+	  }
+          showCurrentPage()
+	}
       };
       document.getElementById("backButton").onclick = function(){
-          if (0 < document.page_number) {
-              hideCurrentPage()
-              document.page_number -= 1
-              showCurrentPage()
-          }
+	if (0 < document.page_number) {
+          hideCurrentPage()
+          document.page_number -= 1
+          showCurrentPage()
+	} else {
+	  backToCrossing()
+	}
       };
 
-      document.anwsers = {}
-      document.anwsers.global_questionaire_id = "the id"
-      document.anwsers.anwser_map = {}
-      
+      document.answers = {}
+      document.answers.global_questionaire_id = document.questionaire.global_questionaire_id
+      document.answers.answer_map = {}
+
       function createQRCode() {
-	generate_qr_code_of_answer(document.anwsers)
+	generate_qr_code_of_answer(document.answers)
 	hideCurrentPage()
         document.page_number += 1
-        //TODO showCurrentPage()
+        showCurrentPage()
       }
     </script>
 
