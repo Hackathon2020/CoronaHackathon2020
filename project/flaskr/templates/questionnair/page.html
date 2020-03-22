@@ -115,63 +115,62 @@
 
     <!-- Navigation through the pages -->
     <script>
-      // set flags in pager in nav-bar correctly
-      var url = new URL(window.location);
-      var from_language = url.searchParams.get("from");
-      var to_language = url.searchParams.get("to");
-      document.getElementById('flag1').setAttribute('data', 'static/flags/' + from_language + '.svg')
-      document.getElementById('flag2').setAttribute('data', 'static/flags/' + to_language + '.svg')
+     // set flags in pager in nav-bar correctly
+     var url = new URL(window.location);
+     var from_language = url.searchParams.get("from");
+     var to_language = url.searchParams.get("to");
+     document.getElementById('flag1').setAttribute('data', 'static/flags/' + from_language + '.svg')
+     document.getElementById('flag2').setAttribute('data', 'static/flags/' + to_language + '.svg')
 
-      function backToCrossing() {
-	 location.href = 'crossing?from=' + from_language + '&to=' + to_language
-      }
+     function backToCrossing() {
+         location.href = 'crossing?from=' + from_language + '&to=' + to_language
+     }
 
-      const questionaire_json = `{{json_schema}}`
-      document.questionaire = JSON.parse(questionaire_json.split('&#34;').join('"'))
+     const questionaire_json = `{{json_schema}}`
+     document.questionaire = JSON.parse(questionaire_json.split('&#34;').join('"'))
 
-      document.page_number = 0
-      document.max_page_number = document.getElementsByClassName("page").length - 2
-      function hideCurrentPage() {
-        document.getElementById("page_" + document.page_number).style.display = "none"
-      }
-      function showCurrentPage() {
-        document.getElementById("page_" + document.page_number).style.display = "initial"
-      }
+     document.page_number = 0
+     document.max_page_number = document.getElementsByClassName("page").length - 2
+     function hideCurrentPage() {
+         document.getElementById("page_" + document.page_number).style.display = "none"
+     }
+     function showCurrentPage() {
+         document.getElementById("page_" + document.page_number).style.display = "initial"
+     }
 
-      //TODI fill document.questionaire
+     showCurrentPage()
+     document.getElementById("nextButton").onclick = function(){
+         if (document.page_number < document.max_page_number) {
+             hideCurrentPage()
+             document.page_number += 1
+             if (document.max_page_number === document.page_number) {
+                 document.answers = form_to_answer(document.questionaire)
+                 write_answers(document.answers, document.questionaire)
+             }
+             showCurrentPage()
+         }
+     };
+     document.getElementById("backButton").onclick = function(){
+         if (0 < document.page_number) {
+             hideCurrentPage()
+             document.page_number -= 1
+             showCurrentPage()
+         } else {
+             backToCrossing()
+         }
+     };
 
-      showCurrentPage()
-      document.getElementById("nextButton").onclick = function(){
-	if (document.page_number < document.max_page_number) {
-          hideCurrentPage()
-          document.page_number += 1
-          if (document.max_page_number === document.page_number) {
-             document.answers = form_to_answer(document.questionaire)
-             write_answers(document.answers, document.questionaire)
-	  }
-          showCurrentPage()
-	}
-      };
-      document.getElementById("backButton").onclick = function(){
-	if (0 < document.page_number) {
-          hideCurrentPage()
-          document.page_number -= 1
-          showCurrentPage()
-	} else {
-	  backToCrossing()
-	}
-      };
+    document.answers = {}
+    document.answers.global_questionaire_id = "the id"
+    document.answers.anwser_map = {}
 
-      document.answers = {}
-      document.answers.global_questionaire_id = "the id"
-      document.answers.anwser_map = {}
-      
-      function createQRCode() {
-	generate_qr_code_of_answer(document.answers)
-	hideCurrentPage()
+    function createQRCode() {
+        generate_qr_code_of_answer(document.answers)
+        hideCurrentPage()
         document.page_number += 1
         showCurrentPage()
-      }
+    }
+
     </script>
 
     <!-- Optional JavaScript -->
