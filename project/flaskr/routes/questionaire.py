@@ -16,7 +16,7 @@ def get_questionaire_blueprint(language="English"):
     #questionaire = read("/home/maximilianbeier/ws/CoronaHackathon2020/json_schemas/questionaire_example.json")
     @questionnair.route("/questionnair")
     def questionnaire_begin():
-            return render_template("questionnair.html", questions=localized_questions[0])
+            return render_template("questionnair.html", questions=localized_questions)
 
 
 

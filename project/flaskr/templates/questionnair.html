@@ -13,15 +13,17 @@
 
 <body>
     <div class="container">
+        {% for question in questions %}
         <div class="header">
-            <p>{{questions.question_text}}</p>
+            <p>{{question.question_text}}</p>
         </div>
-         {% for option in questions.options_text %}
+         {% for option in question.options_text %}
              <label class="questionnair">
                 <div class="title">{{option}}</div>
-                <input type="radio" name="customRadio">
+                <input type="radio", id="answer_{{loop.index}}" name="customRadio">
                 <span class="checkmark"></span>
             </label>
+        {% endfor %}
         {% endfor %}
     </div>
 
