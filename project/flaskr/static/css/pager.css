@@ -1,0 +1,28 @@
+div.container i {
+    font-size: 51px;
+}
+
+object {
+    height: 30px;
+    display:inline-block;
+    vertical-align:middle;
+}
+
+div.middle i {
+    font-size: 25px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+button {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+

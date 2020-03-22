@@ -1,0 +1,25 @@
+.information {
+    height: 80vh;
+    margin: auto;
+}
+.page-wrap {
+  padding: 20px 60px;
+}
+
+.text-box {
+  margin: auto;
+  background: C4C4C4;
+  font-family: Comfortaa;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 35px;
+    
+  display: flex;
+align-items: center;
+text-align: center;
+
+color: #000000;
+}
+
+

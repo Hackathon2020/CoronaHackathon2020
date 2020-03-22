@@ -11,6 +11,8 @@ install_requires = [ #what packages are required
     #"chainer",
     #"numpy",
     #"pandas",  # for csv dataset and eval pipeline
+    "flask",
+    "jsonschema"
 ]
 
 install_full = [  # for extra functionality e.g. features in development

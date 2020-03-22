@@ -119,3 +119,6 @@ results/
 data/
 migrations/
 *.env
+
+# MacOs
+.DS_Store
