@@ -16,6 +16,9 @@ div.middle i {
     margin-right: 10px;
 }
 
+.navbar {
+background: none;
+}
 button {
     background: none;
     color: inherit;
