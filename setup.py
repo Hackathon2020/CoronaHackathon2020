@@ -11,6 +11,8 @@ install_requires = [ #what packages are required
     #"chainer",
     #"numpy",
     #"pandas",  # for csv dataset and eval pipeline
+    "flask-bootstrap"
+    "flask-wtf"
     "flask",
     "jsonschema"
 ]

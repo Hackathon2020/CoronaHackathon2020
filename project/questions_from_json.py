@@ -1,6 +1,5 @@
 import json
 import jsonschema
-import pathlib
 import project.questionaire as questionaire
 
 
@@ -9,6 +8,7 @@ def read(filename, context):
     Reads questionaire from file
 
     :param filename -- path to file containing questionaire
+    :param context -- filepath to the schema files
     :rtype questionaire.Questionaire
     :return a questionaire
     """

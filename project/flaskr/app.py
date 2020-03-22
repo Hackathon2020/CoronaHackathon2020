@@ -10,6 +10,11 @@ from project.questions_from_json import read
 
 
 def create_app():
+    """
+    Create the Flask app for Grenz-er-fahrung: An easy to use Web Service to cross borders fast and efficient.
+    Returns: Flask App
+
+    """
     app = Flask(__name__, template_folder=template_folder, static_folder=static_folder)
     Bootstrap(app)
 
@@ -17,16 +22,31 @@ def create_app():
     #@app.route('/index')
     @app.route('/information')
     def index():
+        """
+        Page for the information -> General Information about the Crossing
+        Returns: Template for Information
+
+        """
         return render_template("app/informations.html")
 
     @app.route("/")
     @app.route("/language")
     def language_selection():
+        """
+        Page for language Selection -> Language for the questionnaire
+        Returns: HTML Page
+
+        """
         return render_template("app/language.html")
         pass
 
     @app.route("/crossing")
     def border_selection():
+        """
+        Page for which border to cross
+        Returns: HTML Page
+
+        """
         return render_template("app/crossing.html")
 
     @app.route('/answer')
