@@ -60,8 +60,7 @@ setup(
     extras_require=extras_require,
     zip_safe=False,
     scripts=[
-        "project/grenz-app", #script files that can be called as package
-        "project/beamten-app", #script files that can be called as package
+        "project/grenz-er-fahrung", #script files that can be called as package
         "project/dict-gener-app", #script files that can be called as package
     ],
     python_requires=">=3.8",
