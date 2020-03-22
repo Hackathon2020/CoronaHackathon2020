@@ -1,6 +1,6 @@
 
 class Questionaire:
-    """ holds all relevant data of a questionaire
+    """ holds all relevant data of a questionnaire
     """
     global_questionaire_id = ""
     language_map = {}
@@ -8,10 +8,10 @@ class Questionaire:
 
     """ initialization
 
-    :paran str global_id -- the globally unique identifier of this questionaire. This is needed to connect questionaires with anwsers.
-    :param dict language_map -- (dict of str: (str: str)) -- containes the text-snippets used in this questionaire in every supported language. \
+    :paran str global_id -- the globally unique identifier of this questionnaire. This is needed to connect questionnaires with anwsers.
+    :param dict language_map -- (dict of str: (str: str)) -- contains the text-snippets used in this questionaire in every supported language. \
                                                              The mapping is "language" -> "id" -> "text
-    :param list questions -- (list of Question)the actual questions in the questionaire
+    :param list questions -- (list of Question)the actual questions in the questionnaire
     """
     def __init__(self, global_id, language_map, questions):
         assert type(global_id) is str
@@ -22,7 +22,7 @@ class Questionaire:
         self.questions = questions
 
     """
-    Creteas a localized list of the questions for the given language
+    Creates a localized list of the questions for the given language
 
     :param str language -- the language to localize to
     :rtype list of LocalizedQuestion
@@ -42,9 +42,10 @@ class Question:
 
     """ initialization
 
-    :param str question_id -- the identifier of the question. This is needed to idenitify the corresponing question test stored in the Questionaire'S language_map and associate questions with anwsers
-    :param str anwser_type -- which kind of anwser is expected (string, date, PLZ,...)
-    :param list options -- optional (array of strings) specifies all possible anwsers
+    :param str question_id -- the identifier of the question. This is needed to identify the corresponding 
+    question test stored in the Questionnaire'S language_map and associate questions with answers
+    :param str answer_type -- which kind of answer is expected (string, date, PLZ,...)
+    :param list options -- optional (array of strings) specifies all possible answers
     """
     def __init__(self, question_id, anwser_type, options=[]):
         assert type(question_id ) is str
