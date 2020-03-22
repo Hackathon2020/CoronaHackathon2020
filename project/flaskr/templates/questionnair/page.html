@@ -38,7 +38,7 @@
             {% set outer_loop = loop %}
             {% set page_nr = 'page_' + outer_loop.index0 | string %}
             <div id={{page_nr}} class="page">
-                <form id="question_{{question.question_id}}">
+                <form class="question" id="question_{{question.question_id}}">
                 <div class="header">
                     <p>{{question.question_text}}</p>
                 </div>
@@ -83,9 +83,9 @@
 
         <div class="content-container jumbotron overflow-auto" style="height: 80vh;">
             {% for question in questions %}
-            <div class="displayBlock">
+            <div class="displayBlock" id="view_answer_{{question.question_id}}">
                 <hr>
-                <p><b>{{question.question_text}}</b><br/>Placeholder</p>
+                <p><b>{{question.question_text}}</b><br/><span class="answer">Placeholder</span></p>
             </div>
             {% endfor %}
 
@@ -152,12 +152,12 @@
 	}
       };
 
-      document.anwsers = {}
-      document.anwsers.global_questionaire_id = "the id"
-      document.anwsers.anwser_map = {}
+      document.answers = {}
+      document.answers.global_questionaire_id = "the id"
+      document.answers.anwser_map = {}
       
       function createQRCode() {
-	generate_qr_code_of_answer(document.anwsers)
+	generate_qr_code_of_answer(document.answers)
 	hideCurrentPage()
         document.page_number += 1
         showCurrentPage()
