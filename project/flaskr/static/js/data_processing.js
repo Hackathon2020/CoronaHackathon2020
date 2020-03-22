@@ -95,6 +95,7 @@ function form_to_answer(questionaire) {
         var answer = "";
         switch (question.answer_type) {
             case "String":
+            case "Date":
                 answer = read_string_answer(question_id);
                 break;
             case "Checkbox":
