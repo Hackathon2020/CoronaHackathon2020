@@ -1,3 +1,13 @@
+
+/**
+ * Removed all child-elements of a given DOM-node
+ */
+function removeAllChildren(node) {
+  while (node.firstChild) {
+      node.removeChild(node.lastChild);
+  }
+}
+
 /**
  * Generates and displays QR-Code encoding the json encoded answers
  *
@@ -6,8 +16,9 @@
 function generate_qr_code_of_answer(answer) {
     var binary_encoded_answer = btoa(JSON.stringify(answer));
     var url = window.location.origin + "/answer?global_id=" + answer.global_questionaire_id + "&data=" + binary_encoded_answer;
-    // FIXME calculate width and height according to window
-    new QRCode(document.getElementById("qrcode"), {
+    node = document.getElementById("qrcode")
+    removeAllChildren(node)
+    new QRCode(node, {
         text: url,
         width: 700,
         height: 700,
@@ -116,18 +127,17 @@ function get_answer_from_url() {
 /**
  * Writes answer text to corresponding question html elements
  *
- * Answer element needs class "answer" and surrounding element with id is "question_" + question id.
+ * Answer element needs class "answer" and surrounding element with id is "answer_" + question id.
  */
-function write_answers(answers) {
+function write_answers(answers, questionaire) {
     var list = answers.answer_map;
     for (i = 0; i < list.length; ++i) {
-        var question = document.getElementById("question_" + list[i].question_id);
-        var ans_elem = question.getElementsByClassName("answer");
-        // TODO needs questionaire
+        var question = document.getElementById("answer_" + list[i].question_id);
+        var ans_elem = question.getElementsByClassName("answer")[0];
         // FIXME use selected language
         var text = localized_answer(list[i], questionaire, "german");
         var text_elem = document.createTextNode(text.answer_text);
-        ans_elem.appendChild(text);
+        ans_elem.appendChild(text_elem);
     }
 }
 
@@ -145,17 +155,72 @@ function find_question(question_map, question_id) {
 /**
  * Helper function
  */
-function localized_anwser(anwser, questionaire, language) {
-   var question_text = questionaire.language_map[language][anwser.question_id]
-   var question = find_question(questionaire.question_map, anwser.question_id)
-   var anwser_needs_translation = !(typeof question.options === 'undefined')
-   var anwser_text = anwser.answer
-   if (anwser_needs_translation) {
-     anwser_text = questionaire.language_map[language][anwser_text]
+function localized_answer(answer, questionaire, language) {
+   var question_text = questionaire.language_map[language][answer.question_id]
+   var question = find_question(questionaire.question_map, answer.question_id)
+   var answer_needs_translation = !(typeof question.options === 'undefined')
+   var answer_text = answer.answer
+   if (answer_needs_translation) {
+     answer_text = questionaire.language_map[language][answer_text]
    }
 
    return {
      question_text: question_text,
-     anwser_text: anwser_text
+     answer_text: answer_text
    }
 }
+
+/**
+ * Writes cookie with expiration date
+ *
+ * From https://www.w3schools.com/js/js_cookies.asp
+ */
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+/**
+ * Read cookie with given name
+ *
+ * Will return empty string if cookie is not available
+ *
+ * From https://www.w3schools.com/js/js_cookies.asp
+ */
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+function getBrowserLanguage() {
+  switch(navigator.language) {
+    case "de":
+      return "german"
+    case "en":
+    default:
+      return "english"
+  }
+}
+
+function getLandForLanguage(lang) {
+   switch(lang) {
+     case "german":
+       return "germany"
+     default:
+       return "england"
+   }
+}
+
+

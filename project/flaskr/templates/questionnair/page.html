@@ -38,6 +38,7 @@
             {% set outer_loop = loop %}
             {% set page_nr = 'page_' + outer_loop.index0 | string %}
             <div id={{page_nr}} class="page">
+                <form id="question_{{question.question_id}}">
                 <div class="header">
                     <p>{{question.question_text}}</p>
                 </div>
@@ -65,6 +66,7 @@
                         </label>
                     {% endfor %}
                 {% endif %}
+                </form>
             </div>
             {% endfor %}
 
@@ -90,10 +92,14 @@
             <div class="displayBlock">
                 <hr>
             </div>
-        <div>
+        </div>
 
-    <button type="button" class="btn btn-outline-primary toQr">--> QR (Placeholder)</button>
+    <button type="button" class="btn btn-outline-primary toQr" onclick="createQRCode()">QR-Code</button>
     </div>
+    <div id="{{last_page}}" class="page"><!--TODO set correct ID-->
+        <div class="row qr-container justify-content-center align-items-center qrcode" id="qrcode">
+        </div>
+    </div> <!-- page_2 -->
 
     </div> <!-- container -->
 
@@ -108,23 +114,27 @@
         document.getElementById("page_" + document.page_number).style.display = "initial"
       }
 
+      //TODI fill document.questionaire
+
       showCurrentPage()
       document.getElementById("nextButton").onclick = function(){
-	if (document.page_number < document.max_page_number) {
-          hideCurrentPage()
-          document.page_number += 1
-          if (document.max_page_number === document.page_number) {
-             form_to_answer(document.questionaire)
-	  }
-          showCurrentPage()
-	}
+          if (document.page_number < document.max_page_number - 1) {
+              hideCurrentPage()
+              document.page_number += 1
+              console.log("go to page " + document.page_number + " of " + document.max_page_number + " pages");
+              if (document.max_page_number - 1 === document.page_number) {
+                  //var answer = form_to_answer(document.questionaire);
+                  //write_answers(answer, document.questionaire);
+              }
+              showCurrentPage()
+          }
       };
       document.getElementById("backButton").onclick = function(){
-	if (0 < document.page_number) {
-          hideCurrentPage()
-          document.page_number -= 1
-          showCurrentPage()
-	}
+          if (0 < document.page_number) {
+              hideCurrentPage()
+              document.page_number -= 1
+              showCurrentPage()
+          }
       };
 
       document.anwsers = {}
@@ -135,7 +145,7 @@
 	generate_qr_code_of_answer(document.anwsers)
 	hideCurrentPage()
         document.page_number += 1
-        showCurrentPage()
+        //TODO showCurrentPage()
       }
     </script>
 

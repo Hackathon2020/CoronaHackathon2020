@@ -13,9 +13,20 @@ def create_app():
     app = Flask(__name__, template_folder=template_folder, static_folder=static_folder)
     Bootstrap(app)
 
-    @app.route("/language_selection")
+    #@app.route('/', methods=["GET", "POST"])
+    #@app.route('/index')
+    @app.route('/information')
+    def index():
+        return render_template("app/informations.html")
+
+    @app.route("/language")
     def language_selection():
+        return render_template("app/language.html")
         pass
+
+    @app.route("/crossing")
+    def border_selection():
+        return render_template("app/crossing.html")
 
     @app.route('/answer')
     def answer():
