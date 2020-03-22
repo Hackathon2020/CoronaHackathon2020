@@ -1,5 +1,0 @@
-#!/usr/bin/env python
-
-import project.flaskr.app as app
-
-app.create_app().run()
