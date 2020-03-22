@@ -39,7 +39,7 @@
             {% set outer_loop = loop %}
             {% set page_nr = 'page_' + outer_loop.index0 | string %}
             <div id={{page_nr}} class="page">
-                <form class="question" id="question_{{question.question_id}}">
+                <form action="javascript:goNextPage();" class="question" id="question_{{question.question_id}}">
                 <div class="header">
                     <p>{{question.question_text}}</p>
                 </div>
@@ -82,7 +82,7 @@
             </div>
         </nav>
 
-        <div class="content-container jumbotron overflow-auto">
+        <div class="content-container-final jumbotron overflow-auto">
             {% for question in questions %}
             <div class="displayBlock" id="view_answer_{{question.question_id}}">
                 <hr>
@@ -95,7 +95,20 @@
             </div>
         </div>
 
-    <button type="button" class="btn btn-outline-primary toQr" onclick="createQRCode()">QR-Code</button>
+        <div id="send-button">f
+          <button type="button" class="btn btn-outline-primary toQr" onclick="createQRCode()">QR-Code</button>
+        </div>
+        <div id="accept-formular">
+        <div class="accept-formular">
+            <p>Formular akzeptieren?</p>
+        </div>
+
+        <div class="accept-deny-buttons">
+            <button class="buttonNo"><i class="fas fa-times"></i></button>
+            <button class="buttonYes"><i class="fas fa-check"></i></button>
+        </div>
+        </div>
+
     </div>
 
     {% set last_page = 'page_' + (questions | length  + 1) | string %}
@@ -108,63 +121,66 @@
 
     <!-- Navigation through the pages -->
     <script>
-      // set flags in pager in nav-bar correctly
-      var url = new URL(window.location);
-      var from_language = url.searchParams.get("from");
-      var to_language = url.searchParams.get("to");
-      document.getElementById('flag1').setAttribute('data', 'static/flags/' + from_language + '.svg')
-      document.getElementById('flag2').setAttribute('data', 'static/flags/' + to_language + '.svg')
+     // set flags in pager in nav-bar correctly
+     var url = new URL(window.location);
+     var from_language = url.searchParams.get("from");
+     var to_language = url.searchParams.get("to");
+     document.getElementById('flag1').setAttribute('data', 'static/flags/' + from_language + '.svg')
+     document.getElementById('flag2').setAttribute('data', 'static/flags/' + to_language + '.svg')
 
-      function backToCrossing() {
-	 location.href = 'crossing?from=' + from_language + '&to=' + to_language
-      }
+     function backToCrossing() {
+         location.href = 'crossing?from=' + from_language + '&to=' + to_language
+     }
 
-      const questionaire_json = `{{json_schema}}`
-      document.questionaire = JSON.parse(questionaire_json.split('&#34;').join('"'))
+     const questionaire_json = `{{json_schema}}`
+     document.questionaire = JSON.parse(questionaire_json.split('&#34;').join('"'))
 
-      document.page_number = 0
-      document.max_page_number = document.getElementsByClassName("page").length - 2
-      function hideCurrentPage() {
-        document.getElementById("page_" + document.page_number).style.display = "none"
-      }
-      function showCurrentPage() {
-        document.getElementById("page_" + document.page_number).style.display = "initial"
-      }
+     document.page_number = 0
+     document.max_page_number = document.getElementsByClassName("page").length - 2
+     function hideCurrentPage() {
+         document.getElementById("page_" + document.page_number).style.display = "none"
+     }
+     function showCurrentPage() {
+         document.getElementById("page_" + document.page_number).style.display = "initial"
+     }
 
-      //TODI fill document.questionaire
+    function goNextPage() {
+         if (document.page_number < document.max_page_number) {
+             hideCurrentPage()
+             document.page_number += 1
+             if (document.max_page_number === document.page_number) {
+                 document.answers = form_to_answer(document.questionaire)
+                 write_answers(document.answers, document.questionaire)
+             }
+             showCurrentPage()
+         }
+    }
 
-      showCurrentPage()
-      document.getElementById("nextButton").onclick = function(){
-	if (document.page_number < document.max_page_number) {
-          hideCurrentPage()
-          document.page_number += 1
-          if (document.max_page_number === document.page_number) {
-             document.answers = form_to_answer(document.questionaire)
-             write_answers(document.answers, document.questionaire)
-	  }
-          showCurrentPage()
-	}
-      };
-      document.getElementById("backButton").onclick = function(){
-	if (0 < document.page_number) {
-          hideCurrentPage()
-          document.page_number -= 1
-          showCurrentPage()
-	} else {
-	  backToCrossing()
-	}
-      };
+     showCurrentPage()
+     document.getElementById("nextButton").onclick = function(){
+         goNextPage()
+     };
+     document.getElementById("backButton").onclick = function(){
+         if (0 < document.page_number) {
+             hideCurrentPage()
+             document.page_number -= 1
+             showCurrentPage()
+         } else {
+             backToCrossing()
+         }
+     };
 
-      document.answers = {}
-      document.answers.global_questionaire_id = "the id"
-      document.answers.anwser_map = {}
-      
-      function createQRCode() {
-	generate_qr_code_of_answer(document.answers)
-	hideCurrentPage()
+    document.answers = {}
+    document.answers.global_questionaire_id = "the id"
+    document.answers.anwser_map = {}
+
+    function createQRCode() {
+        generate_qr_code_of_answer(document.answers)
+        hideCurrentPage()
         document.page_number += 1
         showCurrentPage()
-      }
+    }
+
     </script>
 
     <!-- Optional JavaScript -->
@@ -174,6 +190,38 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="static/js/data_processing.js"></script>
     <script src="static/js/qrcode.js"></script>
+    <script>
+    /*
+     * decide between questionaire and control view (needs included data_processing.js)
+     *
+     */
+    var url = new URL(window.location);
+    var data = url.searchParams.get("data");
+    if (data) {
+        // show control view
+        console.log("show control view");
+
+        // decode answer
+        var answers = get_answer_from_url();
+        write_answers(answers, document.questionaire)
+
+        // go to overview
+        hideCurrentPage()
+        document.page_number = document.max_page_number;
+        showCurrentPage()
+
+        // show correct button
+        document.getElementById("send-button").style.display = "none";
+        document.getElementById("accept-buttons").style.display = "initial";
+    } else {
+        // show questionaire view -- do nothing
+        console.log("show questionaire");
+
+        // show correct button
+        document.getElementById("send-button").style.display = "initial";
+        document.getElementById("accept-buttons").style.display = "none";
+    }
+    </script>
   </body>
 </html>
 
