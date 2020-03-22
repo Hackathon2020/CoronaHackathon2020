@@ -101,6 +101,7 @@ A flask webserver connects the individual parts of our application. A flask web 
    :glob:
    :maxdepth: 2
 
+   source/source_files/project.rst
    source/source_files/project.questionaire
    source/source_files/project.questions_from_json
    source/source_files/project.flaskr

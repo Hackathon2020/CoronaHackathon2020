@@ -9,8 +9,8 @@ class Questionaire:
     """ initialization
 
     :paran str global_id -- the globally unique identifier of this questionaire. This is needed to connect questionaires with anwsers.
-    :param dict language_map -- (dict of str: (str: str)) -- containes the text-snippets used in this questionaire in every supported language.
-                                             The mapping is "language" -> "id" -> "text
+    :param dict language_map -- (dict of str: (str: str)) -- containes the text-snippets used in this questionaire in every supported language. \
+                                                             The mapping is "language" -> "id" -> "text
     :param list questions -- (list of Question)the actual questions in the questionaire
     """
     def __init__(self, global_id, language_map, questions):
