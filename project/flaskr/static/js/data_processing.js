@@ -70,7 +70,7 @@ function read_options(question_id, class_name) {
     var question_element = document.getElementById("question_" + question_id);
     var answer_elements = question_element.getElementsByClassName(class_name);
     var answers = [];
-    for (i = 0; i < answer_elements.length; i++) {
+    for (var i = 0; i < answer_elements.length; i++) {
         if (answer_elements[i].checked) {
             answers.push(answer_elements[i].id.split("_")[1]);
         }
@@ -86,7 +86,9 @@ function read_options(question_id, class_name) {
 function form_to_answer(questionaire) {
     var answer_map = [];
     var questions = document.getElementsByClassName("question");
-    for (i = 0; i < questions.length; i++) {
+    console.log("Found " + questions.length + " questions, looking for answers now.");
+    for (var i = 0; i < questions.length; i++) {
+        console.log("Processing question " + i);
         var question_id = questions[i].id.split("_")[1];
         // TODO needs questionaire
         var question = find_question(questionaire.question_map, question_id);
@@ -102,7 +104,7 @@ function form_to_answer(questionaire) {
                 answer = read_checkbox_answer(question_id);
                 break;
             default:
-                console.warn("Parsing answers: answer type " + answer_type + " not known!");
+                console.warn("Parsing answers: answer type " + question.answer_type + " not known!");
         }
         answer_map.push({ "question_id" : question_id , "answer" : answer});
     }
@@ -131,13 +133,22 @@ function get_answer_from_url() {
  */
 function write_answers(answers, questionaire) {
     var list = answers.answer_map;
-    for (i = 0; i < list.length; ++i) {
-        var question = document.getElementById("answer_" + list[i].question_id);
-        var ans_elem = question.getElementsByClassName("answer")[0];
-        // FIXME use selected language
-        var text = localized_answer(list[i], questionaire, "german");
-        var text_elem = document.createTextNode(text.answer_text);
-        ans_elem.appendChild(text_elem);
+    for (var i = 0; i < list.length; ++i) {
+        var question = document.getElementById("view_answer_" + list[i].question_id);
+        if (question) {
+            var ans_elem = question.getElementsByClassName("answer")[0];
+            // FIXME use selected language
+            var text = localized_answer(list[i], questionaire, "german");
+            var text_elem = document.createTextNode(text.answer_text);
+            if (ans_elem) {
+                removeAllChildren(ans_elem);
+                ans_elem.appendChild(text_elem);
+            } else {
+                console.log("could not find answer class for id_" + list[i].question_id);
+            }
+        } else {
+            console.log("could not find answer id for id " + list[i].question_id);
+        }
     }
 }
 
@@ -145,7 +156,7 @@ function write_answers(answers, questionaire) {
  * Helper function
  */
 function find_question(question_map, question_id) {
-  for (i = 0; i < question_map.length; ++i) {
+  for (var i = 0; i < question_map.length; ++i) {
     if (question_map[i].question_id === question_id) {
       return question_map[i]
     }

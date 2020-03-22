@@ -8,9 +8,6 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="static/css/string_question.css">
-    <link rel="stylesheet" href="static/css/questionnair.css">
-    <link rel="stylesheet" href="static/css/overview.css">
     <link rel="stylesheet" href="static/css/crossing.css" />
     <link rel="stylesheet" href="static/css/pager.css" />
   </head>
@@ -106,7 +103,7 @@
         button_element = document.getElementById('dropdownMenuButton-flag1')
        // button_element.getElementsByClassName('language-btn')[0].setAttribute('id', 'language_' + lang)
         button_element.getElementsByClassName('current-language')[0].textContant = 'language_' + lang
-        button_element.getElementsByClassName('current-language-flag')[0].setAttribute('src', 'flags/' +getLandForLanguage(lang) + '.svg')
+        button_element.getElementsByClassName('current-language-flag')[0].setAttribute('src', 'static/flags/' +getLandForLanguage(lang) + '.svg')
         setCookie("language", lang, 90)
         $('.dropdown-item').on('click',  function(){
             console.log("clicked on dropdown item " + $(this).attr('id'));
