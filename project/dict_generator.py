@@ -210,8 +210,11 @@ def SetLeftWindow(idx):
             c_quest = dict_state["language_map"][language][question_id]
             c_ans = dict_state["question_map"][idx]["answer_type"]
         else:
-            c_ans = ""
             c_quest = ""
+            if dict_state["question_map"][idx]:
+                c_ans = dict_state["question_map"][idx]["answer_type"]
+            else:
+                c_ans = ""
     else:
         c_ans = ""
         c_quest = ""
@@ -302,20 +305,14 @@ def writeToDict():
         # fixme infobox
         pass
     else:
+        __import__('pudb').set_trace()
         if len(dict_state) == 0:
             createNewDict()
             createTable()
-        field_id = (
-            max(
-                map(
-                    lambda x: int(x),
-                    dict_state["language_map"][language].keys(),
-                )
-            )
-            + 1
-            if len(dict_state["language_map"][language]) > 0
-            else 1
-        )
+        if quest_text in dict_state["language_map"][language].values():
+            field_id = dict_state["language_map"][language].get(quest_text)
+        else:
+            field_id = ( max( map( lambda x: int(x), dict_state["language_map"][language].keys(),)) + 1 if len(dict_state["language_map"][language]) > 0 else 1)
 
         col_id = 0
         for idx, lang in enumerate(dict_state["language_map"]):
@@ -335,7 +332,8 @@ def writeToDict():
         dict_state["language_map"][language][str(field_id)] = quest_text
 
         # add to overview table
-        form.dict_table.setItem(row_id, col_id, QTableWidgetItem(quest_text))
+        #form.dict_table.setItem(row_id, col_id, QTableWidgetItem(quest_text))
+        updatedTable()
 
         if answer_type == 0 or answer_type == 5:
             options = []
@@ -365,6 +363,7 @@ def writeToDict():
 
         # reset lefthand side
         form.left_window.setCurrentIndex(0)
+        updatedTable()
 
 
 def close_application():
@@ -395,31 +394,32 @@ form.tableWidget_2.cellClicked.connect(changeLangInspecctMode)
 menubar = QMenuBar()
 window.setMenuBar(menubar)
 
-extractActionNew = QAction("New")
+extractActionNew = QAction("&New")
 extractActionNew.setShortcut("Ctrl+N")
-extractActionNew.setStatusTip('Create Dictonary')
+extractActionNew.setStatusTip('Create-Dictonary')
 extractActionNew.triggered.connect(newDictDialog)
 menubar.addAction(extractActionNew)
 
-extractActionLoad = QAction("Load File")
+extractActionLoad = QAction("&Load-File")
 extractActionLoad.setShortcut("Ctrl+L")
 extractActionLoad.setStatusTip('Leave The App')
 extractActionLoad.triggered.connect(openDialog)
 menubar.addAction(extractActionLoad)
 
-extractActionSave = QAction("Save File")
+extractActionSave = QAction("&Save-File")
 extractActionSave.setShortcut("Ctrl+S")
 extractActionSave.setStatusTip('Leave The App')
 extractActionSave.triggered.connect(safeDialog)
 menubar.addAction(extractActionSave)
 
-extractActionAddLan = QAction("Add Language")
+extractActionAddLan = QAction("&Add-Language")
 extractActionAddLan.setShortcut("Ctrl+Q")
 extractActionAddLan.setStatusTip('Leave The App')
 extractActionAddLan.triggered.connect(addLangDialog)
 menubar.addAction(extractActionAddLan)
+menubar.addSeparator()
 
-extractActionClose = QAction("Close")
+extractActionClose = QAction("&Close")
 extractActionClose.setShortcut("Ctrl+Q")
 extractActionClose.setStatusTip('Leave The App')
 extractActionClose.triggered.connect(close_application)
