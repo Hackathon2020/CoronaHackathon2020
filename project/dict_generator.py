@@ -1,22 +1,21 @@
-import json
 from PyQt5 import uic
 from PyQt5.QtWidgets import (
     QApplication,
-    QWidget,
-    QInputDialog,
-    QLineEdit,
     QFileDialog,
     QTableWidgetItem,
     QTableWidget,
+    QAbstractItemView,
 )
-from PyQt5.QtGui import QIcon
-from functools import partial
 import json
+import uuid
 
 global dict_state
-language = None
+dict_state = {}
+# fixme remove, only dummy for debugging
+language = "german"
 
 Form, Window = uic.loadUiType("test_gui.ui")
+
 
 def safeDialog():
     dlg = QFileDialog()
@@ -26,7 +25,6 @@ def safeDialog():
     if dlg.exec_():
         filenames = dlg.selectedFiles()
         with open(filenames[0], "w") as fp:
-            global dict_state
             json.dump(
                 dict_state,
                 fp,
@@ -36,7 +34,8 @@ def safeDialog():
             )
 
 
-def openDialog():
+def openDialog(to_fill):
+    global dict_state
     dlg = QFileDialog()
     dlg.setFileMode(QFileDialog.AnyFile)
     dlg.setNameFilter("Json files (*.json)")
@@ -48,7 +47,6 @@ def openDialog():
         with f:
             data = f.read()
             d = json.loads(data)
-            global dict_state
             if "language_map" in d:
                 dict_state = d
 
@@ -57,16 +55,21 @@ def openDialog():
 
 def addLangDialog():
     form.left_window.setCurrentIndex(1)
-    global dict_state
-    for key, value in dict_state['language_map'].items():
+    for key, value in dict_state["language_map"].items():
         form.new_language_com_box.addItem(key)
 
+
 def newDictDialog():
-    pass
+    form.dict_table.clear()
+    form.dict_table.setRowCount(300)
+    form.dict_table.setColumnCount(2)
+    form.dict_table.setEditTriggers(QTableWidget.NoEditTriggers)
+    form.left_window.setCurrentIndex(0)
+    form.textEdit.setText("")
+    form.comboBox.setCurrentText("")
 
 
-def updatedTable():
-    global dict_state
+def createTable():
     form.dict_table.clear()
     form.dict_table.setRowCount(300)
     form.dict_table.setColumnCount(len(dict_state["language_map"]))
@@ -76,6 +79,10 @@ def updatedTable():
     for key, _ in dict_state["language_map"].items():
         horHeaders.append(key)
     form.dict_table.setHorizontalHeaderLabels(horHeaders)
+
+
+def updatedTable():
+    createTable()
 
     row_count = 0
     for element in dict_state["question_map"]:
@@ -91,95 +98,204 @@ def updatedTable():
     form.dict_table.resizeColumnsToContents()
     form.dict_table.resizeRowsToContents()
 
+
 def fillNewLanguage():
     if form.new_language_field.toPlainText():
         form.left_window.setCurrentIndex(2)
-        global dict_state
         global new_language_counter
 
-        dict_state['language_map'][form.new_language_field.toPlainText()]=dict()
+        dict_state["language_map"][
+            form.new_language_field.toPlainText()
+        ] = dict()
         new_language_counter = 1
-        form.add_translation_ref_text_field.setText(dict_state['language_map'][form.new_language_com_box.currentText()][str(new_language_counter)])
+        form.add_translation_ref_text_field.setText(
+            dict_state["language_map"][form.new_language_com_box.currentText()][
+                str(new_language_counter)
+            ]
+        )
         form.add_translation_translation_field.clear()
     updatedTable()
 
 
 def prevNewLanguage():
     global new_language_counter
-    dict_state['language_map'][form.new_language_field.toPlainText()][str(new_language_counter)]=form.add_translation_translation_field.toPlainText()
+    dict_state["language_map"][form.new_language_field.toPlainText()][
+        str(new_language_counter)
+    ] = form.add_translation_translation_field.toPlainText()
     if new_language_counter > 1:
         new_language_counter -= 1
-        form.add_translation_ref_text_field.setText(dict_state['language_map'][form.new_language_com_box.currentText()][str(new_language_counter)])
+        form.add_translation_ref_text_field.setText(
+            dict_state["language_map"][form.new_language_com_box.currentText()][
+                str(new_language_counter)
+            ]
+        )
         form.add_translation_translation_field.clear()
+
     updatedTable()
 
 
 def nextNewLanguage():
     global new_language_counter
     global dict_state
-    dict_state['language_map'][form.new_language_field.toPlainText()][str(new_language_counter)]=form.add_translation_translation_field.toPlainText()
-    if new_language_counter < len(dict_state['language_map'][form.new_language_com_box.currentText()]):
+    dict_state["language_map"][form.new_language_field.toPlainText()][
+        str(new_language_counter)
+    ] = form.add_translation_translation_field.toPlainText()
+    if new_language_counter < len(
+        dict_state["language_map"][form.new_language_com_box.currentText()]
+    ):
         new_language_counter += 1
-        form.add_translation_ref_text_field.setText(dict_state['language_map'][form.new_language_com_box.currentText()][str(new_language_counter)])
+        form.add_translation_ref_text_field.setText(
+            dict_state["language_map"][form.new_language_com_box.currentText()][
+                str(new_language_counter)
+            ]
+        )
         form.add_translation_translation_field.clear()
     updatedTable()
 
+
 def finishNewLanguage():
-    global dict_state
-    dict_state['language_map'][form.new_language_field.toPlainText()][str(new_language_counter)]=form.add_translation_translation_field.toPlainText()
+    dict_state["language_map"][form.new_language_field.toPlainText()][
+        str(new_language_counter)
+    ] = form.add_translation_translation_field.toPlainText()
     form.add_translation_translation_field.clear()
     form.left_window.setCurrentIndex(0)
     updatedTable()
+
 
 def handleTableClick(row, column):
     SetLeftWindow(row)
 
 
 def SetLeftWindow(idx):
-    global dict_state
-    form.left_window.setCurrentIndex(0)
+    form.left_window.setCurrentIndex(1)
     form.tableWidget.clear()
-    #default view
+    # default view
     form.stackedWidget_2.setCurrentIndex(1)
-    #form.tableWidget.setEditTriggers(QTableWidget.EditTriggers)
-    language= "german"
-    if idx in dict_state["language_map"][language].keys():
-        c_quest = dict_state["language_map"][language][idx]
-        c_ans = dict_state["question_map"][language][idx]["answer_type"]
+
+    key = str(idx + 1)
+    exists = len(dict_state) != 0 and idx < len(dict_state["question_map"])
+    if exists:
+        c_quest = dict_state["language_map"][language][key]
+        c_ans = dict_state["question_map"][idx]["answer_type"]
     else:
         c_ans = ""
         c_quest = ""
 
     form.textEdit.setText(c_quest)
-    form.comboBox.setCurentText(c_ans)
-    if "options" in dict_state["question_map"][idx].keys():
-        form.stackedWidget_2.setCurrentIndex(0)
-        options = dict_state["language_map"][language][idx]["options"]
+    form.comboBox.setCurrentText(c_ans)
+
+    form.tableWidget.clear()
+    form.tableWidget.setRowCount(10)
+    form.tableWidget.setColumnCount(1)
+    form.tableWidget.setHorizontalHeaderLabels(["Options"])
+
+    if exists and "options" in dict_state["question_map"][idx].keys():
+        form.stackedWidget_2.setCurrentIndex(1)
+        options = dict_state["question_map"][idx]["options"]
         for row, option in enumerate(options):
             form.tableWidget.setItem(
                 row,
                 0,
-                QTableWidgetItem(dict_state[language][language][option]),
+                QTableWidgetItem(dict_state["language_map"][language][option]),
             )
-
+        form.tableWidget.resizeColumnsToContents()
+        form.tableWidget.resizeRowsToContents()
     else:
+        form.stackedWidget_2.setCurrentIndex(0)
+
+
+def createNewDict():
+    hash = str(uuid.uuid4())
+    dict_state.update(
+        {
+            "global_questionaire_id": hash,
+            "language_map": {language: {}},
+            "question_map": [],
+        }
+    )
+
+
+def changeOption():
+    if form.comboBox.currentIndex() == 0 or form.comboBox.currentIndex() == 5:
         form.stackedWidget_2.setCurrentIndex(1)
+    else:
+        form.stackedWidget_2.setCurrentIndex(0)
+
 
 def writeToDict():
     #  load question mask
-    answer_text = form.textEdit.toPlainText()
+    quest_text = form.textEdit.toPlainText()
     answer_type = form.comboBox.currentIndex()
+    answer_desc = form.comboBox.currentText()
 
-    if answer_text == "":
+    if quest_text == "":
+        # fixme infobox
+        pass
+    elif answer_desc == "":
         # fixme infobox
         pass
     else:
+        if len(dict_state) == 0:
+            createNewDict()
+            createTable()
+        field_id = (
+            max(
+                map(
+                    lambda x: int(x),
+                    dict_state["language_map"][language].keys(),
+                )
+            )
+            + 1
+            if len(dict_state["language_map"][language]) > 0
+            else 1
+        )
+
+        # fixme dummy solution
+        col_id = 0
+        for idx, lang in enumerate(dict_state["language_map"]):
+            if form.dict_table.horizontalHeaderItem(idx).text() == lang:
+                col_id = idx
+                break
+
+        row_id = 0
+        for idx, _ in enumerate(dict_state["question_map"]):
+            if form.dict_table.item(idx, col_id) is not None:
+                row_id += 1
+            else:
+                break
+
+        # write to dict
+        # question = form.textEdit.plainText()
+        dict_state["language_map"][language][str(field_id)] = quest_text
+
+        # add to overview table
+        form.dict_table.setItem(row_id, col_id, QTableWidgetItem(quest_text))
+
         if answer_type == 0 or answer_type == 5:
-            dict_state["question_map"].append()
+            options = []
+            for row in range(form.tableWidget.rowCount()):
+                curr_item = form.tableWidget.item(row, 0)
+                if curr_item is None:
+                    break
+                options.append(str(field_id + row + 1))
+                dict_state["language_map"][language].update(
+                    {options[-1]: curr_item.text()}
+                )
+
+            dict_state["question_map"].append(
+                {
+                    "question_id": field_id,
+                    "answer_type": answer_desc,
+                    "options": options,
+                }
+            )
         else:
-            pass
+            dict_state["question_map"].append(
+                {"question_id": field_id, "answer_type": answer_desc}
+            )
 
-
+        form.dict_table.resizeColumnsToContents()
+        form.dict_table.resizeRowsToContents()
 
 
 app = QApplication([])
@@ -197,8 +313,8 @@ form.add_translation_back.clicked.connect(prevNewLanguage)
 form.add_translation_finish.clicked.connect(finishNewLanguage)
 form.dict_table.cellClicked.connect(handleTableClick)
 form.buttonBox.clicked.connect(writeToDict)
+form.comboBox.currentIndexChanged.connect(changeOption)
 
 
 window.show()
 app.exec_()
-
