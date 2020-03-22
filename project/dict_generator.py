@@ -56,7 +56,7 @@ def openDialog(to_fill):
 
 
 def addLangDialog():
-    form.left_window.setCurrentIndex(1)
+    form.left_window.setCurrentIndex(2)
     for key, value in dict_state["language_map"].items():
         form.new_language_com_box.addItem(key)
 
@@ -103,7 +103,7 @@ def updatedTable():
 
 def fillNewLanguage():
     if form.new_language_field.toPlainText():
-        form.left_window.setCurrentIndex(2)
+        form.left_window.setCurrentIndex(3)
         global new_language_counter
 
         dict_state["language_map"][
