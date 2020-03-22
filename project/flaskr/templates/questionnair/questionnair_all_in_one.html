@@ -17,13 +17,27 @@
         <div class="header">
             <p>{{question.question_text}}</p>
         </div>
-         {% for option in question.options_text %}
-             <label class="questionnair">
-                <div class="title">{{option}}</div>
-                <input type="radio", id="answer_{{loop.index}}" name="customRadio">
-                <span class="checkmark"></span>
-            </label>
-        {% endfor %}
+        {% if question.anwser_type == 'Checkbox' %}
+
+        {% elif question.anwser_type == 'String' %}
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                </div>
+        {% elif question.anwser_type == 'Date' %}
+
+        {% elif question.anwser_type == 'LicensePlate' %}
+
+        {% elif question.anwser_type == 'PostCode' %}
+
+        {% elif question.anwser_type == 'RadioButtons' %}
+             {% for option in question.options_texts %}
+                 <label class="questionnair">
+                    <div class="title">{{option}}</div>
+                    <input type="radio" name="customRadio">
+                    <span class="checkmark"></span>
+                </label>
+            {% endfor %}
+        {% endif %}
         {% endfor %}
     </div>
 

@@ -1,9 +1,10 @@
 import json
 import jsonschema
-import project.questionaire
+import pathlib
+import project.questionaire as questionaire
 
 
-def read(filename):
+def read(filename, context):
     """
     Reads questionaire from file
 
@@ -16,7 +17,7 @@ def read(filename):
 
         decoded = json.loads(json_string)
 
-        with open("json_schemas/questionaire_schema.json") as schema_file:
+        with open(context) as schema_file:
             schema = schema_file.read()
             jsonschema.validate(instance=decoded, schema=json.loads(schema))
 
