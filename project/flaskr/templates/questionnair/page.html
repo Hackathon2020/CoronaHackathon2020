@@ -59,10 +59,10 @@
                 {% elif question.anwser_type == 'RadioButtons' %}
                      {% for option in question.options_texts %}
                         {% set inner_loop_index = loop.index0 %}
-                        {% set answer_id_inner = 'answer_' + question.question_id | string + question.options[inner_loop_index] | string%}
+                        {% set answer_id_inner = 'answer_' + question.question_id + '_' | string + question.options[inner_loop_index] | string%}
                          <label class="questionnair">
                             <div class="title">{{option}}</div>
-                            <input id={{answer_id_inner}} type="radio" name="customRadio">
+                            <input id={{answer_id_inner}} type="radio" name="customRadio" class="radio">
                             <span class="checkmark"></span>
                         </label>
                     {% endfor %}
@@ -102,32 +102,9 @@
     <div id="{{last_page}}" class="page"><!--TODO set correct ID-->
         <div class="row qr-container justify-content-center align-items-center qrcode" id="qrcode">
         </div>
-
-    </div> <!-- page_2 -->
-             <div class="page"  id=page_19>
-            <!-- TODO: Get overview from Answers -->
-            <div class="accept-formular" style="height:10vh;">
-                <p>Formular akzeptieren?</p>
-            </div>
-                <div class="content-container-final jumbotron overflow-auto">
-            {% for question in questions %}
-            <div class="displayBlock">
-                <hr>
-                <p><b>{{question.question_text}}</b><br/>Placeholder</p>
-            </div>
-            {% endfor %}
-
-            <div class="displayBlock">
-                <hr>
-            </div>
-              </div>
-            <div class="buttons row justify-content-between">
-                <button class="buttonNo"><i class="fas fa-times"></i></button>
-                <button class="buttonYes"><i class="fas fa-check"></i></button>
-            </div>
-        </div>
+    </div> 
     </div> <!-- container -->
-    </div> <!-- background-container>
+    </div> <!-- background-container-->
 
     <!-- Navigation through the pages -->
     <script>
@@ -146,7 +123,7 @@
       document.questionaire = JSON.parse(questionaire_json.split('&#34;').join('"'))
 
       document.page_number = 0
-      document.max_page_number = {{questions | length}} + 3//document.getElementsByClassName("page").length - 2
+      document.max_page_number = document.getElementsByClassName("page").length - 2
       function hideCurrentPage() {
         document.getElementById("page_" + document.page_number).style.display = "none"
       }
@@ -158,7 +135,7 @@
 
       showCurrentPage()
       document.getElementById("nextButton").onclick = function(){
-	if (document.page_number <= document.max_page_number) {
+	if (document.page_number < document.max_page_number) {
           hideCurrentPage()
           document.page_number += 1
           if (document.max_page_number === document.page_number) {
