@@ -1,0 +1,32 @@
+.bordercross-question {
+    height: 48vh;
+    padding-bottom: 2vh;
+}
+
+.flagscontainer {
+    height: 48vh;
+    padding-top: 2vh;
+}
+
+.flag-btn {
+    height: 140%;
+    width: 140%;
+    padding: 10px 30px 10px 10px;
+}
+
+.flag-drpd {
+    height: 100%;
+    width: 100%;
+}
+
+.flag-select {
+    height: 75%;
+    width: 75%;
+}
+
+.dropdown-menu {
+    background-color: #6c757d;
+}
+.dropdown-menu.show {
+    width: 25px;
+}

@@ -1,0 +1,43 @@
+
+
+
+
+p, hr {
+    margin: 0 0 0 0;
+}
+
+
+div.placeholder {
+    /* width: 500px;*/
+}
+
+div.displayBlock {
+    margin-bottom: 40px; 
+    padding: 5px;
+}
+div.displayBlock:last-child {
+   margin: 0;
+   padding: 5px;
+}
+
+hr {
+    padding-bottom: 10px;
+}
+
+p {
+    font-size: 18px;
+    line-height: 29px;
+}
+
+b {
+    font-size: 22px;
+}
+
+p.title {
+    font-weight: 600;
+}
+
+button.toQr {
+    margin:auto;
+    display:block;
+}

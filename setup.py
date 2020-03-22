@@ -4,6 +4,7 @@ from setuptools import setup, find_packages
 __version__ = "dev"
 
 install_requires = [ #what packages are required
+    "PyQt5",
     #"pyyaml",
     #"tqdm",
     #"Pillow < 7.0.0",

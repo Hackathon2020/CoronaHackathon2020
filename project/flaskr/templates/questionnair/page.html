@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="static/css/fontawesome/css/all.css" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/css/pager.css" />
+    <link rel="stylesheet" href="static/css/string_question.css">
+    <link rel="stylesheet" href="static/css/questionnair.css">
+    <link rel="stylesheet" href="static/css/overview.css">
+      <style> div.page { display: none; } </style>
+  </head>
+
+  <body>
+  <div class="background-container">
+    <div class="container">
+      <nav class="navbar">
+        <button id="backButton">
+          <i id="backButton" class="fas fa-arrow-left"></i>
+	</button>
+        <div class="middle">
+            <object id="flag1" type="image/svg+xml" data="static/flags/germany.svg">Your browser does not support SVG</object>
+            <i class="fas fa-arrow-right"></i>
+            <object id="flag2" type="image/svg+xml" data="static/flags/switzerland.svg">Your browser does not support SVG</object>
+        </div>
+
+        <button id="nextButtong">
+          <div class="form-inline">
+            <i id="nextButton" class="fas fa-arrow-right"></i>
+          </div>
+	</button>
+      </nav>
+        <!-- Questionnair -->
+        {% for question in questions %}
+            {% set outer_loop = loop %}
+            {% set page_nr = 'page_' + outer_loop.index0 | string %}
+            <div id={{page_nr}} class="page">
+                <form class="question" id="question_{{question.question_id}}">
+                <div class="header">
+                    <p>{{question.question_text}}</p>
+                </div>
+                {% if question.anwser_type == 'Checkbox' %}
+
+                {% elif question.anwser_type == 'String' %}
+                    {% set answer_id = 'answer_' + question.question_id | string %}
+                        <div class="input-group mb-3">
+                            <input id={{answer_id}}  type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                {% elif question.anwser_type == 'Date' %}
+
+                {% elif question.anwser_type == 'LicensePlate' %}
+
+                {% elif question.anwser_type == 'PostCode' %}
+
+                {% elif question.anwser_type == 'RadioButtons' %}
+                     {% for option in question.options_texts %}
+                        {% set inner_loop_index = loop.index0 %}
+                        {% set answer_id_inner = 'answer_' + question.question_id | string + question.options[inner_loop_index] | string%}
+                         <label class="questionnair">
+                            <div class="title">{{option}}</div>
+                            <input id={{answer_id_inner}} type="radio" name="customRadio">
+                            <span class="checkmark"></span>
+                        </label>
+                    {% endfor %}
+                {% endif %}
+                </form>
+            </div>
+            {% endfor %}
+
+        <!--- Overview -->
+        {% set overview_page = 'page_' + questions | length | string %}
+        <div class="page" id={{overview_page}}>
+        <!-- Navbar -->
+        <nav class="navbar navbar-light bg-light">
+            <div class="form-inline">
+                <!-- TODO: Variable -->
+                <h1>Überblick</h1>
+            </div>
+        </nav>
+
+        <div class="content-container jumbotron overflow-auto" style="height: 80vh;">
+            {% for question in questions %}
+            <div class="displayBlock" id="view_answer_{{question.question_id}}">
+                <hr>
+                <p><b>{{question.question_text}}</b><br/><span class="answer">Placeholder</span></p>
+            </div>
+            {% endfor %}
+
+            <div class="displayBlock">
+                <hr>
+            </div>
+        </div>
+
+    <button type="button" class="btn btn-outline-primary toQr" onclick="createQRCode()">QR-Code</button>
+    </div>
+
+    {% set last_page = 'page_' + (questions | length  + 1) | string %}
+    <div id="{{last_page}}" class="page"><!--TODO set correct ID-->
+        <div class="row qr-container justify-content-center align-items-center qrcode" id="qrcode">
+        </div>
+
+    </div> <!-- page_2 -->
+             <div class="page"  id=page_19>
+            <!-- TODO: Get overview from Answers -->
+            <div class="header">
+                <p>Formular akzeptieren?</p>
+            </div>
+                <div class="content-container jumbotron overflow-auto" style="height: 80vh;">
+            {% for question in questions %}
+            <div class="displayBlock">
+                <hr>
+                <p><b>{{question.question_text}}</b><br/>Placeholder</p>
+            </div>
+            {% endfor %}
+
+            <div class="displayBlock">
+                <hr>
+            </div>
+              </div>
+            <div class="buttons">
+                <button class="buttonNo"><i class="fas fa-times"></i></button>
+                <button class="buttonYes"><i class="fas fa-check"></i></button>
+            </div>
+        </div>
+    </div> <!-- container -->
+    </div> <!-- background-container>
+
+    <!-- Navigation through the pages -->
+    <script>
+      // set flags in pager in nav-bar correctly
+      var url = new URL(window.location);
+      var from_language = url.searchParams.get("from");
+      var to_language = url.searchParams.get("to");
+      document.getElementById('flag1').setAttribute('data', 'static/flags/' + from_language + '.svg')
+      document.getElementById('flag2').setAttribute('data', 'static/flags/' + to_language + '.svg')
+
+      function backToCrossing() {
+	 location.href = 'crossing?from=' + from_language + '&to=' + to_language
+      }
+
+      const questionaire_json = `{{json_schema}}`
+      document.questionaire = JSON.parse(questionaire_json.split('&#34;').join('"'))
+
+      document.page_number = 0
+      document.max_page_number = {{questions | length}} + 3//document.getElementsByClassName("page").length - 2
+      function hideCurrentPage() {
+        document.getElementById("page_" + document.page_number).style.display = "none"
+      }
+      function showCurrentPage() {
+        document.getElementById("page_" + document.page_number).style.display = "initial"
+      }
+
+      //TODI fill document.questionaire
+
+      showCurrentPage()
+      document.getElementById("nextButton").onclick = function(){
+	if (document.page_number <= document.max_page_number) {
+          hideCurrentPage()
+          document.page_number += 1
+          if (document.max_page_number === document.page_number) {
+             document.answers = form_to_answer(document.questionaire)
+             write_answers(document.answers, document.questionaire)
+	  }
+          showCurrentPage()
+	}
+      };
+      document.getElementById("backButton").onclick = function(){
+	if (0 < document.page_number) {
+          hideCurrentPage()
+          document.page_number -= 1
+          showCurrentPage()
+	} else {
+	  backToCrossing()
+	}
+      };
+
+      document.answers = {}
+      document.answers.global_questionaire_id = "the id"
+      document.answers.anwser_map = {}
+      
+      function createQRCode() {
+	generate_qr_code_of_answer(document.answers)
+	hideCurrentPage()
+        document.page_number += 1
+        showCurrentPage()
+      }
+    </script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="static/js/data_processing.js"></script>
+    <script src="static/js/qrcode.js"></script>
+  </body>
+</html>
+

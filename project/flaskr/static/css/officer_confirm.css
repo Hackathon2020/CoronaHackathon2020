@@ -1,0 +1,66 @@
+div.header {
+    height: 250px !important;
+    width: 100% !important;
+    margin: 0px !important;
+    padding: 10px;
+}
+div.header p {
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 35px;
+}
+
+div.header {
+    background: rgba(225, 227, 230, 0.6);
+    border: 3px solid rgba(0, 0, 0, 0.6);
+    border-radius: 15px;
+    height: 47px;
+    width: 200px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 22px;
+    text-indent: 15px;
+    
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+}
+
+div.container {
+    width: 600px;
+    height: 600%;
+    padding: 0px !important;
+}
+
+div.buttons {
+    /*Padding needed: 50% of div - (2*padding of button + button width)*/
+    padding-left: calc((50% - (2*30px + 100px)));
+}
+
+button {
+    background: none;
+    border: 3px solid;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 40px;
+    margin: 170px 30px;
+    margin-bottom: 0px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+button.buttonYes {
+    border-color: #74B912;
+    color: #74B912;
+}
+button.buttonNo {
+    border-color: #C40046;
+    color: #C40046;
+}

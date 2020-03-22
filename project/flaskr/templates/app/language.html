@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="static/css/fontawesome/css/all.css" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/css/crossing.css" />
+    <link rel="stylesheet" href="static/css/pager.css" />
+  </head>
+
+  <body>
+    <div class="container">
+       <nav class="navbar">
+            <style> .hidden { visibility: hidden; } </style>
+            <button id="backButton"><i class="fas fa-arrow-left hidden"></i></button>
+
+            <div class="middle hidden">
+                <object id="flag1" type="image/svg+xml" data="flags/germany.svg">Your browser does not support SVG</object>
+                <i class="fas fa-arrow-right"></i>
+                <object id="flag2" type="image/svg+xml" data="flags/switzerland.svg">Your browser does not support SVG</object>
+            </div>
+
+            <div class="form-inline">
+                <button id="nextButton" onclick="location.href='crossing'"><i class="fas fa-arrow-right"></i></button>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container bordercross align-items-center">
+
+        <div class=" bordercross-question">
+            <div class="row justify-content-center ">
+                <h2>Language</h2>
+            </div>
+
+            <div class="row justify-content-center ">
+                <h2>Sprache</h2>
+            </div>
+        </div>
+
+            <div class="flagscontainer row justify-content-center ">
+                <div class="row align-items-center justify-content-center">
+                    <div class="dropdown flag-drpd col-4">
+                        <button
+                            class="btn btn-secondary btn-lg dropdown-toggle"
+                            id="dropdownMenuButton-flag1"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                          <img class="current-language-flag" id="language_german" src="static/flags/germany.svg">
+                          <div class="current-language">Deutsch</div>
+                        </button>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton-flag1">
+                            <a class="dropdown-item language-select" id="language_albania">
+                                <img class="flag" src="static/flags/albania.svg"></br>Albania
+                            </a>
+                            <a class="dropdown-item language-select" id="language_andorra">
+                                <img class="flag" src="static/flags/andorra.svg"></br>Language
+                            </a>
+                            <a class="dropdown-item language-select" id="language_belgium">
+                                <img class="flag" src="static/flags/belgium.svg"></br>Language
+                            </a>
+                            <a class="dropdown-item language-select" id="language_bosnia_herzegovina" >
+                                <img class="flag" src="static/flags/bosnia-and-herzegovina.svg"></br>Language
+                            </a>
+                            <a class="dropdown-item language-select" id="language_bulgaria">
+                                <img class="flag" src="static/flags/bulgaria.svg"></br>Language
+                            </a>
+                            <a class="dropdown-item language-select" id="language_denmark">
+                                <img class="flag" src="static/flags/denmark.svg"></br>Language
+                            </a>
+                            <a class="dropdown-item language-select" id="language_german">
+                                <img class="flag" src="static/flags/germany.svg"></br>Deutsch
+                            </a>
+                            <a class="dropdown-item language-select" id="language_estonia">
+                                <img class="flag" src="static/flags/estonia.svg"></br>Language
+                            </a>
+                            <a class="dropdown-item language-select" id="language_finland">
+                                <img class="flag" src="static/flags/finland.svg"></br>Language
+                            </a>
+                            <a class="dropdown-item language-select" id="language_france">
+                                <img class="flag" src="static/flags/france.svg"></br>Language
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="static/js/data_processing.js"></script>
+    <script type="text/javascript">
+	var lang = getBrowserLanguage()
+        button_element = document.getElementById('dropdownMenuButton-flag1')
+       // button_element.getElementsByClassName('language-btn')[0].setAttribute('id', 'language_' + lang)
+        button_element.getElementsByClassName('current-language')[0].textContant = 'language_' + lang
+        button_element.getElementsByClassName('current-language-flag')[0].setAttribute('src', 'static/flags/' +getLandForLanguage(lang) + '.svg')
+        setCookie("language", lang, 90)
+        $('.dropdown-item').on('click',  function(){
+            console.log("clicked on dropdown item " + $(this).attr('id'));
+            //$(this).parents(".dropdown").find('.language-btn').attr('id', $(this).attr('id'));
+            $(this).parents(".dropdown").find('.current-language').text($(this).text());
+            $(this).parents(".dropdown").find('.current-language-flag').attr('src', $(this).find('.flag').attr('src'));
+            // set cookie for language
+            setCookie("language", $(this).attr('id').split("_")[1], 90);
+    });
+
+    </script>
+  </body>
+</html>
+

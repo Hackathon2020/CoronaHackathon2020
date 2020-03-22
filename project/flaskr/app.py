@@ -1,37 +1,51 @@
 # TODO: Import  muss noch angepasst werden, wenn von Konsole gestartet wird
-import os
 import pathlib
-from flask import Flask, render_template, redirect
-from project.flaskr.services import forms
-
-project_dir = pathlib.Path(os.path.abspath(os.path.dirname(__file__)), "templates")
-
-app = Flask(__name__, template_folder=project_dir)
-SECRET_KEY = os.urandom(32)
-app.config["SECRET_KEY"] = SECRET_KEY
-
-@app.route('/')
-@app.route('/index')
-#@app.route('/index')
-def index():
-    return render_template("app/index.html", title="Home")
+from flask import Flask, render_template, redirect, request
+from flask_bootstrap import Bootstrap
+from project.flaskr import static_folder, template_folder
+from project.flaskr.routes.questionaire import get_questionaire_blueprint
+from project.questions_from_json import read
 
 
-@app.route('/answer')
-def answer():
-    return render_template("app/answer.html", title="Formula1")
 
 
-@app.route('/question')
-def question():
-    return redirect('/question/example_form')
-    #render_template("app/question.html", title="Formula2")
+def create_app():
+    app = Flask(__name__, template_folder=template_folder, static_folder=static_folder)
+    Bootstrap(app)
 
-@app.route('/question/example_form/<language>', methods=["GET", "POST"])
-def example_form(language):
-    form = forms.ReusableForm()
-    form.change_language(language)
-    return render_template('app/example_form.html', title="Answer Questions", form=form)
+    #@app.route('/', methods=["GET", "POST"])
+    #@app.route('/index')
+    @app.route('/information')
+    def index():
+        return render_template("app/informations.html")
+
+    @app.route("/")
+    def language_selection():
+        return render_template("app/language.html")
+        pass
+
+    @app.route("/crossing")
+    def border_selection():
+        return render_template("app/crossing.html")
+
+    @app.route('/answer')
+    def answer():
+        return render_template("app/answer.html", title="Formula1")
+
+    path_context = pathlib.Path(pathlib.Path(__file__).parent.parent.parent,
+                                "json_schemas/questionaire_schema.json")
+    path_to_json_example_file = pathlib.Path(pathlib.Path(__file__).parent.parent.parent,
+                                             "json_schemas/questionaire_example.json")
+    questionaire = read(path_to_json_example_file, path_context)
+    localized_questions = questionaire.localized_questions("german")
+    # TODO: Hier json einfügen die für Frage ids benötigt
+    with open(pathlib.Path(pathlib.Path(__file__).parent.parent.parent, "json_schemas/questionaire_example.json")) as f:
+        json_f = f.read()
+    app.register_blueprint(get_questionaire_blueprint(localized_questions, json_f))
+    return app
+
 
 if __name__ == "__main__":
-    app.run()
+    app = create_app()
+    print(app.url_map)
+    app.run(debug=True)

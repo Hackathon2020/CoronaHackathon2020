@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath(".."))
 
 from unittest.mock import Mock
 
-#maybe these are important
+# maybe these are important
 MOCK_MODULES = [
     "yaml",
     "numpy",
@@ -31,10 +31,25 @@ MOCK_MODULES = [
     "torch",
     "skimage",
     "wandb",
+    "flask",
+    "jsonschema",
+    "PyQt5.QtWidgets",
+    "PyQt5",
+    "PyQt5.QtWidgets.QApplication",
+    "PyQt5.QtWidgets.QFileDialog",
+    "PyQt5.QtWidgets.QTableWidgetItem",
+    "PyQt5.QtWidgets.QTableWidget",
+    "PyQt5.QtWidgets.QAbstractItemView",
+    "PyQt5.QtWidgets.QMenuBar",
+    "PyQt5.QtWidgets.QAction",
+    "flask_wtf",
+    "wtforms",
+    "wtforms.validators",
 ]
 
 for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = Mock()
+
 
 def run_apidoc(app):
     """Generate API documentation"""

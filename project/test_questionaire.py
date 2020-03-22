@@ -1,6 +1,6 @@
 import unittest
 
-from questionaire import Questionaire, Question
+from project.questionaire import Questionaire, Question
 
 class TestStringMethods(unittest.TestCase):
 

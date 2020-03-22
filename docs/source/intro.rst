@@ -1,6 +1,0 @@
-
-Intro
-=====
-
-
-.. _Tutorial: tutorial
