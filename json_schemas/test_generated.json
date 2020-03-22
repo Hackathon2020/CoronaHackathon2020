@@ -1,0 +1,42 @@
+{
+    "global_questionaire_id": "9ca81fc5-27e5-4053-af7a-636e571e9294",
+    "language_map": {
+        "german": {
+            "1": "Vorname",
+            "2": "Nachname",
+            "3": "Adresse",
+            "4": "Geburtsdatum",
+            "5": "Lieblingsgetränk",
+            "6": "Wein",
+            "7": "Bier",
+            "8": "Mate"
+        }
+    },
+    "question_map": [
+        {
+            "question_id": 1,
+            "answer_type": "String"
+        },
+        {
+            "question_id": 2,
+            "answer_type": "String"
+        },
+        {
+            "question_id": 3,
+            "answer_type": "Postal Code"
+        },
+        {
+            "question_id": 4,
+            "answer_type": "Date"
+        },
+        {
+            "question_id": 5,
+            "answer_type": "Radio Buttons",
+            "options": [
+                "6",
+                "7",
+                "8"
+            ]
+        }
+    ]
+}
