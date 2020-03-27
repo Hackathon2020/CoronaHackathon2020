@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="static/css/string_question.css">
     <link rel="stylesheet" href="static/css/questionnair.css">
     <link rel="stylesheet" href="static/css/overview.css">
-      <style> div.page { display: none; } </style>
+    <link rel="stylesheet" href="static/css/the-datepicker.css">
+    <script src="static/js/the-datepicker.js"></script>
+    <style> div.page { display: none; } </style>
   </head>
 
   <body>
@@ -51,7 +53,17 @@
                             <input id={{answer_id}}  type="text" class="form-control" placeholder="...." aria-label="Default" aria-describedby="inputGroup-sizing-default">
                         </div>
                 {% elif question.anwser_type == 'Date' %}
-
+                    {% set answer_id = 'answer_' + question.question_id | string %}
+                        <div class="input-group mb-3">
+                            <input id={{answer_id}}  type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <script>
+                          (function () {
+                           const input = document.getElementById('{{answer_id}}');
+                           const datepicker = new TheDatepicker.Datepicker(input);
+                            datepicker.render();
+                           })();
+                         </script>
                 {% elif question.anwser_type == 'LicensePlate' %}
 
                 {% elif question.anwser_type == 'PostCode' %}
