@@ -21,7 +21,7 @@ $ pip install CoronaHackathon2020
 Um die App für Reisende/Grenzübergänger zu testen starte sie mittels:
 
 ```
-$ grenz-er-fahrung
+$ ./grenz-er-fahrung
 ```
 
 Und gebe dann folgende URL in deinem Browser ein:
@@ -39,7 +39,7 @@ Um die App für die Grenzbeamten auszuprobiern scanne einen validen QR Code und 
 Um in das Interface zu gelangen, in dem Fragen und Sprachen editiert werden können, starte mit:
 
 ```
-$ dict-gener-app
+$ ./dict-gener-app
 ```
 
 ### 3. Lies die Dokumentation
