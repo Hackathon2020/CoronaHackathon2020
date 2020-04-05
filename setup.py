@@ -4,17 +4,10 @@ from setuptools import setup, find_packages
 __version__ = "dev"
 
 install_requires = [ #what packages are required
-    "PyQt5",
-    #"pyyaml",
-    #"tqdm",
-    #"Pillow < 7.0.0",
-    #"chainer",
-    #"numpy",
-    #"pandas",  # for csv dataset and eval pipeline
-    "flask-bootstrap"
-    "flask-wtf"
-    "flask",
-    "jsonschema"
+    "PyQt5==5.12.2",
+    "Werkzeug==1.0.0",
+    "flask==1.1.1",
+    "jsonschema==3.2.0"
 ]
 
 install_full = [  # for extra functionality e.g. features in development
@@ -60,10 +53,10 @@ setup(
     extras_require=extras_require,
     zip_safe=False,
     scripts=[
-        "project/grenz-er-fahrung", #script files that can be called as package
-        "project/dict-gener-app", #script files that can be called as package
+        "grenz-er-fahrung", #script files that can be called as package
+        "dict-gener-app", #script files that can be called as package
     ],
-    python_requires=">=3.8",
+    python_requires="~=3.6",
     classifiers=[
         "Programming Language :: Python :: 3 :: Only",
         "License :: OSI Approved :: MIT License",
