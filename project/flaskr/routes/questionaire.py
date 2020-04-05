@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 from project.flaskr import static_folder, template_folder
 
 
@@ -14,8 +14,9 @@ def get_questionaire_blueprint(questionaire, json_schema, local_map):
 
     """
     questionnair = Blueprint('questionnair', __name__, template_folder=template_folder, static_folder=static_folder)
-    @questionnair.route("/questionnair_<language>")
-    def questionnaire_begin(language):
+    @questionnair.route("/questionnair")
+    def questionnaire_begin():
+        language = request.cookies.get('language')
         localized_questions = questionaire.localized_questions(language)
 
         return render_template("questionnair/page.html", questions=localized_questions, json_schema=json_schema, localization=local_map[language])

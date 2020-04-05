@@ -126,7 +126,7 @@
      document.getElementById('flag2').setAttribute('data', 'static/flags/' + to_language + '.svg')
 
      function backToCrossing() {
-         location.href = 'crossing_' + getCookie('language') + '?from=' + from_language + '&to=' + to_language
+         location.href = 'crossing?from=' + from_language + '&to=' + to_language
      }
 
      const questionaire_json = `{{json_schema}}`

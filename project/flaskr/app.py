@@ -45,15 +45,14 @@ def create_app():
         return render_template("app/language.html")
         pass
 
-    @app.route("/crossing_<language>")
-    def border_selection(language):
+    @app.route("/crossing")
+    def border_selection():
         """
         Page for which border to cross
-        Args:
-           language: the chosen language
         Returns: HTML Page
 
         """
+        language = request.cookies.get('language')
         return render_template("app/crossing.html", localization=LOCAL_MAP[language])
 
     @app.route('/answer')

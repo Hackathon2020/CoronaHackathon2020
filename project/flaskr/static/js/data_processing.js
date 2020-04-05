@@ -137,8 +137,7 @@ function write_answers(answers, questionaire) {
         var question = document.getElementById("view_answer_" + list[i].question_id);
         if (question) {
             var ans_elem = question.getElementsByClassName("answer")[0];
-            // FIXME use selected language
-            var text = localized_answer(list[i], questionaire, "german");
+            var text = localized_answer(list[i], questionaire, getCookie('language'));
             var text_elem = document.createTextNode(text.answer_text);
             if (ans_elem) {
                 removeAllChildren(ans_elem);
