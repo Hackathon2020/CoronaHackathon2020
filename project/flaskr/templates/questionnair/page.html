@@ -77,8 +77,7 @@
         <!-- Navbar -->
         <nav class="navbar navbar-light">
             <div class="form-inline">
-                <!-- TODO: Variable -->
-                <h1>Überblick</h1>
+		<h1>{{localization['overview']}}</h1>
             </div>
         </nav>
 
@@ -100,7 +99,7 @@
         </div>
         <div id="accept-formular">
         <div class="accept-formular">
-            <p>Formular akzeptieren?</p>
+		<p>{{localization['accept']}}</p>
         </div>
 
         <div class="accept-deny-buttons">
@@ -129,7 +128,7 @@
      document.getElementById('flag2').setAttribute('data', 'static/flags/' + to_language + '.svg')
 
      function backToCrossing() {
-         location.href = 'crossing?from=' + from_language + '&to=' + to_language
+         location.href = 'crossing_' + getCookie('language') + '?from=' + from_language + '&to=' + to_language
      }
 
      const questionaire_json = `{{json_schema}}`

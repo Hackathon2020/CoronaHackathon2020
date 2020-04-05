@@ -41,9 +41,9 @@
       "15" : "House number",
       "16" : "Post code destination",
       "17" : "Adresse Zielort",
-      "18" : "Notfallkontakt Vorname",
-      "19" : "Notfallkontakt Nachname",
-      "20" : "Notfallkontakt Handynummer"
+      "18" : "In Case of Emergency: Surname",
+      "19" : "In Case of Emergency: Name",
+      "20" : "In Case of Emergency: Mobile phone number"
     }
   },
   "question_map"  : [
