@@ -2,19 +2,19 @@
 width:600px;
 }
 .bordercross-question {
-    height: 48vh;
+    height: 36vh;
     padding-bottom: 2vh;
 }
 
 .flagscontainer {
-    height: 44.5vh;
+    height: 56.5vh;
     padding-top: 2vh;
 }
 
 .flag-btn {
-    height: 100%;
-    width: 100%;
-    padding: 10px 30px 10px 10px;
+    height: 180px;
+    width: 130px;
+    padding: 10px 10px 10px 10px;
 }
 
 .flag-drpd {
@@ -23,8 +23,8 @@ width:600px;
 }
 
 .flag-select {
-    height: 75%;
-    width: 75%;
+    height: 100%;
+    width: 100%;
 }
 
 .btn{
