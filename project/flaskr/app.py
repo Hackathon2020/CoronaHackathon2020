@@ -4,6 +4,7 @@ from flask import Flask, render_template, redirect, request
 from project.flaskr import static_folder, template_folder
 from project.flaskr.routes.questionaire import get_questionaire_blueprint
 from project.questions_from_json import read
+import git
 
 
 
@@ -59,13 +60,13 @@ def create_app():
       if request.method == 'POST':
          data = request.json
          branch = data["ref"].split("/")[-1]
-         #if branch == "master":
-         repo = git.Repo("https://github.com/Hackathon2020/CoronaHackathon2020.git")
-         origin = repo.remotes.origin
-         origin.pull()
-         return 'Updated succesfully', 200
-         #else:
-         #    return 'Ignore non master push.', 200
+         if branch == "master":
+             repo = git.Repo("/path/to/git/repo")
+             origin = repo.remotes.origin
+             origin.pull()
+             return 'Updated succesfully', 200
+         else:
+             return 'Ignore non master push.', 200
       else:
          return 'Wrong event type', 400
 
