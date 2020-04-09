@@ -14,12 +14,12 @@
     <script>
       function getLanguageURLAppendix() {
         function getLanguageFromElementId(id) {
-	  const flag_id = document.getElementById(id).getElementsByClassName('current-flag')[0].getAttribute('id')
-          return flag_id.substring('flag_'.length, flag_id.length)
+          const border_id = document.getElementById(id).getElementsByClassName('current-border-flag')[0].getAttribute('id')
+          return border_id.substring('border_'.length, border_id.length)
         }
         const land1 = getLanguageFromElementId('dropdownMenuButton-flag1')
         const land2 = getLanguageFromElementId('dropdownMenuButton-flag2')
-	return 'from=' + land1 + '&to=' + land2
+        return 'from=' + land1 + '&to=' + land2
       }
     </script>
   </head>
@@ -62,22 +62,23 @@
                             aria-haspopup="true"
                             aria-expanded="false">
 
-                          <img class="current-flag" id="flag_germany" src="static/flags/germany.svg">
+                          <img class="current-border-flag" id="border_germany" src="static/flags/germany.svg">
+                          <div class="current-border-text">Deutschland</div>
 
                         </button>
 
                         <div class="dropdown-menu"
                              aria-labelledby="dropdownMenuButton-flag1">
-                                 <img class="dropdown-item flag-select" id="flag_albania" src="static/flags/albania.svg">
-                                 <img class="dropdown-item flag-select" id="flag_andorra" src="static/flags/andorra.svg">
-                                 <img class="dropdown-item flag-select" id="flag_belgium" src="static/flags/belgium.svg">
-                                 <img class="dropdown-item flag-select" id="flag_bosnia-and-herzegovina" src="static/flags/bosnia-and-herzegovina.svg">
-                                 <img class="dropdown-item flag-select" id="flag_bulgaria" src="static/flags/bulgaria.svg">
-                                 <img class="dropdown-item flag-select" id="flag_denmark" src="static/flags/denmark.svg">
-                                 <img class="dropdown-item flag-select" id="flag_germany" src="static/flags/germany.svg">
-                                 <img class="dropdown-item flag-select" id="flag_estonia" src="static/flags/estonia.svg">
-                                 <img class="dropdown-item flag-select" id="flag_finland" src="static/flags/finland.svg">
-                                 <img class="dropdown-item flag-select" id="flag_france" src="static/flags/france.svg">
+                            <a class="dropdown-item flag-select" id="border_germany"><img class="flag" src="static/flags/germany.svg"></br>Deutschland</a>
+                            <a class="dropdown-item flag-select" id="border_austria"><img class="flag" src="static/flags/austria.svg"></br>Österreich </a>
+                            <a class="dropdown-item flag-select" id="border_belgium"><img class="flag" src="static/flags/belgium.svg"></br>Belgien </a>
+                            <a class="dropdown-item flag-select" id="border_czech-republic"><img class="flag" src="static/flags/czech-republic.svg"></br>Tschechien </a>
+                            <a class="dropdown-item flag-select" id="border_denmark"><img class="flag" src="static/flags/denmark.svg"></br>Dänemark </a>
+                            <a class="dropdown-item flag-select" id="border_france"><img class="flag" src="static/flags/france.svg"></br>Frankreich </a>
+                            <a class="dropdown-item flag-select" id="border_luxembourg"><img class="flag" src="static/flags/luxembourg.svg"></br>Luxemburg </a>
+                            <a class="dropdown-item flag-select" id="border_netherlands"><img class="flag" src="static/flags/netherlands.svg"></br>Niederlande </a>
+                            <a class="dropdown-item flag-select" id="border_republic-of-poland"><img class="flag" src="static/flags/republic-of-poland.svg"></br>Polen </a>
+                            <a class="dropdown-item flag-select" id="border_switzerland"><img class="flag" src="static/flags/switzerland.svg"></br>Schweiz </a>
                         </div>
                     </div>
 
@@ -95,22 +96,23 @@
                             aria-haspopup="true"
                             aria-expanded="false">
 
-                          <img class="current-flag" id="flag_switzerland" src="static/flags/switzerland.svg">
+                          <img class="current-border-flag" id="border_switzerland" src="static/flags/switzerland.svg">
+                          <div class="current-border-text">Schweiz</div>
 
                         </button>
 
                         <div class="dropdown-menu"
                              aria-labelledby="dropdownMenuButton-flag2">
-                                 <img class="dropdown-item flag-select" id="flag_albania" src="static/flags/albania.svg">
-                                 <img class="dropdown-item flag-select" id="flag_andorra" src="static/flags/andorra.svg">
-                                 <img class="dropdown-item flag-select" id="flag_belgium" src="static/flags/belgium.svg">
-                                 <img class="dropdown-item flag-select" id="flag_bosnia_herzegovina" src="static/flags/bosnia-and-herzegovina.svg">
-                                 <img class="dropdown-item flag-select" id="flag_bulgaria" src="static/flags/bulgaria.svg">
-                                 <img class="dropdown-item flag-select" id="flag_denmark" src="static/flags/denmark.svg">
-                                 <img class="dropdown-item flag-select" id="flag_germany" src="static/flags/germany.svg">
-                                 <img class="dropdown-item flag-select" id="flag_estonia" src="static/flags/estonia.svg">
-                                 <img class="dropdown-item flag-select" id="flag_finland" src="static/flags/finland.svg">
-                                 <img class="dropdown-item flag-select" id="flag_france" src="static/flags/france.svg">
+                            <a class="dropdown-item flag-select" id="border_germany"><img class="flag" src="static/flags/germany.svg"></br>Deutschland</a>
+                            <a class="dropdown-item flag-select" id="border_austria"><img class="flag" src="static/flags/austria.svg"></br>Österreich </a>
+                            <a class="dropdown-item flag-select" id="border_belgium"><img class="flag" src="static/flags/belgium.svg"></br>Belgien </a>
+                            <a class="dropdown-item flag-select" id="border_czech-republic"><img class="flag" src="static/flags/czech-republic.svg"></br>Tschechien </a>
+                            <a class="dropdown-item flag-select" id="border_denmark"><img class="flag" src="static/flags/denmark.svg"></br>Dänemark </a>
+                            <a class="dropdown-item flag-select" id="border_france"><img class="flag" src="static/flags/france.svg"></br>Frankreich </a>
+                            <a class="dropdown-item flag-select" id="border_luxembourg"><img class="flag" src="static/flags/luxembourg.svg"></br>Luxemburg </a>
+                            <a class="dropdown-item flag-select" id="border_netherlands"><img class="flag" src="static/flags/netherlands.svg"></br>Niederlande </a>
+                            <a class="dropdown-item flag-select" id="border_republic-of-poland"><img class="flag" src="static/flags/republic-of-poland.svg"></br>Polen </a>
+                            <a class="dropdown-item flag-select" id="border_switzerland"><img class="flag" src="static/flags/switzerland.svg"></br>Schweiz </a>
                         </div>
                     </div>
                 </div>
@@ -125,20 +127,28 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script type="text/javascript">
       $('.dropdown-item').on('click',  function(){
-        console.log("clicked on dropdown item " + $(this).attr('id'));
-        $(this).parents(".dropdown").find('.current-flag').attr('id', $(this).attr('id'));
-        $(this).parents(".dropdown").find('.current-flag').attr('src', $(this).attr('src'));
+          console.log("selected dropdown item " + $(this).attr('id') + " and text " + $(this).text());
+          $(this).parents(".dropdown").find('.current-border-text').text($(this).text());
+          $(this).parents(".dropdown").find('.current-border-flag').attr('id', $(this).attr('id'));
+          $(this).parents(".dropdown").find('.current-border-flag').attr('src', $(this).find('.flag').attr('src'));
       });
 
       var url = new URL(window.location);
       var from_land = url.searchParams.get("from");
       var to_land = url.searchParams.get("to");
       function setLand(id, land) {
-	if (land === null) {
-	  return
-	}
-        document.getElementById(id).getElementsByClassName('current-flag')[0].setAttribute('id', 'flag_' + land)
-        document.getElementById(id).getElementsByClassName('current-flag')[0].setAttribute('src', 'static/flags/' + land +'.svg')
+          if (land === null) {
+              return
+          }
+          console.log("set land of " + id + " to " + land);
+          var text_list = document.getElementById(id).getElementsByClassName('current-border-text')
+          if (text_list) {
+              text_list[0].textContent = land;
+          } else {
+              console.log("could not find current-border-text")
+          }
+          document.getElementById(id).getElementsByClassName('current-border-flag')[0].setAttribute('id', 'border_' + land)
+          document.getElementById(id).getElementsByClassName('current-border-flag')[0].setAttribute('src', 'static/flags/' + land +'.svg')
       }
       setLand('dropdownMenuButton-flag1', from_land)
       setLand('dropdownMenuButton-flag2', to_land)
