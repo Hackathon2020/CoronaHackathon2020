@@ -19,11 +19,15 @@ def create_app():
     LOCAL_MAP = {'german' :  {'which_border': 'Welche Grenze möchten sie überqueren?',
                               'overview': 'Überblick',
                               'accept' : 'Forumlar Akzeptieren?',
-                              'error_occured': 'Ein Fehler ist aufgetreten! Bitte gehen Sie eine Seite zurück!'},
+                              'error_occured': 'Ein Fehler ist aufgetreten! Bitte gehen Sie eine Seite zurück!',
+                              'germany': 'Deutschland',
+                              'switzerland' : 'Schweiz'},
                  'english' : {'which_border': 'Which Border do you want to cross?',
                               'overview': 'Overview',
                               'accept' : 'Accept form?',
-                              'error_occured': 'An occured! Please step one site back!'}}
+                              'error_occured': 'An occured! Please step one site back!',
+                              'germany': 'Germany',
+                              'switzerland' : 'Switzerland'}}
 
     questionaires = {}
     jsons = {}
@@ -70,7 +74,8 @@ def create_app():
 
         """
         language = request.cookies.get('language')
-        return render_template("app/crossing.html", localization=LOCAL_MAP[language])
+        borders = list(questionaires.keys())
+        return render_template("app/crossing.html", borders=borders, localization=LOCAL_MAP[language])
 
     @app.route('/answer')
     def answer():
