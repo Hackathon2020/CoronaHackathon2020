@@ -55,6 +55,19 @@ def create_app():
         language = request.cookies.get('language')
         return render_template("app/crossing.html", localization=LOCAL_MAP[language])
     @app.rout('/update_server')
+    def webhook():
+      if request.method == 'POST':
+         data = request.json
+         branch = data["ref"].split("/")[-1]
+         #if branch == "master":
+         repo = git.Repo("https://github.com/Hackathon2020/CoronaHackathon2020.git")
+         origin = repo.remotes.origin
+         origin.pull()
+         return 'Updated succesfully', 200
+         #else:
+         #    return 'Ignore non master push.', 200
+      else:
+         return 'Wrong event type', 400
 
     @app.route('/answer')
     def answer():
