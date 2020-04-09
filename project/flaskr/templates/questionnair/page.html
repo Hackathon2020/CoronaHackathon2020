@@ -26,7 +26,7 @@
             <object id="flag2" type="image/svg+xml" data="static/flags/switzerland.svg">Your browser does not support SVG</object>
         </div>
 
-        <button id="nextButtong">
+        <button id="nextButton">
           <div class="form-inline">
             <i id="nextButton" class="fas fa-arrow-right"></i>
           </div>
@@ -114,7 +114,7 @@
         </div>
     </div> 
     </div> <!-- container -->
-    </div> <!-- background-container-->
+    </div> <!-- background-container -->
 
     <!-- Navigation through the pages -->
     <script>
@@ -148,6 +148,7 @@
              if (document.max_page_number === document.page_number) {
                  document.answers = form_to_answer(document.questionaire)
                  write_answers(document.answers, document.questionaire)
+                 document.getElementById('nextButton').style.visibility = 'hidden'
              }
              showCurrentPage()
          }
@@ -158,6 +159,9 @@
          goNextPage()
      };
      document.getElementById("backButton").onclick = function(){
+         if (document.max_page_number === document.page_number) {
+             document.getElementById('nextButton').style.visibility = 'visible'
+         }
          if (0 < document.page_number) {
              hideCurrentPage()
              document.page_number -= 1
