@@ -18,10 +18,27 @@ def create_app():
 
     LOCAL_MAP = {'german' :  {'which_border': 'Welche Grenze möchten sie überqueren?',
                               'overview': 'Überblick',
-                              'accept' : 'Forumlar Akzeptieren?'},
+                              'accept' : 'Forumlar Akzeptieren?',
+                              'error_occured': 'Ein Fehler ist aufgetreten! Bitte gehen Sie eine Seite zurück!'},
                  'english' : {'which_border': 'Which Border do you want to cross?',
                               'overview': 'Overview',
-                              'accept' : 'Accept form?'}}
+                              'accept' : 'Accept form?',
+                              'error_occured': 'An occured! Please step one site back!'}}
+
+    questionaires = {}
+    jsons = {}
+
+    def add_border(border, json_path):
+        path_context = pathlib.Path(pathlib.Path(__file__).parent.parent.parent,
+                                "json_schemas/questionaire_schema.json")
+        path_to_json = pathlib.Path(pathlib.Path(__file__).parent.parent.parent, json_path)
+        with open(path_to_json) as f:
+            json_f = f.read()
+        questionaires[border] = read(path_to_json, path_context)
+        jsons[border] = json_f
+
+    add_border(('germany', 'switzerland'), "json_schemas/questionaire_example.json")
+
 
     #@app.route('/', methods=["GET", "POST"])
     #@app.route('/index')
@@ -59,15 +76,8 @@ def create_app():
     def answer():
         return render_template("app/answer.html", title="Formula1")
 
-    path_context = pathlib.Path(pathlib.Path(__file__).parent.parent.parent,
-                                "json_schemas/questionaire_schema.json")
-    path_to_json_example_file = pathlib.Path(pathlib.Path(__file__).parent.parent.parent,
-                                             "json_schemas/questionaire_example.json")
-    questionaire = read(path_to_json_example_file, path_context)
-    # TODO: Hier json einfügen die für Frage ids benötigt
-    with open(pathlib.Path(pathlib.Path(__file__).parent.parent.parent, "json_schemas/questionaire_example.json")) as f:
-        json_f = f.read()
-    app.register_blueprint(get_questionaire_blueprint(questionaire, json_f, LOCAL_MAP))
+    
+    app.register_blueprint(get_questionaire_blueprint(questionaires, jsons, LOCAL_MAP))
     return app
 
 def main():
