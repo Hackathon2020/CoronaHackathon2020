@@ -54,6 +54,7 @@ def create_app():
         """
         language = request.cookies.get('language')
         return render_template("app/crossing.html", localization=LOCAL_MAP[language])
+    @app.rout('/update_server')
 
     @app.route('/answer')
     def answer():
