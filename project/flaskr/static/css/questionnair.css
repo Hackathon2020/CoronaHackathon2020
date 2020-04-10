@@ -118,11 +118,9 @@ label {
 }
 
 div.background-container {
-    background: linear-gradient(180deg, #DADADA 0%, #F1F1F1 105.3%, #F1F1F1 105.31%, #FFFFFF 105.32%);
     height: 100vh;
 }
 div.container {
-    width: 600px;
     height: 100vh;
     /* TODO: Green is placeholder */
     opacity: 1;
