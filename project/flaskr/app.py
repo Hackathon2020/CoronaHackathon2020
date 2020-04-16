@@ -21,13 +21,15 @@ def create_app():
                               'accept' : 'Forumlar Akzeptieren?',
                               'error_occured': 'Ein Fehler ist aufgetreten! Bitte gehen Sie eine Seite zurück!',
                               'germany': 'Deutschland',
-                              'switzerland' : 'Schweiz'},
+                              'switzerland' : 'Schweiz',
+                              'italy' : 'Italien'},
                  'english' : {'which_border': 'Which Border do you want to cross?',
                               'overview': 'Overview',
                               'accept' : 'Accept form?',
                               'error_occured': 'An occured! Please step one site back!',
                               'germany': 'Germany',
-                              'switzerland' : 'Switzerland'}}
+                              'switzerland' : 'Switzerland',
+                              'italy' : 'Italy'}}
 
     questionaires = {}
     jsons = {}
@@ -42,6 +44,7 @@ def create_app():
         jsons[border] = json_f
 
     add_border(('germany', 'switzerland'), "json_schemas/questionaire_example.json")
+    add_border(('switzerland', 'italy'), "json_schemas/questionaire_example_ch_it.json")
 
 
     #@app.route('/', methods=["GET", "POST"])
