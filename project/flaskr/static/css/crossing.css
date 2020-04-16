@@ -45,9 +45,10 @@ background: #E1E3E6;
 }
 .dropdown-menu{
 background: #E1E3E6;
+min-width:0px;
 }
 .dropdown-menu.show {
-    width: 25px;
+    width: 100%;
 }
 
 .current-language{
