@@ -42,6 +42,7 @@ max-width: unset;
 }
 .dropdown-item{
 background: #E1E3E6;
+text-align: center;
 }
 .dropdown-menu{
 background: #E1E3E6;
