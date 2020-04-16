@@ -9,8 +9,7 @@
 }
 
 .flag-btn {
-    height: 180px;
-    width: 130px;
+    width: 100%;
     padding: 10px 10px 10px 10px;
 }
 
@@ -47,6 +46,7 @@ color:black;
 
 .current-border-text{
 color:black;
+text-align: center;
 }
 
 .background-container{
