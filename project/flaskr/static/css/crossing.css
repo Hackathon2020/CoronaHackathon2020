@@ -51,6 +51,9 @@ min-width:0px;
 .dropdown-menu.show {
     width: 100%;
 }
+.dropdown-flag-container{
+text-align:center;
+}
 
 .current-language{
 color:black;
