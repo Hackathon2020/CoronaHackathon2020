@@ -67,8 +67,12 @@ def create_app():
 
         """
         next_page = "/crossing"
-        if request.args['from'] and request.args['to']  and request.args['global_id'] and request.args['data']:
-            next_page = "/questionnair?from=" + request.args['from'] + "&to=" + request.args['to'] + "&global_id=" + request.args['global_id'] + "&data=" + request.args['data']
+        try:
+            if request.args['from'] and request.args['to']  and request.args['global_id'] and request.args['data']:
+                next_page = "/questionnair?from=" + request.args['from'] + "&to=" + request.args['to'] + "&global_id=" + request.args['global_id'] + "&data=" + request.args['data']
+        except:
+            pass
+
         return render_template("app/language.html", next_page=next_page)
         pass
 
