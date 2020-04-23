@@ -1,9 +1,7 @@
-.container{
-width:600px;
-}
 .bordercross-question {
     height: 36vh;
     padding-bottom: 2vh;
+    text-align: center;
 }
 
 .flagscontainer {
@@ -12,9 +10,12 @@ width:600px;
 }
 
 .flag-btn {
-    height: 180px;
-    width: 130px;
-    padding: 10px 10px 10px 10px;
+    width: 100%;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 0px;
+    margin-left:0px;
 }
 
 .flag-drpd {
@@ -28,20 +29,30 @@ width:600px;
 }
 
 .btn{
-background: #E1E3E6;;
+background: #E1E3E6;
 }
-
+.btn-lg{
+font-size:2rem;
+}
+.btn-secondary{
+color: #000;
+}
 .dropdown{
 max-width: unset;
 }
 .dropdown-item{
 background: #E1E3E6;
+text-align: center;
 }
 .dropdown-menu{
 background: #E1E3E6;
+min-width:0px;
 }
 .dropdown-menu.show {
-    width: 25px;
+    width: 100%;
+}
+.dropdown-flag-container{
+text-align:center;
 }
 
 .current-language{
@@ -50,8 +61,15 @@ color:black;
 
 .current-border-text{
 color:black;
+text-align: center;
 }
 
 .background-container{
 background: linear-gradient(180deg, #DADADA 0%, #F1F1F1 105.3%, #F1F1F1 105.31%, #FFFFFF 105.32%);
+}
+
+.scrollable-menu{
+height:auto;
+max-height: 100%;
+overflow-x: hidden;
 }

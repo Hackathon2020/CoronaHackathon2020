@@ -1,3 +1,19 @@
+/* Desktop */
+@media (min-width: 600px) {
+    .container{
+        width:600px;
+    }
+}
+/* Smartphone */
+@media (max-width: 600px) {
+    .container{
+        width:100%;
+    }
+}
+.background-container{
+    background: linear-gradient(180deg, #DADADA 0%, #F1F1F1 105.3%, #F1F1F1 105.31%, #FFFFFF 105.32%);
+}
+
 div.container i {
     font-size: 51px;
 }
