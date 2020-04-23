@@ -190,6 +190,13 @@ p.title {
     font-weight: 600;
 }
 
+.qrcode canvas {
+  width: 90%;
+}
+.qrcode img {
+  width: 90%;
+}
+
 button.toQr {
     margin:auto;
     display:block;
