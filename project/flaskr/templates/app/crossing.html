@@ -14,8 +14,8 @@
     <script>
       function getLanguageURLAppendix() {
         function getLanguageFromElementId(id) {
-          const border_id = document.getElementById(id).getElementsByClassName('current-border-flag')[0].getAttribute('id')
-          return border_id.substring('border_'.length, border_id.length)
+          const border_src = document.getElementById(id).getElementsByClassName('current-border-flag')[0].getAttribute('src');
+	  return border_src.substring('static/flags/'.length, border_src.length - '.svg'.length);
         }
         const land1 = getLanguageFromElementId('dropdownMenuButton-flag1')
         const land2 = getLanguageFromElementId('dropdownMenuButton-flag2')
@@ -61,26 +61,17 @@
                             data-toggle="dropdown"
                             aria-haspopup="true"
                             aria-expanded="false">
-
-                          <img class="current-border-flag" id="border_germany" src="static/flags/germany.svg">
-
-                        <div class=""></div>
+                          <img class="current-border-flag" src="static/flags/{{borders[0][0]}}.svg">
+                          <div class=""></div>
                         </button>
-                        <div center class="current-border-text">Deutschland</div>
+			<div center class="current-border-text">{{localization[borders[0][0]]}}</div>
 
                         <div class="dropdown-menu scrollable-menu"
                              aria-labelledby="dropdownMenuButton-flag1">
-                            <div class="dropdown-flag-container"> <a class="dropdown-item flag-select" id="border_germany"><img class="flag" src="static/flags/germany.svg"></a>Deutschland</div>
 
-                            <div class="dropdown-flag-container"> <a class="dropdown-item flag-select" id="border_austria"><img class="flag" src="static/flags/austria.svg"> </a> Österreich </div>
-                            <div class="dropdown-flag-container"> <a class="dropdown-item flag-select" id="border_belgium"><img class="flag" src="static/flags/belgium.svg"></a>Belgien</div>
-                            <div class="dropdown-flag-container"> <a class="dropdown-item flag-select" id="border_czech-republic"><img class="flag" src="static/flags/czech-republic.svg"></a>Tschechien </div>
-                            <div class="dropdown-flag-container"> <a class="dropdown-item flag-select" id="border_denmark"><img class="flag" src="static/flags/denmark.svg"></a>Dänemark </div>
-                            <div class="dropdown-flag-container"><a class="dropdown-item flag-select" id="border_france"><img class="flag" src="static/flags/france.svg"></a>Frankreich </div>
-                            <div class="dropdown-flag-container"><a class="dropdown-item flag-select" id="border_luxembourg"><img class="flag" src="static/flags/luxembourg.svg"></a>Luxemburg </div>
-                            <div class="dropdown-flag-container"><a class="dropdown-item flag-select" id="border_netherlands"><img class="flag" src="static/flags/netherlands.svg"></a>Niederlande</div>
-                            <div class="dropdown-flag-container"><a class="dropdown-item flag-select" id="border_republic-of-poland"><img class="flag" src="static/flags/republic-of-poland.svg"></a>Polen </div>
-                            <div class="dropdown-flag-container"><a class="dropdown-item flag-select" id="border_switzerland"><img class="flag" src="static/flags/switzerland.svg"></a>Schweiz </div>
+                          {% for border in borders %}
+			  <div class="dropdown-flag-container"><a class="dropdown-item flag-select" id="border_{{border[0]}}"><img class="flag" src="static/flags/{{border[0]}}.svg"></a>{{localization[border[0]]}}</div>
+                          {% endfor %}
                         </div>
                     </div>
 
@@ -98,23 +89,16 @@
                             aria-haspopup="true"
                             aria-expanded="false">
 
-                          <img class="current-border-flag" id="border_switzerland" src="static/flags/switzerland.svg">
+			    <img class="current-border-flag" src="static/flags/{{borders[0][1]}}.svg">
                             <div class=""></div>
                         </button>
-                        <div class="current-border-text">Schweiz</div>
+                        <div class="current-border-text">{{localization[borders[0][1]]}}</div>
 
                         <div class="dropdown-menu scrollable-menu"
                              aria-labelledby="dropdownMenuButton-flag2">
-				<div class="dropdown-flag-container"> <a class="dropdown-item flag-select" id="border_germany"><img class="flag" src="static/flags/germany.svg"></a>Deutschland</div>
-				<div class="dropdown-flag-container"> <a class="dropdown-item flag-select" id="border_austria"><img class="flag" src="static/flags/austria.svg"></a>Österreich</div>
-				<div class="dropdown-flag-container"> <a class="dropdown-item flag-select" id="border_belgium"><img class="flag" src="static/flags/belgium.svg"></a>Belgien</div>
-				<div class="dropdown-flag-container"> <a class="dropdown-item flag-select" id="border_czech-republic"><img class="flag" src="static/flags/czech-republic.svg"></a>Tschechien</div>
-				<div class="dropdown-flag-container"> <a class="dropdown-item flag-select" id="border_denmark"><img class="flag" src="static/flags/denmark.svg"></a>Dänemark</div>
-				<div class="dropdown-flag-container"> <a class="dropdown-item flag-select" id="border_france"><img class="flag" src="static/flags/france.svg"></a>Frankreich</div>
-				<div class="dropdown-flag-container"> <a class="dropdown-item flag-select" id="border_luxembourg"><img class="flag" src="static/flags/luxembourg.svg"></a>Luxemburg</div>
-				<div class="dropdown-flag-container"> <a class="dropdown-item flag-select" id="border_netherlands"><img class="flag" src="static/flags/netherlands.svg"></a>Niederlande</div>
-				<div class="dropdown-flag-container"> <a class="dropdown-item flag-select" id="border_republic-of-poland"><img class="flag" src="static/flags/republic-of-poland.svg"></a>Polen</div>
-				<div class="dropdown-flag-container"> <a class="dropdown-item flag-select" id="border_switzerland"><img class="flag" src="static/flags/switzerland.svg"></a>Schweiz</div>
+                         {% for border in borders %}
+			 <div class="dropdown-flag-container"><a class="dropdown-item flag-select" id="border_{{border[1]}}"><img class="flag" src="static/flags/{{border[1]}}.svg"></a>{{localization[border[1]]}}</div>
+                          {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -128,11 +112,55 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script type="text/javascript">
+      var borders = [
+         {% for border in borders %}
+         [ "{{border[0]}}", "{{border[1]}}" ],
+         {% endfor %}
+      ]
+      function landFromFlagPath(flag_path) {
+         return flag_path.substring('static/flags/'.length, flag_path.length - '.svg'.length);
+      }
+
+
+      function restrictTargetSelection(from_land) {
+         if (from_land === null) {
+              return;
+          }
+          const border_lands = new Set(borders.filter(border => border[0] == from_land).map(border => border[1]));
+          const to_button = document.getElementById('dropdownMenuButton-flag2');
+          Array.from(to_button.parentElement.getElementsByClassName('dropdown-flag-container')).forEach(
+          function (elem) {
+              const land =  landFromFlagPath($(elem).find('.flag').attr('src'));
+              console.log("land: " + land);
+              if (border_lands.has(land)) {
+                  elem.style.display = 'initial'
+              } else {
+                  elem.style.display = 'none'
+              }
+          });
+	  const selected_to_land =  landFromFlagPath($(to_button).find('.current-border-flag').attr('src'))
+	  console.log("selected_to_land is " + selected_to_land)
+	  if (!border_lands.has(selected_to_land)) {
+	      console.log("selected_to_land is not in border_lands");
+	      const first_border_land = border_lands.values().next().value;
+	      console.log("look for id: " + 'border_' + first_border_land);
+
+              const first = $(to_button).parents(".dropdown").find('.dropdown-menu').find('#border_' + first_border_land);
+              $(to_button).parents('.dropdown').find('.current-border-text').text(first.parents(".dropdown-flag-container").text());
+              $(to_button).find('.current-border-flag').attr('src', first.find('.flag').attr('src'));
+	  }
+      }
+
+      restrictTargetSelection('germany')
+
       $('.dropdown-item').on('click',  function(){
-          console.log("selected dropdown item " + $(this).attr('id') + " and text " + $(this).text());
-          $(this).parents(".dropdown").find('.current-border-text').text($(this).text());
-          $(this).parents(".dropdown").find('.current-border-flag').attr('id', $(this).attr('id'));
-          $(this).parents(".dropdown").find('.current-border-flag').attr('src', $(this).find('.flag').attr('src'));
+          console.log("selected dropdown item " + $(this).attr('id') + " and text " + $(this).parents('.dropdown-flag-container').text());
+          $(this).parents('.dropdown').find('.current-border-text').text($(this).parents(".dropdown-flag-container").text());
+          $(this).parents('.dropdown').find('.current-border-flag').attr('src', $(this).find('.flag').attr('src'));
+	  if ($(this).parents(".dropdown").find('.flag-btn').attr('id') == 'dropdownMenuButton-flag1') {
+	      const land =  landFromFlagPath($(this).find('.flag').attr('src'))
+              restrictTargetSelection(land)
+	  }
       });
 
       var url = new URL(window.location);
@@ -153,6 +181,7 @@
           document.getElementById(id).getElementsByClassName('current-border-flag')[0].setAttribute('src', 'static/flags/' + land +'.svg')
       }
       setLand('dropdownMenuButton-flag1', from_land)
+      restrictTargetSelection(from_land)
       setLand('dropdownMenuButton-flag2', to_land)
     </script>
   </body>

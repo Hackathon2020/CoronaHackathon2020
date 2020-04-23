@@ -1,0 +1,59 @@
+{
+  "global_questionaire_id": "abjzqwjcv",
+  "language_map": {
+    "german" : {
+      "1" : "Nachname",
+      "2" : "Vorname",
+      "3" : "Personalausweisnummer",
+      "4" : "Nationalität",
+      "5" : "Handynummer",
+      "6" : "Einreisegrund",
+      "7" : "Urlaub",
+      "8" : "Geschäftlich",
+      "9" : "Privat",
+      "10" : "Ausreisedatum",
+      "11" : "Herkunftsland",
+      "12" : "Kennzeichen",
+      "13" : "Postleitzahl Wohnort",
+      "14" : "Straße",
+      "15" : "Hausnummer",
+      "16" : "Postleitzahl Zielort",
+      "17" : "Adresse Zielort"
+    },
+    "english" : {
+      "1" : "Name",
+      "2" : "Surname",
+      "3" : "Identity card number",
+      "4" : "Citizenship",
+      "5" : "Mobile phone number",
+      "6" : "Reason for entry",
+      "7" : "Vacation",
+      "8" : "Business",
+      "9" : "Privat",
+      "10" : "Leaving date",
+      "11" : "Home country",
+      "12" : "License plate number",
+      "13" : "Post code residence",
+      "14" : "Street",
+      "15" : "House number",
+      "16" : "Post code destination",
+      "17" : "Adresse Zielort"
+    }
+  },
+  "question_map"  : [
+    {"question_id": "1", "answer_type": "String"},
+    {"question_id": "2", "answer_type": "String"},
+    {"question_id": "3", "answer_type": "String"},
+    {"question_id": "4", "answer_type": "String"},
+    {"question_id": "5", "answer_type": "String"},
+    {"question_id": "6", "answer_type": "RadioButtons", "options": ["7", "8", "9"]},
+    {"question_id": "10", "answer_type": "Date"},
+    {"question_id": "11", "answer_type": "String"},
+    {"question_id": "12", "answer_type": "String"},
+    {"question_id": "13", "answer_type": "String"},
+    {"question_id": "14", "answer_type": "PostCode"},
+    {"question_id": "15", "answer_type": "String"},
+    {"question_id": "16", "answer_type": "String"},
+    {"question_id": "17", "answer_type": "PostCode"}
+  ]
+}
