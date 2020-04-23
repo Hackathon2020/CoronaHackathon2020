@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect
 from project.flaskr import static_folder, template_folder
 
 
@@ -16,9 +16,10 @@ def get_questionaire_blueprint(questionaires, jsons, local_map):
     questionnair = Blueprint('questionnair', __name__, template_folder=template_folder, static_folder=static_folder)
     @questionnair.route("/questionnair")
     def questionnaire_begin():
-        language = 'english'
+        language = request.cookies.get('language')
+        if not isinstance(language, str):
+            return redirect("/language?from=" + request.args['from'] + "&to=" + request.args['to'] + "&global_id=" + request.args['global_id'] + "&data=" + request.args['data'])
         try:
-            language = request.cookies.get('language')
             FROM = request.args['from']
             TO = request.args['to']
             BORDER = (FROM, TO)
@@ -31,8 +32,5 @@ def get_questionaire_blueprint(questionaires, jsons, local_map):
         except:
             pass
         return render_template("app/error.html", localization=local_map[language])
-
-
-
 
     return  questionnair
