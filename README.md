@@ -1,4 +1,5 @@
 # CoronaHackathon2020 - Grenz-er-fahrung
+Read this in other languages: [english](README.en.md)  
 Github Repository für den Corona Hackathon: https://www.bundesregierung.de/breg-de/themen/coronavirus/wir-vs-virus-1731968
 
 Wir wollen mit Hilfe einer App lange Staus an Grenzübergängen vermeiden!
