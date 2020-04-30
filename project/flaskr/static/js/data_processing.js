@@ -233,4 +233,13 @@ function getLandForLanguage(lang) {
    }
 }
 
-
+function getLanguageName(lang) {
+   switch(lang) {
+     case "german":
+       return "Deutsch"
+     case "english":
+       return "English"
+     default:
+       return "Unbekannt"
+   }
+}
