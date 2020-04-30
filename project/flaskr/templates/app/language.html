@@ -78,15 +78,23 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="static/js/data_processing.js"></script>
     <script type="text/javascript">
-	var lang = getBrowserLanguage()
+        var lang = getCookie("language");
+        if (lang == "") {
+            lang = getBrowserLanguage()
+        }
         button_element = document.getElementById('dropdownMenuButton-flag1')
-       // button_element.getElementsByClassName('language-btn')[0].setAttribute('id', 'language_' + lang)
-        button_element.getElementsByClassName('current-language')[0].textContant = 'language_' + lang
+        //button_element.getElementsByClassName('current-language-flag')[0].setAttribute('id', 'language_' + lang)
         button_element.getElementsByClassName('current-language-flag')[0].setAttribute('src', 'static/flags/' +getLandForLanguage(lang) + '.svg')
+        var language_text_field = button_element.getElementsByClassName('current-language')
+        if (language_text_field) {
+            language_text_field[0].textContent = getLanguageName(lang);
+        } else {
+            console.log("could not find current-language-flag")
+        }
         setCookie("language", lang, 90)
         $('.dropdown-item').on('click',  function(){
             console.log("clicked on dropdown item " + $(this).attr('id'));
-            //$(this).parents(".dropdown").find('.language-btn').attr('id', $(this).attr('id'));
+            //$(this).parents(".dropdown").find('current-language-flag').attr('id', $(this).attr('id'));
             $(this).parents(".dropdown").find('.current-language').text($(this).text());
             $(this).parents(".dropdown").find('.current-language-flag').attr('src', $(this).find('.flag').attr('src'));
             // set cookie for language
