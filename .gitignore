@@ -31,6 +31,9 @@ MANIFEST
 *.manifest
 *.spec
 
+# ...but track html cache manifest
+!project/flaskr/static/cache.manifest
+
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
@@ -122,3 +125,4 @@ migrations/
 
 # MacOs
 .DS_Store
+
